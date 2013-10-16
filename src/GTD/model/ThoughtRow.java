@@ -71,4 +71,9 @@ public class ThoughtRow extends DbRow {
 
         return note;
     }
+    
+    @Override
+    public String toString(){
+        return getName();
+    }
 }

@@ -20,4 +20,9 @@ public class ContextRow extends DbRow {
     public String getName() {
         return get("Name");
     }
+    
+    @Override
+    public String toString(){
+        return getName();
+    }
 }

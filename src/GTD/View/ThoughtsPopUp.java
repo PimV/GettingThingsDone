@@ -132,6 +132,7 @@ public class ThoughtsPopUp extends JFrame {
                         StatusRow status = (StatusRow) statusBox.getSelectedItem();
                         ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
                         ContextRow context = (ContextRow) contextBox.getSelectedItem();
+                        
 
 
                         //FINALLY:
@@ -187,7 +188,7 @@ public class ThoughtsPopUp extends JFrame {
         model.addElement(null);
 
         for (ProjectRow p : pr) {
-            model.addElement(p.getName());
+            model.addElement(p);
         }
 
         model.addElement("New project...");
@@ -201,7 +202,7 @@ public class ThoughtsPopUp extends JFrame {
         model.addElement(null);
 
         for (ContextRow c : cr) {
-            model.addElement(c.getName());
+            model.addElement(c);
         }
 
         model.addElement("New context...");
