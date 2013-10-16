@@ -63,7 +63,7 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(18, STANDARD_MARGIN, 0, 11);
+        gridBagConstraints.insets = new java.awt.Insets(18, STANDARD_MARGIN_X, 0, 11);
         add(listPane, gridBagConstraints);
 
         thoughtInputField.setText("Thought");
@@ -72,7 +72,7 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 101;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN_X, 0, 0);
         add(thoughtInputField, gridBagConstraints);
         
         notesInputField.setText("Notes");
@@ -81,7 +81,7 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 160;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN_X, 0, 0);
         add(notesInputField, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -100,7 +100,7 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.ipadx = 59;
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, STANDARD_MARGIN, 11, 0);
+        gridBagConstraints.insets = new java.awt.Insets(11, STANDARD_MARGIN_X, 11, 0);
         add(workThoughtButton, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -110,7 +110,7 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(11, 243, 11, STANDARD_MARGIN);
+        gridBagConstraints.insets = new java.awt.Insets(11, 243, 11, STANDARD_MARGIN_X);
         add(removeThoughtButton, gridBagConstraints);
     }
 
