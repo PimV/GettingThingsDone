@@ -122,12 +122,7 @@ public class ThoughtsPopUp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (checkIfComplete()) {
-                    int response = JOptionPane.showConfirmDialog(null,
-                            "Are you sure you want to save?",
-                            "",
-                            JOptionPane.OK_OPTION,
-                            JOptionPane.PLAIN_MESSAGE);
-                    if (response == 0) {
+                    
                         //SAVE
                         StatusRow status = (StatusRow) statusBox.getSelectedItem();
                         ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
@@ -137,9 +132,8 @@ public class ThoughtsPopUp extends JFrame {
 
                         //FINALLY:
                         controller.addAction();
-                    } else {
-                        //DOE NIETS
-                    }
+                        dispose();
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "More information needed!");
                 }
