@@ -11,6 +11,8 @@ import javax.swing.*;
 import org.jdesktop.swingx.JXDatePicker;
 import static GTD.model.LayoutConstants.*;
 import GTD.model.Status;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 
 /**
@@ -30,6 +32,7 @@ public class ThoughtsPopUp extends JFrame {
     private JTextField notesField;
     private JTextArea descriptionArea;
     private JCheckBox doneCheckBox;
+    private JButton saveButton;
 
     public ThoughtsPopUp(ThoughtRow thought) {
         currentThought = thought;
@@ -68,7 +71,7 @@ public class ThoughtsPopUp extends JFrame {
         JLabel projectLabel = new JLabel("Project: ");
         projectLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 6 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(projectLabel);
-        
+
         projectBox = new JComboBox(); //PROJECTEN MOETEN NOG GEVULD WORDEN!!
         projectBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 6 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         add(projectBox);
@@ -76,7 +79,7 @@ public class ThoughtsPopUp extends JFrame {
         JLabel dateLabel = new JLabel("Date: ");
         dateLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 8 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(dateLabel);
-        
+
         dateBox = new JXDatePicker();
         dateBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 8 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         add(dateBox);
@@ -84,11 +87,11 @@ public class ThoughtsPopUp extends JFrame {
         JLabel dateChangedLabel = new JLabel("Status Date Changed: ");
         dateChangedLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 10 * LABEL_HEIGHT, 2 * LABEL_WIDTH, LABEL_HEIGHT);
         add(dateChangedLabel);
-        
+
         dateChangedBox = new JXDatePicker();
         dateChangedBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 10 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         dateChangedBox.setDate(new Date());
-        
+
         add(dateChangedBox);
 
         JLabel notesLabel = new JLabel("Notes: ");
@@ -112,40 +115,43 @@ public class ThoughtsPopUp extends JFrame {
         doneLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 25 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(doneLabel);
 
+        doneCheckBox = new JCheckBox();
+        doneCheckBox.setBounds(getWidth() - 30 - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 25 * LABEL_HEIGHT - 2, 30, 30);
+        add(doneCheckBox);
 
+        saveButton = new JButton("Create action");
+        saveButton.setBounds(getWidth() / 2 - 1 * LABEL_WIDTH, STANDARD_MARGIN_Y + 27 * LABEL_HEIGHT, LABEL_WIDTH * 2, LABEL_HEIGHT * 2);
+        saveButton.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkIfComplete()) {
+                    int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    if (response == 0) {
+                        //SAVE
+                        Status status = (Status) statusBox.getSelectedItem();
+                        // String date = dateBox.getDate();
+                    } else {
+                        //DOE NIETS
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "More information needed!");
+                }
 
-
-
-
+            }
+        });
+        add(saveButton);
         setLocationRelativeTo(null);
+    }
+
+    public boolean checkIfComplete() {
+        if (statusBox.getSelectedIndex() != -1) {
+            return true;
+        }
+        return false;
     }
 
     public void setController(MainController controller) {
         this.controller = controller;
     }
 }
-//        SpringLayout layout = new SpringLayout();
-//        setLayout(layout);
-//
-//        String[] labels = {"ThoughtRow: ", "Status: ", "Context: ", "Project: ", "Action Date: ", "Status Changed Date: "};
-//        int numPairs = labels.length;
-//        JPanel p = new JPanel(new SpringLayout());
-//        for (int i = 0; i < numPairs; i++) {
-//            JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-//            p.add(l);
-//            JTextField textField = new JTextField(10);
-//            l.setLabelFor(textField);
-//            p.add(textField);
-//        }
-//
-//        //Lay out the panel.
-//        SpringUtilities.makeCompactGrid(p,
-//                numPairs, 2,
-//                6, 6,
-//                6, 6);
-//        setContentPane(p);
-//
-//
-//
-//        pack();
