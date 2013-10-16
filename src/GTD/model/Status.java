@@ -10,12 +10,12 @@ package GTD.model;
  */
 public enum Status {
 
-    NO_STATUS(0, "No status"),
-    INFORMATION(1, "Information"),
-    POSTPONED(2, "Postponed"),
-    DELEGATED(3, "Delegated"),
-    DO_ASAP(4, "Do ASAP"),
-    PLANNED(5, "Planned");
+    NO_STATUS(1, "No status"),
+    INFORMATION(2, "Information"),
+    POSTPONED(3, "Postponed"),
+    DELEGATED(4, "Delegated"),
+    DO_ASAP(5, "Do ASAP"),
+    PLANNED(6, "Planned");
     private final int id;
     private final String status;
 

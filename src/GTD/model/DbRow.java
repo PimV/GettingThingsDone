@@ -91,7 +91,7 @@ public class DbRow<T> {
             } catch (SQLException sx) {
                 sx.printStackTrace();
             } finally {
-                DatabaseController.closeConnection();
+                //DatabaseController.closeConnection();
             }
 
 
@@ -126,7 +126,7 @@ public class DbRow<T> {
             } catch (SQLException sx) {
                 sx.printStackTrace();
             } finally {
-                DatabaseController.closeConnection();
+                //DatabaseController.closeConnection();
             }
 
             System.out.println(query);

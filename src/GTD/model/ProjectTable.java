@@ -12,26 +12,26 @@ import java.util.ArrayList;
  *
  * @author PimGame
  */
-public class ThoughtTable extends DbTable<ThoughtRow> {
+public class ProjectTable extends DbTable<ProjectRow> {
 
-    private ThoughtRowset list;
+    private ProjectRowset list;
 
-    public ThoughtTable() {
-        super("thoughts");
-        ArrayList<String> c = new ArrayList<>();
-        c.add("Name");
-        c.add("Notes");
-        setColumns(c);
-        setIdField("Thought_id");
+    public ProjectTable() {
+        super("projects");
+        ArrayList<String> cols = new ArrayList<String>();
+        cols.add("Name");
+        cols.add("Notes");
+        setColumns(cols);
+        setIdField("Project_id");
     }
 
-    public ThoughtRowset fetchAll() {
+    public ProjectRowset fetchAll() {
         if (list == null) {
-            list = new ThoughtRowset();
+            list = new ProjectRowset();
             try {
-                ResultSet res = DatabaseController.executeGetQuery(Query.GET_THOUGHTS);
+                ResultSet res = DatabaseController.executeGetQuery(Query.GET_PROJECTS);
                 while (res.next()) {
-                    ThoughtRow t = createRow();
+                    ProjectRow t = createRow();
                     t.setID(res.getInt(1));
                     t.setName(res.getString(2));
                     t.addNote(res.getString(3));
@@ -44,9 +44,9 @@ public class ThoughtTable extends DbTable<ThoughtRow> {
         return list;
     }
 
-    public ThoughtRow createRow() {
-        ThoughtRow t = new ThoughtRow();
-        t.setTable(this);
-        return t;
+    public ProjectRow createRow() {
+        ProjectRow p = new ProjectRow();
+        p.setTable(this);
+        return p;
     }
 }

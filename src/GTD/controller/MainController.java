@@ -7,13 +7,7 @@ package GTD.controller;
 import GTD.View.ActionsPanel;
 import GTD.View.ThoughtsPanel;
 import GTD.View.ThoughtsPopUp;
-import GTD.model.ActionTable;
-import GTD.model.Query;
-import GTD.model.ThoughtRow;
-import GTD.model.ThoughtTable;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import GTD.model.*;
 
 /**
  *
@@ -25,15 +19,21 @@ public class MainController {
     private ActionsPanel actionsPanel;
     private ActionTable actions;
     private ThoughtTable thoughts;
+    private ProjectTable projects;
+    private ContextTable contexts;
+    private StatusTable statuses;
 
     public MainController() {
         actions = new ActionTable();
         thoughts = new ThoughtTable();
+        projects = new ProjectTable();
+        contexts = new ContextTable();
+        statuses = new StatusTable();
+
 
     }
 
     public void addThought(String thought, String notes) {
-        //Thought t = new ThoughtRow();
         ThoughtRow t = thoughts.createRow();
         t.setName(thought);
         t.addNote(notes);
@@ -42,14 +42,25 @@ public class MainController {
     }
 
     public void workThoughtOut(int index) {
-        ThoughtsPopUp pop = new ThoughtsPopUp(thoughts.fetchAll().get(index));
+        ThoughtsPopUp pop = new ThoughtsPopUp();
         pop.setController(this);
+        pop.setTitle(thoughts.fetchAll().get(index).getName());
+        pop.setThoughtField(thoughts.fetchAll().get(index).getName());
+        pop.setStatuses(statuses.fetchAll());
+        pop.setProjects(projects.fetchAll());
+        pop.setContexts(contexts.fetchAll());
+        pop.setNotes(thoughts.fetchAll().get(index).getNotesAsString());
         pop.setVisible(true);
-
     }
 
     public void removeThought(int index) {
+        System.out.println("Index: " + index + " ID: " + thoughts.fetchAll().get(index).getID());
         thoughts.remove(thoughts.fetchAll().get(index).getID());
+        thoughts.fetchAll().remove(index);
+    }
+
+    public void addAction() {
+        System.out.println("GA SAVEN, KUT!");
     }
 
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {

@@ -47,21 +47,18 @@ public class DbTable<T> {
 
     public void remove(int id) {
         String q = "DELETE FROM " + DbTable.DATABASE_NAME + "." + getName() + " WHERE " + getIdField() + "=? LIMIT 1";
-
-
         try {
             DatabaseController.openConnection();
             PreparedStatement stmt = DatabaseController.con.prepareStatement(q);
 
             stmt.setString(1, id + "");
             stmt.execute();
-            stmt.closeOnCompletion();
+            //stmt.closeOnCompletion();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            DatabaseController.closeConnection();
-
+            //DatabaseController.closeConnection();
         }
     }
 }

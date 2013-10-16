@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Pim
  */
-public  class DatabaseController {
+public class DatabaseController {
 
     private static boolean connectionOpen;
     public static Connection con = null;
@@ -33,14 +33,13 @@ public  class DatabaseController {
         }
     }
 
-    public static boolean openConnection() {
+    public static synchronized boolean openConnection() {
         try {
-
-            con = DriverManager.getConnection("jdbc:mysql://databases.aii.avans.nl/gagpvenn_db", "gagpvenn", "runescape1");
-            System.out.println("Connection opened.  -- " + con);
-            connectionOpen = true;
-
-
+            if (con == null) {
+                con = DriverManager.getConnection("jdbc:mysql://databases.aii.avans.nl/gagpvenn_db", "gagpvenn", "runescape1");
+                System.out.println("Connection opened.  -- " + con);
+                connectionOpen = true;
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
             connectionOpen = false;
@@ -63,7 +62,7 @@ public  class DatabaseController {
         //openConnection();
         ResultSet rs = null;
         try {
-            con.setAutoCommit(false);
+            //con.setAutoCommit(false);
             PreparedStatement ps = con.prepareStatement(q.getQuery());
 
             rs = ps.executeQuery();
@@ -87,37 +86,7 @@ public  class DatabaseController {
         return rs;
     }
 
-    public static int executeNormalQuery(String query) {
-        openConnection();
-
-        int generatedKey = -1;
-
-        try {
-            con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement(query);
-            System.out.println(query);
-            ps.executeUpdate();
-            ResultSet keys = ps.executeQuery("SELECT LAST_INSERT_ID()");
-            if (keys.next()) {
-                generatedKey = keys.getInt(1);
-            }
-            keys.close();
-            keys = null;
-            con.commit();
-
-        } catch (SQLException ex) {
-            try {
-                con.rollback();
-                con.setAutoCommit(true);
-            } catch (SQLException exc) {
-                exc.printStackTrace();
-            }
-        } finally {
-            closeConnection();
-        }
-        return generatedKey;
-
-    }
+    
 
     public static DefaultTableModel buildTableModel(ResultSet rs)
             throws SQLException {

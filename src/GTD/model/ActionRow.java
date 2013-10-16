@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author PimGame
  */
-public class ActionRow {
+public class ActionRow extends DbRow {
 
     private ThoughtRow thoughtOrigin;
     private ArrayList<String> notes = new ArrayList<String>();
@@ -46,22 +46,28 @@ public class ActionRow {
 
     public void setDescription(String description) {
         this.description = description;
+        set("Description", description);
     }
 
     public void setStatus(Status status) {
         this.status = status;
+        set("Statuses_Status_id", status + "");
     }
 
     public void setDone(boolean completed) {
         this.done = completed;
+        set("Done", completed + "");
     }
 
     public void setDate(String date) {
         this.date = date;
+        set("Action_date", date);
+        
     }
 
     public void setLastChangedDate(String lastChangedDate) {
         this.lastChangedDate = lastChangedDate;
+        set("Statuschange_date", lastChangedDate);
     }
 
     public ArrayList<String> getNotes() {

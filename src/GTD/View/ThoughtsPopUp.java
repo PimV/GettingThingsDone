@@ -5,12 +5,11 @@
 package GTD.View;
 
 import GTD.controller.MainController;
-import GTD.model.ThoughtRow;
+import GTD.model.*;
 import java.awt.Dimension;
 import javax.swing.*;
 import org.jdesktop.swingx.JXDatePicker;
 import static GTD.model.LayoutConstants.*;
-import GTD.model.Status;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -22,7 +21,6 @@ import java.util.Date;
 public class ThoughtsPopUp extends JFrame {
 
     private MainController controller;
-    private ThoughtRow currentThought;
     private JTextField thoughtName;
     private JComboBox statusBox;
     private JComboBox contextBox;
@@ -34,11 +32,10 @@ public class ThoughtsPopUp extends JFrame {
     private JCheckBox doneCheckBox;
     private JButton saveButton;
 
-    public ThoughtsPopUp(ThoughtRow thought) {
-        currentThought = thought;
+    public ThoughtsPopUp() {
 
         setMinimumSize(new Dimension(350, 500));
-        setTitle("Working out - " + thought.getName());
+
         setResizable(false);
         setLayout(null);
 
@@ -46,7 +43,7 @@ public class ThoughtsPopUp extends JFrame {
         nameLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 0 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(nameLabel);
 
-        thoughtName = new JTextField(thought.getName());
+        thoughtName = new JTextField();
         thoughtName.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 0 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         thoughtName.setEditable(false);
         thoughtName.setHorizontalAlignment(JTextField.CENTER);
@@ -91,7 +88,6 @@ public class ThoughtsPopUp extends JFrame {
         dateChangedBox = new JXDatePicker();
         dateChangedBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 10 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         dateChangedBox.setDate(new Date());
-
         add(dateChangedBox);
 
         JLabel notesLabel = new JLabel("Notes: ");
@@ -126,11 +122,20 @@ public class ThoughtsPopUp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (checkIfComplete()) {
-                    int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to save?", "", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    int response = JOptionPane.showConfirmDialog(null,
+                            "Are you sure you want to save?",
+                            "",
+                            JOptionPane.OK_OPTION,
+                            JOptionPane.PLAIN_MESSAGE);
                     if (response == 0) {
                         //SAVE
-                        Status status = (Status) statusBox.getSelectedItem();
-                        // String date = dateBox.getDate();
+                        StatusRow status = (StatusRow) statusBox.getSelectedItem();
+                        ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
+                        ContextRow context = (ContextRow) contextBox.getSelectedItem();
+
+
+                        //FINALLY:
+                        controller.addAction();
                     } else {
                         //DOE NIETS
                     }
@@ -141,6 +146,9 @@ public class ThoughtsPopUp extends JFrame {
             }
         });
         add(saveButton);
+
+
+
         setLocationRelativeTo(null);
     }
 
@@ -151,6 +159,61 @@ public class ThoughtsPopUp extends JFrame {
         return false;
     }
 
+    public void setThoughtField(String name) {
+        thoughtName.setText(name);
+    }
+
+    public void setNotes(String notes) {
+        notesField.setText(notes);
+    }
+
+    public void setStatuses(final StatusRowset sr) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        model.addElement(null);
+
+        for (StatusRow s : sr) {
+            model.addElement(s);
+        }
+
+        model.addElement("New status...");
+
+        statusBox.setModel(model);
+    }
+
+    public void setProjects(final ProjectRowset pr) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        model.addElement(null);
+
+        for (ProjectRow p : pr) {
+            model.addElement(p.getName());
+        }
+
+        model.addElement("New project...");
+
+        projectBox.setModel(model);
+    }
+
+    public void setContexts(final ContextRowset cr) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        model.addElement(null);
+
+        for (ContextRow c : cr) {
+            model.addElement(c.getName());
+        }
+
+        model.addElement("New context...");
+
+        contextBox.setModel(model);
+    }
+
+    /*
+     * public void setContexts(ContextRowset cr) {
+     *
+     * }
+     */
     public void setController(MainController controller) {
         this.controller = controller;
     }

@@ -4,24 +4,23 @@
  */
 package GTD.model;
 
-import GTD.controller.DatabaseController;
 import java.util.ArrayList;
 
 /**
  *
  * @author PimGame
  */
-public class ThoughtRow extends DbRow {
+public class ProjectRow extends DbRow {
 
     private ArrayList<String> notes;
+    private String name;
 
-    public ThoughtRow() {
+    public ProjectRow() {
         notes = new ArrayList<String>();
     }
 
     public void setName(String name) {
         set("Name", name);
-
     }
 
     public void addNote(String note) {
@@ -39,23 +38,17 @@ public class ThoughtRow extends DbRow {
         set("Notes", getNotesAsString());
     }
 
-    public void addNotes(ArrayList<String> notes) {
+    public String getNotes() {
+        String noteString = "";
         for (String s : notes) {
-            if (!this.notes.contains(s)) {
-                this.notes.add(s);
-            }
+            noteString += s + ", ";
         }
-        set("Notes", getNotesAsString());
+        noteString = noteString.substring(0, noteString.length() - 2);
+        return noteString;
     }
 
     public void deleteNote(int index) {
         notes.remove(index);
-
-    }
-
-    public void setNotes(ArrayList<String> notes) {
-        this.notes = notes;
-
     }
 
     public String getName() {
@@ -70,5 +63,20 @@ public class ThoughtRow extends DbRow {
         String note = sb.substring(0, sb.length() - 2);
 
         return note;
+
+    }
+
+    @Override
+    public String toString() {
+        String projectString = "";
+        projectString += "Project name: " + name + "\n";
+        projectString += "Project notes: ";
+        for (String s : notes) {
+            projectString += s;
+            if (s != notes.get(notes.size() - 1)) {
+                projectString += ", ";
+            }
+        }
+        return projectString;
     }
 }
