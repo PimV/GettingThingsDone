@@ -90,9 +90,10 @@ public class ThoughtsPanel extends JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+       // gridBagConstraints.gridwidth = 3;
+       //gridBagConstraints.gridheight = 2;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(11, 0, 0, STANDARD_MARGIN_X);
         add(addThoughtButton, gridBagConstraints);
 
