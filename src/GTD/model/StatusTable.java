@@ -27,17 +27,17 @@ public class StatusTable extends DbTable<StatusRow> {
     public StatusRowset fetchAll() {
         if (list == null) {
             list = new StatusRowset();
-        }
-        try {
-            ResultSet rs = DatabaseController.executeGetQuery(Query.GET_STATUSES);
-            while (rs.next()) {
-                StatusRow sr = createRow();
-                sr.setID(rs.getInt(1));
-                sr.setName(rs.getString(2));
-                list.add(sr);
+            try {
+                ResultSet rs = DatabaseController.executeGetQuery(Query.GET_STATUSES);
+                while (rs.next()) {
+                    StatusRow sr = createRow();
+                    sr.setID(rs.getInt(1));
+                    sr.setName(rs.getString(2));
+                    list.add(sr);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return list;
     }

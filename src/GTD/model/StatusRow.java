@@ -22,7 +22,7 @@ public class StatusRow extends DbRow {
     }
     
     @Override
-    public String toString() {
-        return get("Name");
+    public String toString(){
+        return getName();
     }
 }

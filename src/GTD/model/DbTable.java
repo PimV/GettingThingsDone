@@ -6,6 +6,7 @@ package GTD.model;
 
 import GTD.controller.DatabaseController;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -53,12 +54,9 @@ public class DbTable<T> {
 
             stmt.setString(1, id + "");
             stmt.execute();
-            //stmt.closeOnCompletion();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            //DatabaseController.closeConnection();
         }
     }
 }

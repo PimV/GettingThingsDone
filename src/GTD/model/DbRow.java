@@ -8,6 +8,7 @@ import GTD.controller.DatabaseController;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import java.util.HashMap;
 
@@ -73,8 +74,11 @@ public class DbRow<T> {
                 // Set values
                 int i = 1;
                 for (String colName : table.getColumns()) {
-
-                    stmt.setString(i, get(colName, ""));
+                    if (get(colName, "").equals("null")) {
+                        stmt.setNull(i, Types.NULL);
+                    } else {
+                        stmt.setString(i, get(colName, ""));
+                    }
                     i++;
                 }
                 stmt.execute();

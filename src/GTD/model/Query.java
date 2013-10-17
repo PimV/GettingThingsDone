@@ -19,9 +19,7 @@ public enum Query {
     GET_CONTEXTS("1: ID, 2: Name",
     "SELECT * FROM gagpvenn_db.context"),
     GET_ACTIONS("1: ID, 2: Description, 3: Notes, 4: Action_Date, 5: Statuschange_Date, 6: Done, 7: Context_ID, 8: Status_ID, 9: Project_ID",
-    "SELECT * FROM gagpvenn_db.actions"),
-    INSERT_ACTION("1: ID, 2: Name, 3: Notes",
-    "INSERT INTO gagpvenn_db.thoughts VALUES(?,?,?)");
+    "SELECT * FROM gagpvenn_db.actions");
     private final String usage;
     private final String query;
 

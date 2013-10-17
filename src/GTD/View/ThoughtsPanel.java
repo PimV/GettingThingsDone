@@ -157,7 +157,6 @@ public class ThoughtsPanel extends JPanel
                         break;
                     case 2:
                         controller.removeThought(thoughtList.getSelectedIndex());
-                        listModel.remove(thoughtList.getSelectedIndex());
                         break;
                   }
               }
@@ -183,8 +182,11 @@ public class ThoughtsPanel extends JPanel
           }
       }
 
-    public void setController(MainController controller)
-      {
+    public void removeFromList(int index) {
+        listModel.remove(index);
+    }
+
+    public void setController(MainController controller) {
         this.controller = controller;
       }
 

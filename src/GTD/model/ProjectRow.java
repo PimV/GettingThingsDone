@@ -67,16 +67,7 @@ public class ProjectRow extends DbRow {
     }
 
     @Override
-    public String toString() {
-        String projectString = "";
-        projectString += "Project name: " + name + "\n";
-        projectString += "Project notes: ";
-        for (String s : notes) {
-            projectString += s;
-            if (s != notes.get(notes.size() - 1)) {
-                projectString += ", ";
-            }
-        }
-        return projectString;
+    public String toString(){
+        return getName();
     }
 }

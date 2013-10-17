@@ -31,6 +31,7 @@ public class ThoughtsPopUp extends JFrame {
     private JTextArea descriptionArea;
     private JCheckBox doneCheckBox;
     private JButton saveButton;
+    private int index;
 
     public ThoughtsPopUp() {
 
@@ -53,7 +54,7 @@ public class ThoughtsPopUp extends JFrame {
         statusLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 2 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(statusLabel);
 
-        statusBox = new JComboBox(Status.values());
+        statusBox = new JComboBox();
         statusBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 2 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         add(statusBox);
 
@@ -122,23 +123,39 @@ public class ThoughtsPopUp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (checkIfComplete()) {
-                    int response = JOptionPane.showConfirmDialog(null,
-                            "Are you sure you want to save?",
-                            "",
-                            JOptionPane.OK_OPTION,
-                            JOptionPane.PLAIN_MESSAGE);
-                    if (response == 0) {
-                        //SAVE
-                        StatusRow status = (StatusRow) statusBox.getSelectedItem();
-                        ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
-                        ContextRow context = (ContextRow) contextBox.getSelectedItem();
 
+                    //SAVE
+                    String description = descriptionArea.getText().trim();
+                    String notes = notesField.getText().trim();
+                    Date actionDate = dateBox.getDate();
+                    Date statusChangeDate = dateChangedBox.getDate();
+                    boolean done = doneCheckBox.isSelected();
 
-                        //FINALLY:
-                        controller.addAction();
-                    } else {
-                        //DOE NIETS
+                    StatusRow status = (StatusRow) statusBox.getSelectedItem();
+                    int statusID = -1;
+                    if (status != null) {
+                        statusID = status.getID();
                     }
+                    ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
+                    int projectID = -1;
+                    if (project != null) {
+                        projectID = project.getID();
+                    }
+                    ContextRow context = (ContextRow) contextBox.getSelectedItem();
+                    int contextID = -1;
+                    if (context != null) {
+                        contextID = context.getID();
+                    }
+
+                    System.out.println(contextID);
+
+                    //FINALLY:
+                    controller.addAction(
+                            description, notes, actionDate,
+                            statusChangeDate, done, contextID,
+                            statusID, projectID, index);
+                    dispose();
+
                 } else {
                     JOptionPane.showMessageDialog(null, "More information needed!");
                 }
@@ -146,9 +163,6 @@ public class ThoughtsPopUp extends JFrame {
             }
         });
         add(saveButton);
-
-
-
         setLocationRelativeTo(null);
     }
 
@@ -187,7 +201,7 @@ public class ThoughtsPopUp extends JFrame {
         model.addElement(null);
 
         for (ProjectRow p : pr) {
-            model.addElement(p.getName());
+            model.addElement(p);
         }
 
         model.addElement("New project...");
@@ -201,12 +215,16 @@ public class ThoughtsPopUp extends JFrame {
         model.addElement(null);
 
         for (ContextRow c : cr) {
-            model.addElement(c.getName());
+            model.addElement(c);
         }
 
         model.addElement("New context...");
 
         contextBox.setModel(model);
+    }
+    
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     /*
