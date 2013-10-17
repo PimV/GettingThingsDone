@@ -22,7 +22,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author PimGame
  */
-public class ThoughtsPanel extends JPanel {
+public class ThoughtsPanel extends JPanel
+  {
 
     private MainController controller;
     private DefaultListModel listModel;
@@ -35,7 +36,8 @@ public class ThoughtsPanel extends JPanel {
     private JButton workThoughtButton = createButton(1, "Work thought out!"); //1
     private JButton removeThoughtButton = createButton(2, "Remove thought"); //2
 
-    public ThoughtsPanel() {
+    public ThoughtsPanel()
+      {
 
         checkAvailabilityButtons();
         setLayout(new GridBagLayout());
@@ -44,13 +46,14 @@ public class ThoughtsPanel extends JPanel {
 
         listModel = new DefaultListModel();
         thoughtList.setModel(listModel);
-        thoughtList.addListSelectionListener(new ListSelectionListener() {
-
+        thoughtList.addListSelectionListener(new ListSelectionListener()
+          {
             @Override
-            public void valueChanged(ListSelectionEvent e) {
+            public void valueChanged(ListSelectionEvent e)
+              {
                 checkAvailabilityButtons();
-            }
-        });
+              }
+          });
         listPane.setViewportView(thoughtList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -74,7 +77,7 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN_X, 0, 0);
         add(thoughtInputField, gridBagConstraints);
-        
+
         notesInputField.setText("Notes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -85,12 +88,12 @@ public class ThoughtsPanel extends JPanel {
         add(notesInputField, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 80, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(11, 0, 0, STANDARD_MARGIN_X);
         add(addThoughtButton, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -112,33 +115,41 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(11, 243, 11, STANDARD_MARGIN_X);
         add(removeThoughtButton, gridBagConstraints);
-    }
+      }
 
-    public void fillModel(ArrayList<ThoughtRow> toFill) {
-        for (ThoughtRow t : toFill) {
+    public void fillModel(ArrayList<ThoughtRow> toFill)
+      {
+        for (ThoughtRow t : toFill)
+          {
             listModel.addElement(t.getName());
-        }
-    }
+          }
+      }
 
-    public JButton createButton(final int index, String text) {
+    public JButton createButton(final int index, String text)
+      {
         JButton b = new JButton();
         b.setText(text);
-        b.addActionListener(new ActionListener() {
-
+        b.addActionListener(new ActionListener()
+          {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                switch (index) {
+            public void actionPerformed(ActionEvent e)
+              {
+                switch (index)
+                  {
                     case 0:
                         String thoughtName = thoughtInputField.getText();
                         String notes = notesInputField.getText();
-                        if (!listModel.contains(thoughtName)) {
+                        if (!listModel.contains(thoughtName))
+                          {
                             controller.addThought(thoughtName, notes);
                             listModel.addElement(thoughtName);
                             notesInputField.setText("Notes");
                             thoughtInputField.setText("Thought");
-                        } else {
+                          }
+                        else
+                          {
                             JOptionPane.showMessageDialog(null, "This thought already exists!");
-                        }
+                          }
                         break;
 
                     case 1:
@@ -148,32 +159,40 @@ public class ThoughtsPanel extends JPanel {
                         controller.removeThought(thoughtList.getSelectedIndex());
                         listModel.remove(thoughtList.getSelectedIndex());
                         break;
-                }
-            }
-        });
-        if (index < 3 && index >= 0) {
+                  }
+              }
+          });
+        if (index < 3 && index >= 0)
+          {
             buttons[index] = b;
-        }
+          }
         return b;
-    }
+      }
 
-    public void checkAvailabilityButtons() {
-        if (thoughtList.getSelectedIndex() != -1) {
+    public void checkAvailabilityButtons()
+      {
+        if (thoughtList.getSelectedIndex() != -1)
+          {
             buttons[1].setEnabled(true);
             buttons[2].setEnabled(true);
-        } else {
+          }
+        else
+          {
             buttons[1].setEnabled(false);
             buttons[2].setEnabled(false);
-        }
-    }
+          }
+      }
 
-    public void setController(MainController controller) {
+    public void setController(MainController controller)
+      {
         this.controller = controller;
-    }
+      }
 
-    public void fillModel(ThoughtTable thoughts) {
-        for (ThoughtRow t : thoughts.fetchAll()) {
+    public void fillModel(ThoughtTable thoughts)
+      {
+        for (ThoughtRow t : thoughts.fetchAll())
+          {
             listModel.addElement(t.getName());
-        }
-    }
-}
+          }
+      }
+  }

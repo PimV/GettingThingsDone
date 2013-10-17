@@ -41,8 +41,6 @@ public class ActionsPanel extends JPanel {
         setLayout(new GridLayout(1, 1));
 
         add(scrollPane);
-
-
     }
 
     public void setTableModel(DefaultTableModel dtm) {
