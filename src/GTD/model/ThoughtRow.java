@@ -50,7 +50,6 @@ public class ThoughtRow extends DbRow {
 
     public void deleteNote(int index) {
         notes.remove(index);
-
     }
 
     public void setNotes(ArrayList<String> notes) {
@@ -63,17 +62,20 @@ public class ThoughtRow extends DbRow {
     }
 
     public String getNotesAsString() {
-        StringBuilder sb = new StringBuilder();
-        for (String s : notes) {
-            sb.append(s + ", ");
+        String note = "";
+        if (!notes.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : notes) {
+                sb.append(s + ", ");
+            }
+            note = sb.substring(0, sb.length() - 2);
         }
-        String note = sb.substring(0, sb.length() - 2);
 
         return note;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return getName();
     }
 }

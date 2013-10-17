@@ -8,6 +8,7 @@ import GTD.View.ActionsPanel;
 import GTD.View.ThoughtsPanel;
 import GTD.View.ThoughtsPopUp;
 import GTD.model.*;
+import java.util.Date;
 
 /**
  *
@@ -50,6 +51,7 @@ public class MainController {
         pop.setProjects(projects.fetchAll());
         pop.setContexts(contexts.fetchAll());
         pop.setNotes(thoughts.fetchAll().get(index).getNotesAsString());
+        pop.setIndex(index);
         pop.setVisible(true);
     }
 
@@ -59,8 +61,69 @@ public class MainController {
         thoughts.fetchAll().remove(index);
     }
 
-    public void addAction() {
+    public void addAction(
+            String description, String notes, Date actionDate,
+            Date statusChangeDate, boolean done, int contextID,
+            int statusID, int projectID, int index) {
         System.out.println("GA SAVEN, KUT!");
+
+        removeThought(index);
+
+        ActionRow a = actions.createRow();
+        a.setDate(actionDate);
+        a.setLastChangedDate(statusChangeDate);
+        a.addNote(notes);
+        int numericDone = 0;
+        if (done == true) {
+            numericDone = 1;
+        }
+        a.setDone(numericDone);
+        a.setDescription(description);
+
+        if (!statuses.fetchAll().isEmpty()) {
+            for (StatusRow sr : statuses.fetchAll()) {
+                if (sr.getID() == statusID) {
+                    a.setStatus(sr.getID());
+                    break;
+                } else {
+                }
+            }
+        } else {
+            a.setStatus(-1);
+        }
+
+        if (!projects.fetchAll().isEmpty()) {
+            for (ProjectRow pr : projects.fetchAll()) {
+                if (pr.getID() == projectID) {
+                    a.setProject(pr.getID());
+                    break;
+                } else {
+                    a.setProject(-1);
+                }
+            }
+        } else {
+            a.setProject(-1);
+        }
+
+        if (!contexts.fetchAll().isEmpty()) {
+            for (ContextRow cr : contexts.fetchAll()) {
+                if (cr.getID() == contextID) {
+                    System.out.println("Seteting context not available");
+                    a.setContext(cr.getID());
+                    break;
+                } else {
+                    System.out.println("Seteting context not available");
+                    a.setContext(-1);
+                }
+            }
+        } else {
+            a.setContext(-1);
+        }
+
+
+        a.save();
+        actions.fetchAll().add(a);
+
     }
 
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {

@@ -31,6 +31,7 @@ public class ThoughtsPopUp extends JFrame {
     private JTextArea descriptionArea;
     private JCheckBox doneCheckBox;
     private JButton saveButton;
+    private int index;
 
     public ThoughtsPopUp() {
 
@@ -122,18 +123,39 @@ public class ThoughtsPopUp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (checkIfComplete()) {
-                    
-                        //SAVE
-                        StatusRow status = (StatusRow) statusBox.getSelectedItem();
-                        ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
-                        ContextRow context = (ContextRow) contextBox.getSelectedItem();
-                        
 
+                    //SAVE
+                    String description = descriptionArea.getText().trim();
+                    String notes = notesField.getText().trim();
+                    Date actionDate = dateBox.getDate();
+                    Date statusChangeDate = dateChangedBox.getDate();
+                    boolean done = doneCheckBox.isSelected();
 
-                        //FINALLY:
-                        controller.addAction();
-                        dispose();
-                    
+                    StatusRow status = (StatusRow) statusBox.getSelectedItem();
+                    int statusID = -1;
+                    if (status != null) {
+                        statusID = status.getID();
+                    }
+                    ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
+                    int projectID = -1;
+                    if (project != null) {
+                        projectID = project.getID();
+                    }
+                    ContextRow context = (ContextRow) contextBox.getSelectedItem();
+                    int contextID = -1;
+                    if (context != null) {
+                        contextID = context.getID();
+                    }
+
+                    System.out.println(contextID);
+
+                    //FINALLY:
+                    controller.addAction(
+                            description, notes, actionDate,
+                            statusChangeDate, done, contextID,
+                            statusID, projectID, index);
+                    dispose();
+
                 } else {
                     JOptionPane.showMessageDialog(null, "More information needed!");
                 }
@@ -141,9 +163,6 @@ public class ThoughtsPopUp extends JFrame {
             }
         });
         add(saveButton);
-
-
-
         setLocationRelativeTo(null);
     }
 
@@ -202,6 +221,10 @@ public class ThoughtsPopUp extends JFrame {
         model.addElement("New context...");
 
         contextBox.setModel(model);
+    }
+    
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     /*
