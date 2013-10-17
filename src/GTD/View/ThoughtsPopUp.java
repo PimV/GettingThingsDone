@@ -54,7 +54,7 @@ public class ThoughtsPopUp extends JFrame {
         statusLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 2 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(statusLabel);
 
-        statusBox = new JComboBox(Status.values());
+        statusBox = new JComboBox();
         statusBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 2 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         add(statusBox);
 

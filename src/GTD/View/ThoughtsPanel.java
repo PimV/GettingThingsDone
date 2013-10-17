@@ -74,7 +74,7 @@ public class ThoughtsPanel extends JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN_X, 0, 0);
         add(thoughtInputField, gridBagConstraints);
-        
+
         notesInputField.setText("Notes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -146,7 +146,6 @@ public class ThoughtsPanel extends JPanel {
                         break;
                     case 2:
                         controller.removeThought(thoughtList.getSelectedIndex());
-                        listModel.remove(thoughtList.getSelectedIndex());
                         break;
                 }
             }
@@ -165,6 +164,10 @@ public class ThoughtsPanel extends JPanel {
             buttons[1].setEnabled(false);
             buttons[2].setEnabled(false);
         }
+    }
+
+    public void removeFromList(int index) {
+        listModel.remove(index);
     }
 
     public void setController(MainController controller) {

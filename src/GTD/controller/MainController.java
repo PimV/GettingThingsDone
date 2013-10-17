@@ -30,8 +30,6 @@ public class MainController {
         projects = new ProjectTable();
         contexts = new ContextTable();
         statuses = new StatusTable();
-
-
     }
 
     public void addThought(String thought, String notes) {
@@ -56,18 +54,15 @@ public class MainController {
     }
 
     public void removeThought(int index) {
-        System.out.println("Index: " + index + " ID: " + thoughts.fetchAll().get(index).getID());
         thoughts.remove(thoughts.fetchAll().get(index).getID());
         thoughts.fetchAll().remove(index);
+        thoughtsPanel.removeFromList(index);
     }
 
     public void addAction(
             String description, String notes, Date actionDate,
             Date statusChangeDate, boolean done, int contextID,
             int statusID, int projectID, int index) {
-        System.out.println("GA SAVEN, KUT!");
-
-        removeThought(index);
 
         ActionRow a = actions.createRow();
         a.setDate(actionDate);
@@ -85,7 +80,6 @@ public class MainController {
                 if (sr.getID() == statusID) {
                     a.setStatus(sr.getID());
                     break;
-                } else {
                 }
             }
         } else {
@@ -108,22 +102,18 @@ public class MainController {
         if (!contexts.fetchAll().isEmpty()) {
             for (ContextRow cr : contexts.fetchAll()) {
                 if (cr.getID() == contextID) {
-                    System.out.println("Seteting context not available");
                     a.setContext(cr.getID());
                     break;
                 } else {
-                    System.out.println("Seteting context not available");
                     a.setContext(-1);
                 }
             }
         } else {
             a.setContext(-1);
         }
-
-
         a.save();
         actions.fetchAll().add(a);
-
+        removeThought(index);
     }
 
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {

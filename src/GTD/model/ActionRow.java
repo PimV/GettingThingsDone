@@ -16,8 +16,6 @@ public class ActionRow extends DbRow {
     private ThoughtRow thoughtOrigin;
     private ArrayList<String> notes = new ArrayList<String>();
     private String description = "No description";
-    private Status status;
-    private boolean done;
     private String date;
     private String lastChangedDate;
 
