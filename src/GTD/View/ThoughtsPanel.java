@@ -12,6 +12,7 @@ import javax.swing.*;
 import static GTD.model.LayoutConstants.*;
 import GTD.model.ThoughtRow;
 import GTD.model.ThoughtTable;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class ThoughtsPanel extends JPanel
     private JList thoughtList = new JList();
     private JScrollPane listPane = new JScrollPane();
     private JTextField thoughtInputField = new JTextField();
-    private JTextField notesInputField = new JTextField();
+    private JTextArea notesInputField = new JTextArea();
+    private JScrollPane notesScroller = new JScrollPane(notesInputField);
     private JButton[] buttons = new JButton[3];
     private JButton addThoughtButton = createButton(0, "Add thought"); //0
     private JButton workThoughtButton = createButton(1, "Work thought out!"); //1
@@ -80,18 +82,24 @@ public class ThoughtsPanel extends JPanel
 
         notesInputField.setText("Notes");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 160;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 336;
+        gridBagConstraints.ipady = 60;
+        gridBagConstraints.weightx = 0;
+        gridBagConstraints.weighty = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN_X, 0, 0);
-        add(notesInputField, gridBagConstraints);
+        notesScroller.setBorder(BorderFactory.createEtchedBorder());
+        notesInputField.setLineWrap(true);
+        notesInputField.setWrapStyleWord(true);
+        add(notesScroller, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-       // gridBagConstraints.gridwidth = 3;
-       //gridBagConstraints.gridheight = 2;
+        // gridBagConstraints.gridwidth = 3;
+        //gridBagConstraints.gridheight = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(11, 0, 0, STANDARD_MARGIN_X);
@@ -110,11 +118,12 @@ public class ThoughtsPanel extends JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 70;
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(11, 243, 11, STANDARD_MARGIN_X);
+        gridBagConstraints.insets = new java.awt.Insets(11, 0, 11, STANDARD_MARGIN_X);
         add(removeThoughtButton, gridBagConstraints);
       }
 
@@ -183,11 +192,13 @@ public class ThoughtsPanel extends JPanel
           }
       }
 
-    public void removeFromList(int index) {
+    public void removeFromList(int index)
+      {
         listModel.remove(index);
-    }
+      }
 
-    public void setController(MainController controller) {
+    public void setController(MainController controller)
+      {
         this.controller = controller;
       }
 
