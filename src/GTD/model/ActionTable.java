@@ -65,6 +65,7 @@ public class ActionTable extends DbTable<ActionRow> {
                     ar.setStatus(rs.getInt(8));
                     ar.setProject(rs.getInt(9));
                     list.add(ar);
+
                 }
 
             } catch (Exception e) {
@@ -83,7 +84,7 @@ public class ActionTable extends DbTable<ActionRow> {
     public Object getValueAt(int rowIndex, int columnIndex) {
 
         if (columnIndex == 8) {
-            System.out.println(fetchAll().get(rowIndex));
+            //System.out.println(fetchAll().get(rowIndex));
             return fetchAll().get(rowIndex).getID();
         } else {
             if (getColumns().get(columnIndex).equals("Statuses_Status_id")) {

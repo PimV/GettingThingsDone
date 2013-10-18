@@ -16,8 +16,8 @@ import java.util.Date;
  *
  * @author PimGame
  */
-public class MainController
-  {
+public class MainController {
+
     private MainFrame mainFrame;
     private ThoughtsPanel thoughtsPanel;
     private ActionsPanel actionsPanel;
@@ -27,8 +27,7 @@ public class MainController
     private ContextTable contexts;
     private StatusTable statuses;
 
-    public MainController(MainFrame mainFrame)
-      {
+    public MainController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         actions = new ActionTable();
         thoughts = new ThoughtTable();
@@ -145,10 +144,9 @@ public class MainController
     }
 
     //alle menubar option actions
-    public void newThoughtAction()
-      {
-         mainFrame.setActivePane(1);
-      }
+    public void newThoughtAction() {
+        mainFrame.setActivePane(1);
+    }
 
     public void printThoughtsAction() {
     }
@@ -160,10 +158,11 @@ public class MainController
         System.exit(0);
     }
 
-    public void filterOption1Action() {
+    public void contextFilterAction() {
     }
 
-    public void filterOption2Action() {
+    public void projectFilterAction() {
+        actionsPanel.filterProject();
     }
 
     public void statusfilter1Action() {
@@ -179,5 +178,9 @@ public class MainController
     }
 
     public void statusfilter5Action() {
+    }
+
+    public void filterOption0Action() {
+        actionsPanel.filterDone();
     }
 }

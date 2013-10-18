@@ -18,15 +18,14 @@ import javax.swing.event.ChangeListener;
  *
  * @author PimGame
  */
-public class MainFrame extends JFrame
-  {
+public class MainFrame extends JFrame {
 
     //Menubar stuff
     private JMenuBar menuBar;
     private JMenu fileMenu, actionMenu, actionFilterOptions, filterOption3;
     private JMenuItem newThought, printThoughts, printActions, quit;
     private JCheckBoxMenuItem statusfilter1, statusfilter2, statusfilter3, statusfilter4, statusfilter5;
-    private JCheckBoxMenuItem filterOption1, filterOption2;
+    private JCheckBoxMenuItem doneFilter, contextFilter, projectFilter;
     //TabbedPanel
     private JTabbedPane tabbedPanel;
     //Panels
@@ -35,8 +34,7 @@ public class MainFrame extends JFrame
     //controller
     private MainController controller;
 
-    public MainFrame()
-      {
+    public MainFrame() {
 
         setMinimumSize(new Dimension(700, 450)); //Sets the minimum size to a width of 700 and a height of 450.
 
@@ -58,7 +56,6 @@ public class MainFrame extends JFrame
             public void stateChanged(ChangeEvent e) {
                 actionsPanel.clearTableSelection();
             }
-        
         });
         //Add the JTabbedPane to the JFrame
         add(tabbedPanel);
@@ -67,10 +64,9 @@ public class MainFrame extends JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Centers the JFrame on startup.
         setLocationRelativeTo(null);
-      }
+    }
 
-    public void createMenuBar()
-      {
+    public void createMenuBar() {
         menuBar = new JMenuBar();
         this.setJMenuBar(menuBar); //Sets the JMenuBar for the JFrame.
 
@@ -101,13 +97,19 @@ public class MainFrame extends JFrame
         actionFilterOptions = new JMenu("Filters"); //Adds another JMenu to a different JMenu to create a submenu
         actionMenu.add(actionFilterOptions);
 
-        filterOption1 = new JCheckBoxMenuItem("Show actions with context"); //Add a JCheckBoxMenuItem for filtering.
-        actionFilterOptions.add(filterOption1);
-        filterOption1.addActionListener(createListener(4));
+                doneFilter = new JCheckBoxMenuItem("Show finished actions"); //Add a JCheckBoxMenuItem for filtering.
+        actionFilterOptions.add(doneFilter);
+        doneFilter.addActionListener(createListener(11));
+        
+        contextFilter = new JCheckBoxMenuItem("Show actions with context"); //Add a JCheckBoxMenuItem for filtering.
+        actionFilterOptions.add(contextFilter);
+        contextFilter.addActionListener(createListener(4));
 
-        filterOption2 = new JCheckBoxMenuItem("Show actions with project"); //Add a JCheckBoxMenuItem for filtering.
-        actionFilterOptions.add(filterOption2);
-        filterOption2.addActionListener(createListener(5));
+        projectFilter = new JCheckBoxMenuItem("Show actions with project"); //Add a JCheckBoxMenuItem for filtering.
+        actionFilterOptions.add(projectFilter);
+        projectFilter.addActionListener(createListener(5));
+
+
 
         filterOption3 = new JMenu("Show actions with status:");
         actionFilterOptions.add(filterOption3);
@@ -139,17 +141,14 @@ public class MainFrame extends JFrame
         //        filterOption3 = new JCheckBoxMenuItem("Hide done actions"); //Add a JCheckBoxMenuItem for filtering.
         //        actionFilterOptions.add(filterOption3);
 
-      }
+    }
 
-    public ActionListener createListener(final int type)
-      {
-        ActionListener al = new ActionListener()
-          {
+    public ActionListener createListener(final int type) {
+        ActionListener al = new ActionListener() {
+
             @Override
-            public void actionPerformed(ActionEvent e)
-              {
-                switch (type)
-                  {
+            public void actionPerformed(ActionEvent e) {
+                switch (type) {
                     case 0:
                         controller.newThoughtAction();
                         break;
@@ -167,11 +166,11 @@ public class MainFrame extends JFrame
                         break;
 
                     case 4:
-                        controller.filterOption1Action();
+                        controller.contextFilterAction();
                         break;
 
                     case 5:
-                        controller.filterOption2Action();
+                        controller.projectFilterAction();
                         break;
 
                     case 6:
@@ -192,32 +191,31 @@ public class MainFrame extends JFrame
                     case 10:
                         controller.statusfilter5Action();
                         break;
-                  }
-              }
-          };
+                    case 11:
+                        controller.filterOption0Action();
+                        break;
+                }
+            }
+        };
         return al;
-      }
+    }
 
-    public ActionsPanel getActionsPanel()
-      {
+    public ActionsPanel getActionsPanel() {
         return actionsPanel;
-      }
+    }
 
-    public ThoughtsPanel getThoughtsPanel()
-      {
+    public ThoughtsPanel getThoughtsPanel() {
         return thoughtsPanel;
-      }
-    
-    public void setActivePane(int index)
-      {
+    }
+
+    public void setActivePane(int index) {
         System.out.println(tabbedPanel.getTabCount());
         tabbedPanel.setSelectedIndex(index);
-      }
+    }
 
-    public void setController(MainController controller)
-      {
+    public void setController(MainController controller) {
         this.controller = controller;
         thoughtsPanel.setController(controller);
         actionsPanel.setController(controller);
-      }
-  }
+    }
+}

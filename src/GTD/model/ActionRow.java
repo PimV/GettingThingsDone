@@ -50,7 +50,7 @@ public class ActionRow extends DbRow {
     }
 
     public void setStatus(int status) {
-        System.out.println("STATUS IS: " + status);
+        //System.out.println("STATUS IS: " + status);
 
         if (status == -1 || status == 0) {
             set("Statuses_Status_id", "null");
@@ -82,7 +82,7 @@ public class ActionRow extends DbRow {
     public void setDate(Date date) {
         if (date != null) {
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(date.getTime());
-            System.out.println("DATE: " + sqlDate.toString());
+            //System.out.println("DATE: " + sqlDate.toString());
             set("Action_date", sqlDate + "");
         } else {
             set("Action_date", "null");
@@ -92,7 +92,7 @@ public class ActionRow extends DbRow {
     public void setLastChangedDate(Date lastChangedDate) {
         if (lastChangedDate != null) {
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(lastChangedDate.getTime());
-            System.out.println("DATE: " + sqlDate.toString());
+            //System.out.println("DATE: " + sqlDate.toString());
             set("Statuschange_date", sqlDate + "");
         } else {
             set("Statuschange_date", lastChangedDate + "");
@@ -110,7 +110,7 @@ public class ActionRow extends DbRow {
     public int getStatus() {
       //  return Integer.valueOf(get("Statuses_Status_id"));
         if (!get("Statuses_Status_id").equals("null")) {
-            System.out.println("GOTTEN STATUS: " + get("Statuses_Status_id") );
+            //System.out.println("GOTTEN STATUS: " + get("Statuses_Status_id") );
             return Integer.valueOf(get("Statuses_Status_id"));
         } else {
             return -1;
@@ -120,7 +120,7 @@ public class ActionRow extends DbRow {
     public int getProject() {
     //    return Integer.valueOf(get("Projects_Project_id"));
         if (!get("Projects_Project_id").equals("null") ) {
-            System.out.println("PROJEC ID: " + Integer.valueOf(get("Projects_Project_id")));
+           // System.out.println("PROJEC ID: " + Integer.valueOf(get("Projects_Project_id")));
             return Integer.valueOf(get("Projects_Project_id"));
         } else {
             return -1;
