@@ -18,7 +18,8 @@ import java.util.Date;
  *
  * @author PimGame
  */
-public class ThoughtsPopUp extends JFrame {
+public class ThoughtsPopUp extends JFrame
+  {
 
     private MainController controller;
     private JTextField thoughtName;
@@ -29,11 +30,13 @@ public class ThoughtsPopUp extends JFrame {
     private JXDatePicker dateChangedBox;
     private JTextField notesField;
     private JTextArea descriptionArea;
+    private JScrollPane discriptionScroller;
     private JCheckBox doneCheckBox;
     private JButton saveButton;
     private int index;
 
-    public ThoughtsPopUp() {
+    public ThoughtsPopUp()
+      {
 
         setMinimumSize(new Dimension(350, 500));
 
@@ -104,9 +107,13 @@ public class ThoughtsPopUp extends JFrame {
         add(descriptionLabel);
 
         descriptionArea = new JTextArea();
-        descriptionArea.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 18 * LABEL_HEIGHT, getWidth() - 2 * STANDARD_MARGIN_X, 6 * LABEL_HEIGHT);
-        descriptionArea.setBorder(BorderFactory.createEtchedBorder());
-        add(descriptionArea);
+        discriptionScroller = new JScrollPane(descriptionArea);
+        discriptionScroller.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 18 * LABEL_HEIGHT, getWidth() - 2 * STANDARD_MARGIN_X, 6 * LABEL_HEIGHT);
+        discriptionScroller.setBorder(BorderFactory.createEtchedBorder());
+        descriptionArea.setWrapStyleWord(true);
+        descriptionArea.setLineWrap(true);
+
+        add(discriptionScroller);
 
         JLabel doneLabel = new JLabel("Done?");
         doneLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 25 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
@@ -118,121 +125,130 @@ public class ThoughtsPopUp extends JFrame {
 
         saveButton = new JButton("Create action");
         saveButton.setBounds(getWidth() / 2 - 1 * LABEL_WIDTH, STANDARD_MARGIN_Y + 27 * LABEL_HEIGHT, LABEL_WIDTH * 2, LABEL_HEIGHT * 2);
-        saveButton.addActionListener(new ActionListener() {
-
+        saveButton.addActionListener(new ActionListener()
+          {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (checkIfComplete()) {
+            public void actionPerformed(ActionEvent e)
+              {
 
-                    //SAVE
-                    String description = descriptionArea.getText().trim();
-                    String notes = notesField.getText().trim();
-                    Date actionDate = dateBox.getDate();
-                    Date statusChangeDate = dateChangedBox.getDate();
-                    boolean done = doneCheckBox.isSelected();
 
-                    StatusRow status = (StatusRow) statusBox.getSelectedItem();
-                    int statusID = -1;
-                    if (status != null) {
-                        statusID = status.getID();
-                    }
-                    ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
-                    int projectID = -1;
-                    if (project != null) {
-                        projectID = project.getID();
-                    }
-                    ContextRow context = (ContextRow) contextBox.getSelectedItem();
-                    int contextID = -1;
-                    if (context != null) {
-                        contextID = context.getID();
-                    }
+                //SAVE
+                String description = descriptionArea.getText().trim();
+                String notes = notesField.getText().trim();
+                Date actionDate = dateBox.getDate();
+                Date statusChangeDate = dateChangedBox.getDate();
+                boolean done = doneCheckBox.isSelected();
 
-                    System.out.println(contextID);
+                StatusRow status = (StatusRow) statusBox.getSelectedItem();
+                int statusID = -1;
+                if (status != null)
+                  {
+                    statusID = status.getID();
+                  }
+                ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
+                int projectID = -1;
+                if (project != null)
+                  {
+                    projectID = project.getID();
+                  }
+                ContextRow context = (ContextRow) contextBox.getSelectedItem();
+                int contextID = -1;
+                if (context != null)
+                  {
+                    contextID = context.getID();
+                  }
 
-                    //FINALLY:
-                    controller.addAction(
-                            description, notes, actionDate,
-                            statusChangeDate, done, contextID,
-                            statusID, projectID, index);
-                    dispose();
+                System.out.println(contextID);
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "More information needed!");
-                }
-
-            }
-        });
+                //FINALLY:
+                controller.addAction(
+                        description, notes, actionDate,
+                        statusChangeDate, done, contextID,
+                        statusID, projectID, index);
+                dispose();
+              }
+          });
         add(saveButton);
         setLocationRelativeTo(null);
-    }
+      }
 
-    public boolean checkIfComplete() {
-        if (statusBox.getSelectedIndex() != -1) {
+    public boolean checkIfComplete()
+      {
+        if (statusBox.getSelectedIndex() != -1)
+          {
             return true;
-        }
+          }
         return false;
-    }
+      }
 
-    public void setThoughtField(String name) {
+    public void setThoughtField(String name)
+      {
         thoughtName.setText(name);
-    }
+      }
 
-    public void setNotes(String notes) {
+    public void setNotes(String notes)
+      {
         notesField.setText(notes);
-    }
+      }
 
-    public void setStatuses(final StatusRowset sr) {
+    public void setStatuses(final StatusRowset sr)
+      {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
         model.addElement(null);
 
-        for (StatusRow s : sr) {
+        for (StatusRow s : sr)
+          {
             model.addElement(s);
-        }
-
-        model.addElement("New status...");
+          }
 
         statusBox.setModel(model);
-    }
+      }
 
-    public void setProjects(final ProjectRowset pr) {
+    public void setProjects(final ProjectRowset pr)
+      {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
         model.addElement(null);
 
-        for (ProjectRow p : pr) {
+        for (ProjectRow p : pr)
+          {
             model.addElement(p);
-        }
+          }
 
         model.addElement("New project...");
 
         projectBox.setModel(model);
-    }
+      }
 
-    public void setContexts(final ContextRowset cr) {
+    public void setContexts(final ContextRowset cr)
+      {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
         model.addElement(null);
 
-        for (ContextRow c : cr) {
+        for (ContextRow c : cr)
+          {
             model.addElement(c);
-        }
+          }
 
         model.addElement("New context...");
 
         contextBox.setModel(model);
-    }
-    
-    public void setIndex(int index) {
+      }
+
+    public void setIndex(int index)
+      {
         this.index = index;
-    }
+      }
 
     /*
      * public void setContexts(ContextRowset cr) {
      *
      * }
      */
-    public void setController(MainController controller) {
+    public void setController(MainController controller)
+      {
         this.controller = controller;
-    }
-}
+      }
+  }

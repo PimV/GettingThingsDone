@@ -32,7 +32,7 @@ public class MainController {
         projects = new ProjectTable();
         contexts = new ContextTable();
         statuses = new StatusTable();
-    }
+      }
 
     public void addThought(String thought, String notes) {
         ThoughtRow t = thoughts.createRow();
@@ -55,68 +55,94 @@ public class MainController {
         pop.setVisible(true);
     }
 
-    public void removeThought(int index) {
+    public void removeThought(int index)
+      {
         thoughts.remove(thoughts.fetchAll().get(index).getID());
         thoughts.fetchAll().remove(index);
         thoughtsPanel.removeFromList(index);
-    }
+      }
 
     public void addAction(
             String description, String notes, Date actionDate,
             Date statusChangeDate, boolean done, int contextID,
-            int statusID, int projectID, int index) {
+            int statusID, int projectID, int index)
+      {
 
         ActionRow a = actions.createRow();
         a.setDate(actionDate);
         a.setLastChangedDate(statusChangeDate);
         a.addNote(notes);
         int numericDone = 0;
-        if (done == true) {
+        if (done == true)
+          {
             numericDone = 1;
-        }
+          }
         a.setDone(numericDone);
         a.setDescription(description);
 
-        if (!statuses.fetchAll().isEmpty()) {
-            for (StatusRow sr : statuses.fetchAll()) {
-                if (sr.getID() == statusID) {
+        if (!statuses.fetchAll().isEmpty())
+          {
+            for (StatusRow sr : statuses.fetchAll())
+              {
+                if (sr.getID() == statusID)
+                  {
                     a.setStatus(sr.getID());
                     break;
-                }
-            }
-        } else {
+                  }
+                else
+                  {
+                  a.setStatus(-1);
+                  }
+              }
+          }
+        else
+          {
             a.setStatus(-1);
-        }
+          }
 
-        if (!projects.fetchAll().isEmpty()) {
-            for (ProjectRow pr : projects.fetchAll()) {
-                if (pr.getID() == projectID) {
+        if (!projects.fetchAll().isEmpty())
+          {
+            for (ProjectRow pr : projects.fetchAll())
+              {
+                if (pr.getID() == projectID)
+                  {
                     a.setProject(pr.getID());
                     break;
-                } else {
+                  }
+                else
+                  {
                     a.setProject(-1);
-                }
-            }
-        } else {
+                  }
+              }
+          }
+        else
+          {
             a.setProject(-1);
-        }
+          }
 
-        if (!contexts.fetchAll().isEmpty()) {
-            for (ContextRow cr : contexts.fetchAll()) {
-                if (cr.getID() == contextID) {
+        if (!contexts.fetchAll().isEmpty())
+          {
+            for (ContextRow cr : contexts.fetchAll())
+              {
+                if (cr.getID() == contextID)
+                  {
                     a.setContext(cr.getID());
                     break;
-                } else {
+                  }
+                else
+                  {
                     a.setContext(-1);
-                }
-            }
-        } else {
+                  }
+              }
+          }
+        else
+          {
             a.setContext(-1);
-        }
+          }
         a.save();
         actions.fetchAll().add(a);
         removeThought(index);
-    }
+      }
 
     public void showActions() {
         actionsPanel.setTableModel(actions);
@@ -136,8 +162,9 @@ public class MainController {
     }
 
     //alle menubar option actions
-    public void newThoughtAction() {
-    }
+    public void newThoughtAction()
+      {
+      }
 
     public void printThoughtsAction() {
     }
