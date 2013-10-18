@@ -39,12 +39,16 @@ public class GettingThingsDone {
         ResultSet rs = DatabaseController.executeGetQuery(Query.GET_ACTIONS);
         if (rs != null) {
         }
-        mainFrame.getActionsPanel().setTableModel(DatabaseController.buildTableModel(rs));
+        
+      //  mainFrame.getActionsPanel().setTableModel(DatabaseController.buildTableModel(rs));
 
 
 
         mainFrame.setController(controller);
         controller.setThoughtsPanel(mainFrame.getThoughtsPanel());
+        controller.setActionsPanel(mainFrame.getActionsPanel());
 
+        
+        controller.showActions();
     }
 }

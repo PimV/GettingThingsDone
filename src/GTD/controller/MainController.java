@@ -5,6 +5,7 @@
 package GTD.controller;
 
 import GTD.View.ActionsPanel;
+import GTD.View.MainFrame;
 import GTD.View.ThoughtsPanel;
 import GTD.View.ThoughtsPopUp;
 import GTD.View.MainFrame;
@@ -36,17 +37,15 @@ public class MainController
         statuses = new StatusTable();
       }
 
-    public void addThought(String thought, String notes)
-      {
+    public void addThought(String thought, String notes) {
         ThoughtRow t = thoughts.createRow();
         t.setName(thought);
         t.addNote(notes);
         t.save();
         thoughts.fetchAll().add(t);
-      }
+    }
 
-    public void workThoughtOut(int index)
-      {
+    public void workThoughtOut(int index) {
         ThoughtsPopUp pop = new ThoughtsPopUp();
         pop.setController(this);
         pop.setTitle(thoughts.fetchAll().get(index).getName());
@@ -57,7 +56,7 @@ public class MainController
         pop.setNotes(thoughts.fetchAll().get(index).getNotesAsString());
         pop.setIndex(index);
         pop.setVisible(true);
-      }
+    }
 
     public void removeThought(int index)
       {
@@ -148,16 +147,22 @@ public class MainController
         removeThought(index);
       }
 
-    public void setThoughtsPanel(ThoughtsPanel thoughtsPanel)
-      {
+    public void showActions() {
+        actionsPanel.setTableModel(actions);
+    }
+
+    public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {
         this.thoughtsPanel = thoughtsPanel;
         thoughtsPanel.fillModel(thoughts);
-      }
+    }
 
-    public void setActionsPanel(ActionsPanel actionsPanel)
-      {
+    public void setActionsPanel(ActionsPanel actionsPanel) {
         this.actionsPanel = actionsPanel;
-      }
+    }
+    
+    public void setMainFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
 
     //alle menubar option actions
     public void newThoughtAction()
@@ -165,44 +170,34 @@ public class MainController
          mainFrame.setActivePane(1);
       }
 
-    public void printThoughtsAction()
-      {
-      }
+    public void printThoughtsAction() {
+    }
 
-    public void printActionsAction()
-      {
-      }
+    public void printActionsAction() {
+    }
 
-    public void quitAction()
-      {
+    public void quitAction() {
         System.exit(0);
-      }
+    }
 
-    public void filterOption1Action()
-      {
-      }
+    public void filterOption1Action() {
+    }
 
-    public void filterOption2Action()
-      {
-      }
+    public void filterOption2Action() {
+    }
 
-    public void statusfilter1Action()
-      {
-      }
+    public void statusfilter1Action() {
+    }
 
-    public void statusfilter2Action()
-      {
-      }
+    public void statusfilter2Action() {
+    }
 
-    public void statusfilter3Action()
-      {
-      }
+    public void statusfilter3Action() {
+    }
 
-    public void statusfilter4Action()
-      {
-      }
+    public void statusfilter4Action() {
+    }
 
-    public void statusfilter5Action()
-      {
-      }
-  }
+    public void statusfilter5Action() {
+    }
+}

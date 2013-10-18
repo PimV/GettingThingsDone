@@ -45,6 +45,8 @@ public class DbTable<T> {
     public String getIdField() {
         return this.idField;
     }
+    
+    
 
     public void remove(int id) {
         String q = "DELETE FROM " + DbTable.DATABASE_NAME + "." + getName() + " WHERE " + getIdField() + "=? LIMIT 1";
