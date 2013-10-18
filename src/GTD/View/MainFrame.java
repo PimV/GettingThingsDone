@@ -103,27 +103,27 @@ public class MainFrame extends JFrame
         filterOption3 = new JMenu("Show actions with status:");
         actionFilterOptions.add(filterOption3);
 
-        statusfilter1 = new JCheckBoxMenuItem("Hide Information");
+        statusfilter1 = new JCheckBoxMenuItem("Information");
         filterOption3.add(statusfilter1);
         statusfilter1.addActionListener(createListener(6));
 
 
-        statusfilter2 = new JCheckBoxMenuItem("Hide Postponed");
+        statusfilter2 = new JCheckBoxMenuItem("Postponed");
         filterOption3.add(statusfilter2);
         statusfilter2.addActionListener(createListener(7));
 
 
-        statusfilter3 = new JCheckBoxMenuItem("Hide Delegated");
+        statusfilter3 = new JCheckBoxMenuItem("Delegated");
         filterOption3.add(statusfilter3);
         statusfilter3.addActionListener(createListener(8));
 
 
-        statusfilter4 = new JCheckBoxMenuItem("Hide Do ASAP");
+        statusfilter4 = new JCheckBoxMenuItem("Do ASAP");
         filterOption3.add(statusfilter4);
         statusfilter4.addActionListener(createListener(9));
 
 
-        statusfilter5 = new JCheckBoxMenuItem("Hide Planned");
+        statusfilter5 = new JCheckBoxMenuItem("Planned");
         filterOption3.add(statusfilter5);
         statusfilter5.addActionListener(createListener(10));
 
@@ -197,6 +197,12 @@ public class MainFrame extends JFrame
     public ThoughtsPanel getThoughtsPanel()
       {
         return thoughtsPanel;
+      }
+    
+    public void setActivePane(int index)
+      {
+        System.out.println(tabbedPanel.getTabCount());
+        tabbedPanel.setSelectedIndex(index);
       }
 
     public void setController(MainController controller)
