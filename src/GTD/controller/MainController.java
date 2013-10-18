@@ -159,6 +159,7 @@ public class MainController {
     }
 
     public void contextFilterAction() {
+        actionsPanel.filterContext();
     }
 
     public void projectFilterAction() {

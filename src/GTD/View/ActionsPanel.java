@@ -32,9 +32,9 @@ public class ActionsPanel extends JPanel {
     private JScrollPane scrollPane;
     private JTable table;
     private TableRowSorter<TableModel> sorter;
-    private RowFilter doneFilter;
-    private RowFilter contextFilter;
-    private RowFilter projectFilter;
+    private RowFilter doneFilter = RowFilter.regexFilter("false", 4);
+    private RowFilter contextFilter = RowFilter.regexFilter("^$", 5);
+    private RowFilter projectFilter = RowFilter.regexFilter("^$", 7);
     private RowFilter statusFilter;
     private List<RowFilter<TableModel, Object>> filters = new ArrayList<RowFilter<TableModel, Object>>();
     private RowFilter totalFilter = null;
@@ -148,34 +148,30 @@ public class ActionsPanel extends JPanel {
     }
 
     public void filterDone() {
-        if (doneFilter == null) {
-            doneFilter = RowFilter.regexFilter("false", 4);
-            filters.add(doneFilter);
-
-        } else {
+        if (filters.contains(doneFilter)) {
             filters.remove(doneFilter);
+        } else {
+            filters.add(doneFilter);
         }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
     }
 
     public void filterProject() {
-        if (projectFilter == null) {
-            projectFilter = RowFilter.regexFilter("", 7);
-            filters.add(projectFilter);
-        } else {
+        if (filters.contains(projectFilter)) {
             filters.remove(projectFilter);
+        } else {
+            filters.add(projectFilter);
         }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
     }
 
     public void filterContext() {
-        if (contextFilter == null) {
-            contextFilter = RowFilter.regexFilter("", 5);
-            filters.add(contextFilter);
-        } else {
+        if (filters.contains(contextFilter)) {
             filters.remove(contextFilter);
+        } else {
+            filters.add(contextFilter);
         }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
