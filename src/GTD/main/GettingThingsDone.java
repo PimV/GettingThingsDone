@@ -22,11 +22,11 @@ public class GettingThingsDone {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {        
-        
-        MainController controller = new MainController();
 
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
+        
+        MainController controller = new MainController(mainFrame);
 
 //        
         

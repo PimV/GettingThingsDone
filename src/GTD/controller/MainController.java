@@ -8,6 +8,7 @@ import GTD.View.ActionsPanel;
 import GTD.View.MainFrame;
 import GTD.View.ThoughtsPanel;
 import GTD.View.ThoughtsPopUp;
+import GTD.View.MainFrame;
 import GTD.model.*;
 import java.util.Date;
 
@@ -15,8 +16,8 @@ import java.util.Date;
  *
  * @author PimGame
  */
-public class MainController {
-
+public class MainController
+  {
     private MainFrame mainFrame;
     private ThoughtsPanel thoughtsPanel;
     private ActionsPanel actionsPanel;
@@ -26,7 +27,9 @@ public class MainController {
     private ContextTable contexts;
     private StatusTable statuses;
 
-    public MainController() {
+    public MainController(MainFrame mainFrame)
+      {
+        this.mainFrame = mainFrame;
         actions = new ActionTable();
         thoughts = new ThoughtTable();
         projects = new ProjectTable();
@@ -142,8 +145,10 @@ public class MainController {
     }
 
     //alle menubar option actions
-    public void newThoughtAction() {
-    }
+    public void newThoughtAction()
+      {
+         mainFrame.setActivePane(1);
+      }
 
     public void printThoughtsAction() {
     }

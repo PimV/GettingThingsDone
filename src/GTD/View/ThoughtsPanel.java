@@ -68,7 +68,7 @@ public class ThoughtsPanel extends JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(18, STANDARD_MARGIN_X, 0, 11);
+        gridBagConstraints.insets = new java.awt.Insets(STANDARD_MARGIN_X, STANDARD_MARGIN_X, 0, 11);
         add(listPane, gridBagConstraints);
 
         thoughtInputField.setText("Thought");
@@ -77,7 +77,7 @@ public class ThoughtsPanel extends JPanel
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 101;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN_X, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(STANDARD_MARGIN_X, STANDARD_MARGIN_X, 0, 0);
         add(thoughtInputField, gridBagConstraints);
 
         notesInputField.setText("Notes");
@@ -89,7 +89,7 @@ public class ThoughtsPanel extends JPanel
         gridBagConstraints.weightx = 0;
         gridBagConstraints.weighty = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, STANDARD_MARGIN_X, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(STANDARD_MARGIN_X, STANDARD_MARGIN_X, 0, 0);
         notesScroller.setBorder(BorderFactory.createEtchedBorder());
         notesInputField.setLineWrap(true);
         notesInputField.setWrapStyleWord(true);
@@ -98,6 +98,7 @@ public class ThoughtsPanel extends JPanel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = -5;
         // gridBagConstraints.gridwidth = 3;
         //gridBagConstraints.gridheight = 2;
         gridBagConstraints.weightx = 1.0;
