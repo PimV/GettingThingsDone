@@ -5,12 +5,13 @@
 package GTD.View;
 
 import GTD.controller.MainController;
+import GTD.model.ActionTable;
 import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -27,11 +28,6 @@ public class ActionsPanel extends JPanel {
     public ActionsPanel() {
         setBackground(Color.BLACK);
 
-        String[][] array = new String[3][3];
-        array[0][0] = "Test 1";
-        array[1][1] = "Test 2";
-        String[] cols = {"Col1", "Col2", "Col3"};
-
         table = new JTable();
 
 
@@ -43,7 +39,34 @@ public class ActionsPanel extends JPanel {
         add(scrollPane);
     }
 
-    public void setTableModel(DefaultTableModel dtm) {
+    public void setTableModel(final ActionTable actions) {
+        
+       
+        AbstractTableModel dtm = new AbstractTableModel() {
+
+            @Override
+            public int getRowCount() {
+                return actions.fetchAll().size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return actions.getColumns().size();
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                return actions.fetchAll().get(rowIndex).get(actions.getColumns().get(columnIndex));
+            }
+            
+            
+            
+            
+        };
+        
+      //  dtm.
+        
+        
         table.setModel(dtm);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
         table.setRowSorter(sorter);
