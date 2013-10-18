@@ -97,7 +97,7 @@ public class MainFrame extends JFrame {
         actionFilterOptions = new JMenu("Filters"); //Adds another JMenu to a different JMenu to create a submenu
         actionMenu.add(actionFilterOptions);
 
-                doneFilter = new JCheckBoxMenuItem("Show finished actions"); //Add a JCheckBoxMenuItem for filtering.
+        doneFilter = new JCheckBoxMenuItem("Hide finished actions"); //Add a JCheckBoxMenuItem for filtering.
         actionFilterOptions.add(doneFilter);
         doneFilter.addActionListener(createListener(11));
         
