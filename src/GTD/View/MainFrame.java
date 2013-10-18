@@ -6,12 +6,13 @@ package GTD.View;
 
 import GTD.controller.MainController;
 
-import GTD.View.ThoughtsPopUp;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -50,7 +51,15 @@ public class MainFrame extends JFrame
         //Add the JPanels to the JTabbedPane
         tabbedPanel.add("Actions", actionsPanel);
         tabbedPanel.add("Thoughts", thoughtsPanel);
+        tabbedPanel.setSelectedIndex(0);
+        tabbedPanel.addChangeListener(new ChangeListener() {
 
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                actionsPanel.clearTableSelection();
+            }
+        
+        });
         //Add the JTabbedPane to the JFrame
         add(tabbedPanel);
 

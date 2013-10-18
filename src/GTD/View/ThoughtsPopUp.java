@@ -145,6 +145,8 @@ public class ThoughtsPopUp extends JFrame
                   {
                     statusID = status.getID();
                   }
+                
+                System.out.println(statusID);
                 ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
                 int projectID = -1;
                 if (project != null)
@@ -158,7 +160,7 @@ public class ThoughtsPopUp extends JFrame
                     contextID = context.getID();
                   }
 
-                System.out.println(contextID);
+                
 
                 //FINALLY:
                 controller.addAction(

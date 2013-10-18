@@ -4,6 +4,8 @@
  */
 package GTD.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,8 +13,7 @@ import java.util.Date;
  *
  * @author PimGame
  */
-public class ActionRow extends DbRow
-  {
+public class ActionRow extends DbRow {
 
     private ThoughtRow thoughtOrigin;
     private ArrayList<String> notes = new ArrayList<String>();
@@ -20,169 +21,149 @@ public class ActionRow extends DbRow
     private String date;
     private String lastChangedDate;
 
-    public ActionRow()
-      {
+    public ActionRow() {
         //this.thoughtOrigin = thoughtOrigin;
-      }
+    }
 
-    public void addNote(String note)
-      {
+    public void addNote(String note) {
         String[] noteBuilder = note.split(",");
-        for (String s : noteBuilder)
-          {
-            if (s == null)
-              {
+        for (String s : noteBuilder) {
+            if (s == null) {
                 continue;
-              }
+            }
             s = s.trim();
-            if (s.isEmpty())
-              {
+            if (s.isEmpty()) {
                 continue;
-              }
+            }
             notes.add(s);
-          }
+        }
         set("Notes", getNotesAsString());
-      }
+    }
 
-    public void deleteNote(int index)
-      {
+    public void deleteNote(int index) {
         notes.remove(index);
-      }
+    }
 
-    public void setDescription(String description)
-      {
+    public void setDescription(String description) {
         this.description = description;
         set("Description", description);
-      }
+    }
 
-    public void setStatus(int status)
-      {
+    public void setStatus(int status) {
         System.out.println("STATUS IS: " + status);
 
-        if (status == -1)
-          {
+        if (status == -1 || status == 0) {
             set("Statuses_Status_id", "null");
-          }
-        else
-          {
+        } else {
             set("Statuses_Status_id", status + "");
-          }
-      }
+        }
+    }
 
-    public void setProject(int project)
-      {
-        if (project == -1)
-          {
+    public void setProject(int project) {
+        if (project == -1 || project == 0) {
             set("Projects_Project_id", "null");
-          }
-        else
-          {
+        } else {
             set("Projects_Project_id", project + "");
-          }
-      }
+        }
+    }
 
-    public void setContext(int context)
-      {
-        if (context == -1)
-          {
+    public void setContext(int context) {
+        if (context == -1 || context == 0) {
             set("Contexts_Context_id", "null");
-          }
-        else
-          {
+        } else {
             set("Contexts_Context_id", context + "");
-          }
-      }
+        }
+    }
 
-    public void setDone(int completed)
-      {
+    public void setDone(int completed) {
         set("Done", completed + "");
-      }
+    }
 
-    public void setDate(Date date)
-      {
-        if (date != null)
-          {
+    public void setDate(Date date) {
+        if (date != null) {
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(date.getTime());
             System.out.println("DATE: " + sqlDate.toString());
             set("Action_date", sqlDate + "");
-          }
-        else
-          {
-            set("Action_date", date + "");
-          }
+        } else {
+            set("Action_date", "null");
+        }
+    }
 
-      }
-
-    public void setLastChangedDate(Date lastChangedDate)
-      {
-        if (lastChangedDate != null)
-          {
+    public void setLastChangedDate(Date lastChangedDate) {
+        if (lastChangedDate != null) {
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(lastChangedDate.getTime());
             System.out.println("DATE: " + sqlDate.toString());
             set("Statuschange_date", sqlDate + "");
-          }
-        else
-          {
+        } else {
             set("Statuschange_date", lastChangedDate + "");
-          }
-      }
+        }
+    }
 
-    public ArrayList<String> getNotes()
-      {
+    public ArrayList<String> getNotes() {
         return notes;
-      }
+    }
 
-    public String getDescription()
-      {
+    public String getDescription() {
         return description;
-      }
+    }
 
-    public int getStatus()
-      {
-        return Integer.valueOf(get("Statuses_Status_id"));
-      }
+    public int getStatus() {
+      //  return Integer.valueOf(get("Statuses_Status_id"));
+        if (!get("Statuses_Status_id").equals("null")) {
+            System.out.println("GOTTEN STATUS: " + get("Statuses_Status_id") );
+            return Integer.valueOf(get("Statuses_Status_id"));
+        } else {
+            return -1;
+        }
+    }
 
-    public int getProject()
-      {
-        return Integer.valueOf(get("Projects_Project_id"));
-      }
+    public int getProject() {
+    //    return Integer.valueOf(get("Projects_Project_id"));
+        if (!get("Projects_Project_id").equals("null") ) {
+            System.out.println("PROJEC ID: " + Integer.valueOf(get("Projects_Project_id")));
+            return Integer.valueOf(get("Projects_Project_id"));
+        } else {
+            return -1;
+        }
+    }
 
-    public int getContext()
-      {
-        return Integer.valueOf(get("Contexts_Context_id"));
-      }
+    public int getContext() {
+        if (!get("Contexts_Context_id").equals("null")) {
+            return Integer.valueOf(get("Contexts_Context_id"));
+        } else {
+            return -1;
+        }
+    }
+    
+    public Date getDate()  {
+        return new Date(get("Action_date"));
+    }
 
-    public int getDone()
-      {
+    public int getDone() {
         return Integer.valueOf(get("Done"));
-      }
+    }
 
-    public String getDate()
-      {
-        return date;
-      }
+    //public String getDate() {
+      //  return date;
+    //}
 
-    public String getLastChangedDate()
-      {
+    public String getLastChangedDate() {
         return lastChangedDate;
-      }
+    }
 
-    public String getNotesAsString()
-      {
+    public String getNotesAsString() {
         StringBuilder sb = new StringBuilder();
-        for (String s : notes)
-          {
+        for (String s : notes) {
             sb.append(s + ", ");
-          }
+        }
         String note = sb.substring(0, sb.length() - 2);
 
         return note;
-      }
+    }
 
     @Override
-    public String toString()
-      {
+    public String toString() {
 
         return get("Name");
-      }
-  }
+    }
+}
