@@ -33,8 +33,8 @@ public class ActionsPanel extends JPanel {
     private JTable table;
     private TableRowSorter<TableModel> sorter;
     private RowFilter doneFilter = RowFilter.regexFilter("false", 4);
-    private RowFilter contextFilter = RowFilter.regexFilter("^$", 5);
-    private RowFilter projectFilter = RowFilter.regexFilter("^$", 7);
+    private RowFilter contextFilter = RowFilter.regexFilter(".", 5);
+    private RowFilter projectFilter = RowFilter.regexFilter(".", 7);
     private RowFilter statusFilter;
     private List<RowFilter<TableModel, Object>> filters = new ArrayList<RowFilter<TableModel, Object>>();
     private RowFilter totalFilter = null;
