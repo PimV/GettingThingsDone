@@ -215,9 +215,12 @@ public class MainController {
 
         ThoughtsPopUp pop = new ThoughtsPopUp(false);
         pop.setController(this);
+        
         pop.setStatuses(statuses.fetchAll());
         pop.setProjects(projects.fetchAll());
         pop.setContexts(contexts.fetchAll());
+        pop.setName(selectedAction.getName());
+        
         if (selectedAction.getDate() != null) {
             pop.setDate(selectedAction.getDate());
         } else {

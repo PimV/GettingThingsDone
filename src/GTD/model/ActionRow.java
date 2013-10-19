@@ -91,7 +91,7 @@ public class ActionRow extends DbRow {
 
     public void setDate(java.util.Date date) {
         if (date != null) {
-            java.sql.Timestamp sqlDate = new java.sql.Timestamp(date.getTime());
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             //System.out.println("DATE: " + sqlDate.toString());
             set("Action_date", sqlDate + "");
         } else {
@@ -101,7 +101,7 @@ public class ActionRow extends DbRow {
 
     public void setLastChangedDate(java.util.Date lastChangedDate) {
         if (lastChangedDate != null) {
-            java.sql.Timestamp sqlDate = new java.sql.Timestamp(lastChangedDate.getTime());
+            java.sql.Date sqlDate = new java.sql.Date(lastChangedDate.getTime());
             //System.out.println("DATE: " + sqlDate.toString());
             set("Statuschange_date", sqlDate + "");
         } else {
@@ -151,7 +151,7 @@ public class ActionRow extends DbRow {
         //Calender c = new Calendar();
         try {
             //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Timestamp t = Timestamp.valueOf(get("Action_date"));
+            Date t = Date.valueOf(get("Action_date"));
 
             date = new Date(t.getTime());
 

@@ -276,6 +276,10 @@ public class ThoughtsPopUp extends JFrame {
         }
     }
 
+    public void setName(String name) {
+        thoughtName.setText(name);
+    }
+    
     public void setDate(Date date) {
         dateBox.setDate(date);
     }
