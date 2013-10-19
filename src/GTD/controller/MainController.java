@@ -64,11 +64,12 @@ public class MainController {
     }
 
     public void addAction(
-            String description, String notes, Date actionDate,
+            String name, String description, String notes, Date actionDate,
             Date statusChangeDate, boolean done, int contextID,
             int statusID, int projectID, int index) {
 
         ActionRow a = actions.createRow();
+        a.setName(name);
         a.setDate(actionDate);
         a.setLastChangedDate(statusChangeDate);
         a.addNote(notes);
@@ -131,7 +132,7 @@ public class MainController {
         actionsPanel.setTableModel(actions);
     }
 
-    public void editAction(int ID, String description, String notes, Date actionDate,
+    public void editAction(int ID, String name, String description, String notes, Date actionDate,
             Date statusChangeDate, boolean done, int contextID,
             int statusID, int projectID, int index) {
 
@@ -144,6 +145,7 @@ public class MainController {
                 break;
             }
         }
+        a.setName(name);
 
         a.setDate(actionDate);
         a.setLastChangedDate(statusChangeDate);
@@ -193,6 +195,8 @@ public class MainController {
         } else {
             a.setContext(-1);
         }
+        System.out.println("ID IN MAINCONTROLLER IS: " + ID);
+        a.setID(ID);
         a.save();
         System.out.println("REMOVE INDEX: " + index);
         //removeThought(index);

@@ -6,6 +6,7 @@ package GTD.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -43,6 +44,14 @@ public class ActionRow extends DbRow {
 
     public void deleteNote(int index) {
         notes.remove(index);
+    }
+    
+    public void setName(String name) {
+        set("Name", name);
+    }
+    
+    public String getName() {
+        return get("Name");
     }
 
     public void setDescription(String description) {
@@ -141,9 +150,12 @@ public class ActionRow extends DbRow {
         Date date = null;
         //Calender c = new Calendar();
         try {
+            //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Timestamp t = Timestamp.valueOf(get("Action_date"));
 
             date = new Date(t.getTime());
+
+
         } catch (Exception e) {
             return null;
         }

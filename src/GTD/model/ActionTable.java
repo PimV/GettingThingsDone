@@ -23,6 +23,7 @@ public class ActionTable extends DbTable<ActionRow> {
     public ActionTable() {
         super("actions");
         ArrayList<String> cols = new ArrayList<String>();
+        cols.add("Name");
         cols.add("Description");
         cols.add("Notes");
         cols.add("Action_date");
@@ -56,14 +57,15 @@ public class ActionTable extends DbTable<ActionRow> {
                 while (rs.next()) {
                     ActionRow ar = createRow();
                     ar.setID(rs.getInt(1));
-                    ar.setDescription(rs.getString(2));
-                    ar.addNote(rs.getString(3));
-                    ar.setDate(rs.getDate(4));
-                    ar.setLastChangedDate(rs.getDate(5));
-                    ar.setDone(rs.getInt(6));
-                    ar.setContext(rs.getInt(7));
-                    ar.setStatus(rs.getInt(8));
-                    ar.setProject(rs.getInt(9));
+                    ar.setName(rs.getString(2));
+                    ar.setDescription(rs.getString(3));
+                    ar.addNote(rs.getString(4));
+                    ar.setDate(rs.getDate(5));
+                    ar.setLastChangedDate(rs.getDate(6));
+                    ar.setDone(rs.getInt(7));
+                    ar.setContext(rs.getInt(8));
+                    ar.setStatus(rs.getInt(9));
+                    ar.setProject(rs.getInt(10));
                     list.add(ar);
 
                 }
@@ -83,15 +85,14 @@ public class ActionTable extends DbTable<ActionRow> {
 
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        if (columnIndex == 8) {
-            //System.out.println(fetchAll().get(rowIndex));
+        if (columnIndex == 9) {
             return fetchAll().get(rowIndex).getID();
         } else {
             if (getColumns().get(columnIndex).equals("Statuses_Status_id")) {
                 if (fetchAll().get(rowIndex).getStatus() != -1) {
                     for (StatusRow sr : statuses.fetchAll()) {
                         if (sr.getID() == fetchAll().get(rowIndex).getStatus()) {
-                            return sr.getName();//sr.getID();
+                            return sr.getName();
                         }
                     }
                 } else {
@@ -102,7 +103,7 @@ public class ActionTable extends DbTable<ActionRow> {
                 if (fetchAll().get(rowIndex).getContext() != -1) {
                     for (ContextRow cr : contexts.fetchAll()) {
                         if (cr.getID() == fetchAll().get(rowIndex).getContext()) {
-                            return cr.getName();//sr.getID();
+                            return cr.getName();
                         }
                     }
                 } else {
@@ -113,7 +114,7 @@ public class ActionTable extends DbTable<ActionRow> {
                 if (fetchAll().get(rowIndex).getProject() != -1) {
                     for (ProjectRow pr : projects.fetchAll()) {
                         if (pr.getID() == fetchAll().get(rowIndex).getProject()) {
-                            return pr.getName();//sr.getID();
+                            return pr.getName();
                         }
                     }
                 } else {

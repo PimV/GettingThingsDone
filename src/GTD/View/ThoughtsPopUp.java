@@ -38,19 +38,19 @@ public class ThoughtsPopUp extends JFrame {
     public ThoughtsPopUp(final boolean save) {
 
         this.save = save;
-        
+
         setMinimumSize(new Dimension(350, 500));
 
         setResizable(false);
         setLayout(null);
 
-        JLabel nameLabel = new JLabel("Thought: ");
+        JLabel nameLabel = new JLabel("Action Name: ");
         nameLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 0 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(nameLabel);
 
         thoughtName = new JTextField();
         thoughtName.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 0 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
-        thoughtName.setEditable(false);
+        thoughtName.setEditable(true);
         thoughtName.setHorizontalAlignment(JTextField.CENTER);
         add(thoughtName);
 
@@ -124,7 +124,11 @@ public class ThoughtsPopUp extends JFrame {
         doneCheckBox.setBounds(getWidth() - 30 - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 25 * LABEL_HEIGHT - 2, 30, 30);
         add(doneCheckBox);
 
-        saveButton = new JButton("Create action");
+        String buttonText = "Create action";
+        if (!save) {
+            buttonText = "Save action";
+        }
+        saveButton = new JButton(buttonText);
         saveButton.setBounds(getWidth() / 2 - 1 * LABEL_WIDTH, STANDARD_MARGIN_Y + 27 * LABEL_HEIGHT, LABEL_WIDTH * 2, LABEL_HEIGHT * 2);
         saveButton.addActionListener(new ActionListener() {
 
@@ -132,6 +136,10 @@ public class ThoughtsPopUp extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 //SAVE
+                String name = thoughtName.getText().trim();
+                if (name.isEmpty()) {
+                    name = "No name";
+                }
                 String description = descriptionArea.getText().trim();
                 String notes = notesField.getText().trim();
                 Date actionDate = dateBox.getDate();
@@ -160,12 +168,12 @@ public class ThoughtsPopUp extends JFrame {
 
                 //FINALLY:
                 if (save) {
-                    controller.addAction(
+                    controller.addAction(name,
                             description, notes, actionDate,
                             statusChangeDate, done, contextID,
                             statusID, projectID, index);
                 } else {
-                    controller.editAction(index, description, notes, actionDate,
+                    controller.editAction(index, name, description, notes, actionDate,
                             statusChangeDate, done, contextID,
                             statusID, projectID, index);
                 }

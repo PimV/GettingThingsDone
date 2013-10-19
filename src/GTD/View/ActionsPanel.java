@@ -32,14 +32,14 @@ public class ActionsPanel extends JPanel {
     private JScrollPane scrollPane;
     private JTable table;
     private TableRowSorter<TableModel> sorter;
-    private RowFilter doneFilter = RowFilter.regexFilter("false", 4);
-    private RowFilter contextFilter = RowFilter.regexFilter(".", 5);
-    private RowFilter projectFilter = RowFilter.regexFilter(".", 7);
-    private RowFilter statusFilter1 = RowFilter.regexFilter("Information", 6);
-    private RowFilter statusFilter2 = RowFilter.regexFilter("Postponed", 6);
-    private RowFilter statusFilter3 = RowFilter.regexFilter("Delegate", 6);
-    private RowFilter statusFilter4 = RowFilter.regexFilter("Do ASAP", 6);
-    private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 6);
+    private RowFilter doneFilter = RowFilter.regexFilter("false", 5);
+    private RowFilter contextFilter = RowFilter.regexFilter(".", 6);
+    private RowFilter projectFilter = RowFilter.regexFilter(".", 8);
+    private RowFilter statusFilter1 = RowFilter.regexFilter("Information", 7);
+    private RowFilter statusFilter2 = RowFilter.regexFilter("Postponed", 7);
+    private RowFilter statusFilter3 = RowFilter.regexFilter("Delegate", 7);
+    private RowFilter statusFilter4 = RowFilter.regexFilter("Do ASAP", 7);
+    private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 7);
     private List<RowFilter<TableModel, Object>> filters = new ArrayList<RowFilter<TableModel, Object>>();
     private RowFilter totalFilter = null;
     private MainController controller;
@@ -140,7 +140,7 @@ public class ActionsPanel extends JPanel {
 
 
         String[] columns = {
-            "Description", "Notes", "Action Date", "Last Changed", "Done?", "Context", "Status", "Project"
+            "Name", "Description", "Notes", "Action Date", "Last Changed", "Done?", "Context", "Status", "Project"
         };
         dtm.setColumnIdentifiers(columns);
 
