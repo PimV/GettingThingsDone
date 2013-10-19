@@ -45,11 +45,11 @@ public class ActionRow extends DbRow {
     public void deleteNote(int index) {
         notes.remove(index);
     }
-    
+
     public void setName(String name) {
         set("Name", name);
     }
-    
+
     public String getName() {
         return get("Name");
     }

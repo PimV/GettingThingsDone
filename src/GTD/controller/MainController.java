@@ -8,7 +8,6 @@ import GTD.View.ActionsPanel;
 import GTD.View.MainFrame;
 import GTD.View.ThoughtsPanel;
 import GTD.View.ThoughtsPopUp;
-import GTD.View.MainFrame;
 import GTD.model.*;
 import java.util.Date;
 
@@ -219,7 +218,7 @@ public class MainController {
         pop.setStatuses(statuses.fetchAll());
         pop.setProjects(projects.fetchAll());
         pop.setContexts(contexts.fetchAll());
-        pop.setName(selectedAction.getName());
+        pop.setActionName(selectedAction.getName());
         
         if (selectedAction.getDate() != null) {
             pop.setDate(selectedAction.getDate());

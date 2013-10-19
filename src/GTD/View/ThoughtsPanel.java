@@ -12,7 +12,6 @@ import javax.swing.*;
 import static GTD.model.LayoutConstants.*;
 import GTD.model.ThoughtRow;
 import GTD.model.ThoughtTable;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,8 +22,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author PimGame
  */
-public class ThoughtsPanel extends JPanel
-  {
+@SuppressWarnings({"serial", "unchecked"})
+public final class ThoughtsPanel extends JPanel {
 
     private MainController controller;
     private DefaultListModel listModel;
@@ -38,8 +37,7 @@ public class ThoughtsPanel extends JPanel
     private JButton workThoughtButton = createButton(1, "Work thought out!"); //1
     private JButton removeThoughtButton = createButton(2, "Remove thought"); //2
 
-    public ThoughtsPanel()
-      {
+    public ThoughtsPanel() {
 
         checkAvailabilityButtons();
         setLayout(new GridBagLayout());
@@ -48,14 +46,13 @@ public class ThoughtsPanel extends JPanel
 
         listModel = new DefaultListModel();
         thoughtList.setModel(listModel);
-        thoughtList.addListSelectionListener(new ListSelectionListener()
-          {
+        thoughtList.addListSelectionListener(new ListSelectionListener() {
+
             @Override
-            public void valueChanged(ListSelectionEvent e)
-              {
+            public void valueChanged(ListSelectionEvent e) {
                 checkAvailabilityButtons();
-              }
-          });
+            }
+        });
         listPane.setViewportView(thoughtList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -126,41 +123,33 @@ public class ThoughtsPanel extends JPanel
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(11, 0, 11, STANDARD_MARGIN_X);
         add(removeThoughtButton, gridBagConstraints);
-      }
+    }
 
-    public void fillModel(ArrayList<ThoughtRow> toFill)
-      {
-        for (ThoughtRow t : toFill)
-          {
+    public void fillModel(ArrayList<ThoughtRow> toFill) {
+        for (ThoughtRow t : toFill) {
             listModel.addElement(t.getName());
-          }
-      }
+        }
+    }
 
-    public JButton createButton(final int index, String text)
-      {
+    public JButton createButton(final int index, String text) {
         JButton b = new JButton();
         b.setText(text);
-        b.addActionListener(new ActionListener()
-          {
+        b.addActionListener(new ActionListener() {
+
             @Override
-            public void actionPerformed(ActionEvent e)
-              {
-                switch (index)
-                  {
+            public void actionPerformed(ActionEvent e) {
+                switch (index) {
                     case 0:
                         String thoughtName = thoughtInputField.getText();
                         String notes = notesInputField.getText();
-                        if (!listModel.contains(thoughtName))
-                          {
+                        if (!listModel.contains(thoughtName)) {
                             controller.addThought(thoughtName, notes);
                             listModel.addElement(thoughtName);
                             notesInputField.setText("Notes");
                             thoughtInputField.setText("Thought");
-                          }
-                        else
-                          {
+                        } else {
                             JOptionPane.showMessageDialog(null, "This thought already exists!");
-                          }
+                        }
                         break;
 
                     case 1:
@@ -169,45 +158,36 @@ public class ThoughtsPanel extends JPanel
                     case 2:
                         controller.removeThought(thoughtList.getSelectedIndex());
                         break;
-                  }
-              }
-          });
-        if (index < 3 && index >= 0)
-          {
+                }
+            }
+        });
+        if (index < 3 && index >= 0) {
             buttons[index] = b;
-          }
+        }
         return b;
-      }
+    }
 
-    public void checkAvailabilityButtons()
-      {
-        if (thoughtList.getSelectedIndex() != -1)
-          {
+    public void checkAvailabilityButtons() {
+        if (thoughtList.getSelectedIndex() != -1) {
             buttons[1].setEnabled(true);
             buttons[2].setEnabled(true);
-          }
-        else
-          {
+        } else {
             buttons[1].setEnabled(false);
             buttons[2].setEnabled(false);
-          }
-      }
+        }
+    }
 
-    public void removeFromList(int index)
-      {
+    public void removeFromList(int index) {
         listModel.remove(index);
-      }
+    }
 
-    public void setController(MainController controller)
-      {
+    public void setController(MainController controller) {
         this.controller = controller;
-      }
+    }
 
-    public void fillModel(ThoughtTable thoughts)
-      {
-        for (ThoughtRow t : thoughts.fetchAll())
-          {
+    public void fillModel(ThoughtTable thoughts) {
+        for (ThoughtRow t : thoughts.fetchAll()) {
             listModel.addElement(t.getName());
-          }
-      }
-  }
+        }
+    }
+}

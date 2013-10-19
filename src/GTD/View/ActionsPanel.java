@@ -27,6 +27,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author PimGame
  */
+@SuppressWarnings({"serial", "unchecked"})
 public class ActionsPanel extends JPanel {
 
     private JScrollPane scrollPane;
@@ -40,7 +41,7 @@ public class ActionsPanel extends JPanel {
     private RowFilter statusFilter3 = RowFilter.regexFilter("Delegate", 7);
     private RowFilter statusFilter4 = RowFilter.regexFilter("Do ASAP", 7);
     private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 7);
-    private List<RowFilter<TableModel, Object>> filters = new ArrayList<RowFilter<TableModel, Object>>();
+    private List<RowFilter<TableModel, Object>> filters = new ArrayList<>();
     private RowFilter totalFilter = null;
     private MainController controller;
 
@@ -56,7 +57,7 @@ public class ActionsPanel extends JPanel {
                     int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
                     int selectedColumn = table.getModel().getColumnCount() - 1;
                     int ID = (int) table.getModel().getValueAt(selectedRow, selectedColumn);
-                    
+
                 }
             }
         });
@@ -71,7 +72,7 @@ public class ActionsPanel extends JPanel {
                     int selectedColumn = table.getModel().getColumnCount() - 1;
                     int ID = (int) table.getModel().getValueAt(selectedRow, selectedColumn);
                     controller.showEditPopup(ID);
-                   // JOptionPane.showMessageDialog(null, "DOUBLE CLICKED WITH ID: " + ID);
+                    // JOptionPane.showMessageDialog(null, "DOUBLE CLICKED WITH ID: " + ID);
                 }
             }
 
@@ -149,9 +150,9 @@ public class ActionsPanel extends JPanel {
 
         table.removeColumn(table.getColumnModel().getColumn(table.getColumnCount() - 1));
 
-        sorter = new TableRowSorter<TableModel>(table.getModel());
+        sorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(sorter);
-        table.setAutoResizeMode(table.AUTO_RESIZE_LAST_COLUMN);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     public void filterDone() {
@@ -172,7 +173,7 @@ public class ActionsPanel extends JPanel {
         }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
-        
+
     }
 
     public void filterContext() {
@@ -240,7 +241,7 @@ public class ActionsPanel extends JPanel {
         sorter.setRowFilter(totalFilter);
         removeFilters();
     }
-    
+
     public void removeFilters() {
         if (filters.isEmpty()) {
             totalFilter = null;

@@ -35,12 +35,7 @@ public class GettingThingsDone {
         
 
         DatabaseController.openConnection();
-
-        ResultSet rs = DatabaseController.executeGetQuery(Query.GET_ACTIONS);
-        if (rs != null) {
-        }
         
-      //  mainFrame.getActionsPanel().setTableModel(DatabaseController.buildTableModel(rs));
 
 
 

@@ -18,6 +18,7 @@ import java.util.Date;
  *
  * @author PimGame
  */
+@SuppressWarnings({"unchecked", "serial"})
 public class ThoughtsPopUp extends JFrame {
 
     private MainController controller;
@@ -234,7 +235,7 @@ public class ThoughtsPopUp extends JFrame {
             model.addElement(c);
         }
 
-        // model.addElement("New context...");
+        model.addElement("New context...");
 
         contextBox.setModel(model);
     }
@@ -276,10 +277,10 @@ public class ThoughtsPopUp extends JFrame {
         }
     }
 
-    public void setName(String name) {
+    public void setActionName(String name) {
         thoughtName.setText(name);
     }
-    
+
     public void setDate(Date date) {
         dateBox.setDate(date);
     }
@@ -300,11 +301,6 @@ public class ThoughtsPopUp extends JFrame {
         this.index = index;
     }
 
-    /*
-     * public void setContexts(ContextRowset cr) {
-     *
-     * }
-     */
     public void setController(MainController controller) {
         this.controller = controller;
     }

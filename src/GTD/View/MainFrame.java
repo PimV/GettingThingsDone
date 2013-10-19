@@ -18,7 +18,8 @@ import javax.swing.event.ChangeListener;
  *
  * @author PimGame
  */
-public class MainFrame extends JFrame {
+@SuppressWarnings("serial")
+public final class MainFrame extends JFrame {
 
     //Menubar stuff
     private JMenuBar menuBar;
@@ -100,7 +101,7 @@ public class MainFrame extends JFrame {
         doneFilter = new JCheckBoxMenuItem("Hide finished actions"); //Add a JCheckBoxMenuItem for filtering.
         actionFilterOptions.add(doneFilter);
         doneFilter.addActionListener(createListener(11));
-        
+
         contextFilter = new JCheckBoxMenuItem("Show actions with context"); //Add a JCheckBoxMenuItem for filtering.
         actionFilterOptions.add(contextFilter);
         contextFilter.addActionListener(createListener(4));
