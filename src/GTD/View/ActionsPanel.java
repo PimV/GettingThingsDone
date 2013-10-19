@@ -6,17 +6,13 @@ package GTD.View;
 
 import GTD.controller.MainController;
 import GTD.model.ActionTable;
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.RowFilter;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +42,7 @@ public class ActionsPanel extends JPanel {
     private MainController controller;
 
     public ActionsPanel() {
-        setBackground(Color.BLACK);
+        // setBackground(Color.BLACK);
 
         table = new JTable();
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -102,9 +98,78 @@ public class ActionsPanel extends JPanel {
         scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
 
-        setLayout(new GridLayout(1, 1));
+        //setLayout(new GridLayout(1, 1));
 
-        add(scrollPane);
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 672;
+        gridBagConstraints.ipady = 328;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
+        add(scrollPane, gridBagConstraints);
+
+        JLabel label = new JLabel("Filter on: ");
+        // field.setText("Thought");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 101;
+        // gridBagConstraints.ipady = -5
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 0);
+        add(label, gridBagConstraints);
+
+
+        JTextField field = new JTextField();
+        field.setText("Thought");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+       // gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 180;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 11, 11, 11);
+        add(field, gridBagConstraints);
+
+        JButton button2 = new JButton("FILTER Action");
+        //field.setText("Thought");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;      
+        gridBagConstraints.ipadx = 70;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
+        gridBagConstraints.weightx = 1.0;
+        //gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 11, 11, 0);
+        add(button2, gridBagConstraints);
+        
+        JButton button = new JButton("Remove Action");
+        //field.setText("Thought");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        //gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 70;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 11, 11);
+        add(button, gridBagConstraints);
+
+        //  scrollPane.setBounds(0, 0, getWidth(), getHeight() - 6);
+        // add(scrollPane);
     }
 
     public void clearTableSelection() {
