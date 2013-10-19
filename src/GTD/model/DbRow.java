@@ -47,7 +47,8 @@ public class DbRow<T> {
   
    
     public void save() {
-        if (isChanged || id == -1) {
+        System.out.println("WHILE SAVING, ISCHANGED IS: " + isChanged);
+        if (id == -1 || isChanged == false) {
             // Create row in database
             String query = "INSERT INTO " + DbTable.DATABASE_NAME + "." + table.getName() + " ";
 
@@ -99,11 +100,9 @@ public class DbRow<T> {
             } finally {
                 //DatabaseController.closeConnection();
             }
-
-
-
             System.out.println(query);
         } else if (isChanged) {
+            System.out.println("UPDATING!");
             // Update existing row
             String query = "UPDATE " + DbTable.DATABASE_NAME + "." + table.getName() + " SET ";
             for (String colName : table.getColumns()) {

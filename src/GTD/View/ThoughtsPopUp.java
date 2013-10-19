@@ -18,8 +18,7 @@ import java.util.Date;
  *
  * @author PimGame
  */
-public class ThoughtsPopUp extends JFrame
-  {
+public class ThoughtsPopUp extends JFrame {
 
     private MainController controller;
     private JTextField thoughtName;
@@ -34,10 +33,12 @@ public class ThoughtsPopUp extends JFrame
     private JCheckBox doneCheckBox;
     private JButton saveButton;
     private int index;
+    private final boolean save;
 
-    public ThoughtsPopUp()
-      {
+    public ThoughtsPopUp(final boolean save) {
 
+        this.save = save;
+        
         setMinimumSize(new Dimension(350, 500));
 
         setResizable(false);
@@ -125,12 +126,10 @@ public class ThoughtsPopUp extends JFrame
 
         saveButton = new JButton("Create action");
         saveButton.setBounds(getWidth() / 2 - 1 * LABEL_WIDTH, STANDARD_MARGIN_Y + 27 * LABEL_HEIGHT, LABEL_WIDTH * 2, LABEL_HEIGHT * 2);
-        saveButton.addActionListener(new ActionListener()
-          {
-            @Override
-            public void actionPerformed(ActionEvent e)
-              {
+        saveButton.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
                 //SAVE
                 String description = descriptionArea.getText().trim();
@@ -141,116 +140,160 @@ public class ThoughtsPopUp extends JFrame
 
                 StatusRow status = (StatusRow) statusBox.getSelectedItem();
                 int statusID = -1;
-                if (status != null)
-                  {
+                if (status != null) {
                     statusID = status.getID();
-                  }
-                
+                }
+
                 System.out.println(statusID);
                 ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
                 int projectID = -1;
-                if (project != null)
-                  {
+                if (project != null) {
                     projectID = project.getID();
-                  }
+                }
                 ContextRow context = (ContextRow) contextBox.getSelectedItem();
                 int contextID = -1;
-                if (context != null)
-                  {
+                if (context != null) {
                     contextID = context.getID();
-                  }
+                }
 
-                
+
 
                 //FINALLY:
-                controller.addAction(
-                        description, notes, actionDate,
-                        statusChangeDate, done, contextID,
-                        statusID, projectID, index);
+                if (save) {
+                    controller.addAction(
+                            description, notes, actionDate,
+                            statusChangeDate, done, contextID,
+                            statusID, projectID, index);
+                } else {
+                    controller.editAction(index, description, notes, actionDate,
+                            statusChangeDate, done, contextID,
+                            statusID, projectID, index);
+                }
                 dispose();
-              }
-          });
+            }
+        });
         add(saveButton);
         setLocationRelativeTo(null);
-      }
+    }
 
-    public boolean checkIfComplete()
-      {
-        if (statusBox.getSelectedIndex() != -1)
-          {
+    public boolean checkIfComplete() {
+        if (statusBox.getSelectedIndex() != -1) {
             return true;
-          }
+        }
         return false;
-      }
+    }
 
-    public void setThoughtField(String name)
-      {
+    public void setThoughtField(String name) {
         thoughtName.setText(name);
-      }
+    }
 
-    public void setNotes(String notes)
-      {
+    public void setNotes(String notes) {
         notesField.setText(notes);
-      }
+    }
 
-    public void setStatuses(final StatusRowset sr)
-      {
+    public void setStatuses(final StatusRowset sr) {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
         model.addElement(null);
 
-        for (StatusRow s : sr)
-          {
+        for (StatusRow s : sr) {
             model.addElement(s);
-          }
+        }
 
         statusBox.setModel(model);
-      }
+    }
 
-    public void setProjects(final ProjectRowset pr)
-      {
+    public void setProjects(final ProjectRowset pr) {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
         model.addElement(null);
 
-        for (ProjectRow p : pr)
-          {
+        for (ProjectRow p : pr) {
             model.addElement(p);
-          }
+        }
 
         model.addElement("New project...");
 
         projectBox.setModel(model);
-      }
+    }
 
-    public void setContexts(final ContextRowset cr)
-      {
+    public void setContexts(final ContextRowset cr) {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
         model.addElement(null);
 
-        for (ContextRow c : cr)
-          {
+        for (ContextRow c : cr) {
             model.addElement(c);
-          }
+        }
 
-        model.addElement("New context...");
+        // model.addElement("New context...");
 
         contextBox.setModel(model);
-      }
+    }
 
-    public void setIndex(int index)
-      {
+    public void setSelectedStatus(int index) {
+        for (int i = 0; i < statusBox.getModel().getSize(); i++) {
+            StatusRow sr = (StatusRow) statusBox.getItemAt(i);
+            if (sr != null) {
+                if (sr.getID() == index) {
+                    System.out.println("ID: " + sr.getID() + " INDEX: " + index);
+                    statusBox.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void setSelectedProject(int index) {
+        for (int i = 0; i < projectBox.getModel().getSize() - 1; i++) {
+            ProjectRow pr = (ProjectRow) projectBox.getItemAt(i);
+            if (pr != null) {
+                if (pr.getID() == index) {
+                    projectBox.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void setSelectedContext(int index) {
+        for (int i = 0; i < contextBox.getModel().getSize() - 1; i++) {
+            ContextRow cr = (ContextRow) contextBox.getItemAt(i);
+            if (cr != null) {
+                if (cr.getID() == index) {
+                    contextBox.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void setDate(Date date) {
+        dateBox.setDate(date);
+    }
+
+    public void setDescription(String description) {
+        descriptionArea.setText(description);
+    }
+
+    public void setDone(int done) {
+        boolean isDone = false;
+        if (done == 1) {
+            isDone = true;
+        }
+        doneCheckBox.setSelected(isDone);
+    }
+
+    public void setIndex(int index) {
         this.index = index;
-      }
+    }
 
     /*
      * public void setContexts(ContextRowset cr) {
      *
      * }
      */
-    public void setController(MainController controller)
-      {
+    public void setController(MainController controller) {
         this.controller = controller;
-      }
-  }
+    }
+}

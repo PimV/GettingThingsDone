@@ -4,10 +4,10 @@
  */
 package GTD.model;
 
-import java.text.DateFormat;
-import java.text.ParseException;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -26,6 +26,7 @@ public class ActionRow extends DbRow {
     }
 
     public void addNote(String note) {
+        notes.clear();
         String[] noteBuilder = note.split(",");
         for (String s : noteBuilder) {
             if (s == null) {
@@ -79,7 +80,7 @@ public class ActionRow extends DbRow {
         set("Done", completed + "");
     }
 
-    public void setDate(Date date) {
+    public void setDate(java.util.Date date) {
         if (date != null) {
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(date.getTime());
             //System.out.println("DATE: " + sqlDate.toString());
@@ -89,7 +90,7 @@ public class ActionRow extends DbRow {
         }
     }
 
-    public void setLastChangedDate(Date lastChangedDate) {
+    public void setLastChangedDate(java.util.Date lastChangedDate) {
         if (lastChangedDate != null) {
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(lastChangedDate.getTime());
             //System.out.println("DATE: " + sqlDate.toString());
@@ -108,7 +109,7 @@ public class ActionRow extends DbRow {
     }
 
     public int getStatus() {
-      //  return Integer.valueOf(get("Statuses_Status_id"));
+        //  return Integer.valueOf(get("Statuses_Status_id"));
         if (!get("Statuses_Status_id").equals("null")) {
             //System.out.println("GOTTEN STATUS: " + get("Statuses_Status_id") );
             return Integer.valueOf(get("Statuses_Status_id"));
@@ -118,9 +119,9 @@ public class ActionRow extends DbRow {
     }
 
     public int getProject() {
-    //    return Integer.valueOf(get("Projects_Project_id"));
-        if (!get("Projects_Project_id").equals("null") ) {
-           // System.out.println("PROJEC ID: " + Integer.valueOf(get("Projects_Project_id")));
+        //    return Integer.valueOf(get("Projects_Project_id"));
+        if (!get("Projects_Project_id").equals("null")) {
+            // System.out.println("PROJEC ID: " + Integer.valueOf(get("Projects_Project_id")));
             return Integer.valueOf(get("Projects_Project_id"));
         } else {
             return -1;
@@ -134,9 +135,24 @@ public class ActionRow extends DbRow {
             return -1;
         }
     }
-    
-    public Date getDate()  {
-        return new Date(get("Action_date"));
+
+    public Date getDate() {
+
+        Date date = null;
+        //Calender c = new Calendar();
+        try {
+            Timestamp t = Timestamp.valueOf(get("Action_date"));
+
+            date = new Date(t.getTime());
+        } catch (Exception e) {
+            return null;
+        }
+
+
+
+        //date = new Date(get("Action_date"));
+
+        return date;
     }
 
     public int getDone() {
@@ -144,9 +160,8 @@ public class ActionRow extends DbRow {
     }
 
     //public String getDate() {
-      //  return date;
+    //  return date;
     //}
-
     public String getLastChangedDate() {
         return lastChangedDate;
     }
