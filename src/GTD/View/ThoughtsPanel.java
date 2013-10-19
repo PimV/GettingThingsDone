@@ -33,6 +33,7 @@ public final class ThoughtsPanel extends JPanel {
     private JTextField thoughtInputField = new JTextField();
     private JTextArea notesInputField = new JTextArea();
     private JScrollPane notesScroller = new JScrollPane();
+    private JScrollPane thoughtScroller = new JScrollPane();
     private JButton[] buttons = new JButton[3];
     private JButton addThoughtButton = createButton(0, "Add thought"); //0
     private JButton workThoughtButton = createButton(1, "Work thought out!"); //1
@@ -80,15 +81,17 @@ public final class ThoughtsPanel extends JPanel {
 //        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
 //        gridBagConstraints.insets = new java.awt.Insets(STANDARD_MARGIN_X, STANDARD_MARGIN_X, 0, 0);
 //        add(thoughtInputField, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         // gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 180;
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 11, 11, 11);
+         gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
+        thoughtScroller = new JScrollPane(thoughtInputField);
+        thoughtScroller.setPreferredSize(new Dimension(0,0));
         add(thoughtInputField, gridBagConstraints);
 
         notesInputField.setText("Notes");
@@ -97,13 +100,13 @@ public final class ThoughtsPanel extends JPanel {
         notesInputField.setWrapStyleWord(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 250;
-        gridBagConstraints.ipady = 23;
+        gridBagConstraints.ipady = 25;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
        // gridBagConstraints.weightx = 0.8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 11, 15, 11);
+        gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
         notesScroller = new JScrollPane(notesInputField);
         notesScroller.setPreferredSize(new Dimension(0,0));
         add(notesScroller, gridBagConstraints);
@@ -111,23 +114,23 @@ public final class ThoughtsPanel extends JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
-         gridBagConstraints.ipadx = 50;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 70;
         gridBagConstraints.ipady = 25;
-        // gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 2;
         //gridBagConstraints.gridheight = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 11, 11, 11);
+        gridBagConstraints.insets = new java.awt.Insets(11, 0, 11, STANDARD_MARGIN_X);
         add(addThoughtButton, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 59;
+        gridBagConstraints.ipadx = 70;
         gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(11, STANDARD_MARGIN_X, 11, 0);
         add(workThoughtButton, gridBagConstraints);
 
