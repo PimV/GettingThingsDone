@@ -27,12 +27,10 @@ import javax.swing.table.TableRowSorter;
  *
  * @author PimGame
  */
-@SuppressWarnings(
-        {
+@SuppressWarnings({
     "serial", "unchecked"
-  })
-public class ActionsPanel extends JPanel
-  {
+})
+public class ActionsPanel extends JPanel {
 
     private JScrollPane scrollPane;
     private JTable table;
@@ -54,71 +52,60 @@ public class ActionsPanel extends JPanel
     private RowFilter totalFilter = null;
     private MainController controller;
 
-    public ActionsPanel()
-      {
+    public ActionsPanel() {
         // setBackground(Color.BLACK);
 
         removeActionButton.setEnabled(false);
 
         table = new JTable();
 
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener()
-          {
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
             @Override
-            public void valueChanged(ListSelectionEvent e)
-              {
-                if (table.getSelectedRow() != -1)
-                  {
+            public void valueChanged(ListSelectionEvent e) {
+                if (table.getSelectedRow() != -1) {
                     removeActionButton.setEnabled(true);
 
-                  }
-                else
-                  {
+                } else {
                     removeActionButton.setEnabled(false);
-                  }
-              }
-          });
+                }
+            }
+        });
 
 
-        table.addMouseListener(new MouseListener()
-          {
+        table.addMouseListener(new MouseListener() {
+
             @Override
-            public void mouseClicked(MouseEvent e)
-              {
-                if (e.getClickCount() == 2)
-                  {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
                     int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
                     int selectedColumn = table.getModel().getColumnCount() - 1;
                     int ID = (int) table.getModel().getValueAt(selectedRow, selectedColumn);
                     controller.showEditPopup(ID);
                     // JOptionPane.showMessageDialog(null, "DOUBLE CLICKED WITH ID: " + ID);
-                  }
-              }
+                }
+            }
 
             @Override
-            public void mousePressed(MouseEvent e)
-              {
+            public void mousePressed(MouseEvent e) {
                 // throw new UnsupportedOperationException("Not supported yet.");
-              }
+            }
 
             @Override
-            public void mouseReleased(MouseEvent e)
-              {
+            public void mouseReleased(MouseEvent e) {
                 //throw new UnsupportedOperationException("Not supported yet.");
-              }
+            }
 
             @Override
-            public void mouseEntered(MouseEvent e)
-              {
+            public void mouseEntered(MouseEvent e) {
                 // throw new UnsupportedOperationException("Not supported yet.");
-              }
+            }
 
             @Override
-            public void mouseExited(MouseEvent e)
-              {
+            public void mouseExited(MouseEvent e) {
                 //throw new UnsupportedOperationException("Not supported yet.");
-              }
-          });
+            }
+        });
 
 
 
@@ -159,34 +146,33 @@ public class ActionsPanel extends JPanel
 
 
         filterField = new JTextField();
-        filterField.addKeyListener(new KeyListener()
-          {
+        filterField.addKeyListener(new KeyListener() {
+
             @Override
-            public void keyTyped(KeyEvent e)
-              {
+            public void keyTyped(KeyEvent e) {
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-              }
+            }
 
             @Override
-            public void keyPressed(KeyEvent e)
-              {
+            public void keyPressed(KeyEvent e) {
                 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-              }
+            }
 
             @Override
-            public void keyReleased(KeyEvent e)
-              {
-                fieldFilter = RowFilter.regexFilter(filterField.getText());
-               
+            public void keyReleased(KeyEvent e) {
+                if (filters.contains(fieldFilter)) {
+                    filters.remove(fieldFilter);
+                }
+                fieldFilter = RowFilter.regexFilter("(?i)" + filterField.getText());
+
                 filters.add(fieldFilter);
-                System.out.println("IK FILTER ALS T GOED IS");
 
 
                 totalFilter = RowFilter.andFilter(filters);
                 sorter.setRowFilter(totalFilter);
-
-              }
-          });
+                removeFilters();
+            }
+        });
         filterField.setText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -225,52 +211,45 @@ public class ActionsPanel extends JPanel
 
         //  scrollPane.setBounds(0, 0, getWidth(), getHeight() - 6);
         // add(scrollPane);
-      }
+    }
 
-    public void clearTableSelection()
-      {
+    public void clearTableSelection() {
         //table.getSelectionModel().clearSelection();
         table.clearSelection();
-      }
+    }
 
-    public void setTableModel(final ActionTable actions)
-      {
+    public void setTableModel(final ActionTable actions) {
 
 
-        DefaultTableModel dtm = new DefaultTableModel()
-          {
+        DefaultTableModel dtm = new DefaultTableModel() {
+
             @Override
-            public int getRowCount()
-              {
+            public int getRowCount() {
                 return actions.fetchAll().size();
-              }
+            }
 
             @Override
-            public int getColumnCount()
-              {
+            public int getColumnCount() {
                 return actions.getColumns().size() + 1;
-              }
+            }
 
             @Override
-            public Object getValueAt(int rowIndex, int columnIndex)
-              {
+            public Object getValueAt(int rowIndex, int columnIndex) {
                 // System.out.println(columnIndex);
                 return actions.getValueAt(rowIndex, columnIndex);
-              }
+            }
 
             @Override
-            public boolean isCellEditable(int row, int column)
-              {
+            public boolean isCellEditable(int row, int column) {
                 return false;
-              }
-          };
+            }
+        };
 
 
 
-        String[] columns =
-          {
+        String[] columns = {
             "Name", "Description", "Notes", "Action Date", "Last Changed", "Done?", "Context", "Status", "Project"
-          };
+        };
         dtm.setColumnIdentifiers(columns);
 
         table.setModel(dtm);
@@ -281,19 +260,16 @@ public class ActionsPanel extends JPanel
         sorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(sorter);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-      }
+    }
 
-    public JButton createButton(final int index, String text)
-      {
+    public JButton createButton(final int index, String text) {
         JButton b = new JButton();
         b.setText(text);
-        b.addActionListener(new ActionListener()
-          {
+        b.addActionListener(new ActionListener() {
+
             @Override
-            public void actionPerformed(ActionEvent e)
-              {
-                switch (index)
-                  {
+            public void actionPerformed(ActionEvent e) {
+                switch (index) {
                     case 0:
 
                         break;
@@ -305,151 +281,114 @@ public class ActionsPanel extends JPanel
 
                         controller.removeAction(selectedRow);
                         break;
-                  }
-              }
-          });
-        if (index < 2 && index >= 0)
-          {
+                }
+            }
+        });
+        if (index < 2 && index >= 0) {
             buttons[index] = b;
-          }
+        }
         return b;
-      }
+    }
 
-    public void filterDone()
-      {
-        if (filters.contains(doneFilter))
-          {
+    public void filterDone() {
+        if (filters.contains(doneFilter)) {
             filters.remove(doneFilter);
-          }
-        else
-          {
+        } else {
             filters.add(doneFilter);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
-      }
+    }
 
-    public void filterProject()
-      {
-        if (filters.contains(projectFilter))
-          {
+    public void filterProject() {
+        if (filters.contains(projectFilter)) {
             filters.remove(projectFilter);
-          }
-        else
-          {
+        } else {
             filters.add(projectFilter);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
 
-      }
+    }
 
-    public void filterContext()
-      {
-        if (filters.contains(contextFilter))
-          {
+    public void filterContext() {
+        if (filters.contains(contextFilter)) {
             filters.remove(contextFilter);
-          }
-        else
-          {
+        } else {
             filters.add(contextFilter);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
         //removeFilters();
-      }
+    }
 
-    public void filterStatus1()
-      {
-        if (filters.contains(statusFilter1))
-          {
+    public void filterStatus1() {
+        if (filters.contains(statusFilter1)) {
             filters.remove(statusFilter1);
-          }
-        else
-          {
+        } else {
             filters.add(statusFilter1);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
         removeFilters();
-      }
+    }
 
-    public void filterStatus2()
-      {
-        if (filters.contains(statusFilter2))
-          {
+    public void filterStatus2() {
+        if (filters.contains(statusFilter2)) {
             filters.remove(statusFilter2);
-          }
-        else
-          {
+        } else {
             filters.add(statusFilter2);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
         removeFilters();
-      }
+    }
 
-    public void filterStatus3()
-      {
-        if (filters.contains(statusFilter3))
-          {
+    public void filterStatus3() {
+        if (filters.contains(statusFilter3)) {
             filters.remove(statusFilter3);
-          }
-        else
-          {
+        } else {
             filters.add(statusFilter3);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
         removeFilters();
-      }
+    }
 
-    public void filterStatus4()
-      {
-        if (filters.contains(statusFilter4))
-          {
+    public void filterStatus4() {
+        if (filters.contains(statusFilter4)) {
             filters.remove(statusFilter4);
-          }
-        else
-          {
+        } else {
             filters.add(statusFilter4);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
         removeFilters();
-      }
+    }
 
-    public void filterStatus5()
-      {
-        if (filters.contains(statusFilter5))
-          {
+    public void filterStatus5() {
+        if (filters.contains(statusFilter5)) {
             filters.remove(statusFilter5);
-          }
-        else
-          {
+        } else {
             filters.add(statusFilter5);
-          }
+        }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
         removeFilters();
-      }
+    }
 
-    public void removeFilters()
-      {
-        if (filters.isEmpty())
-          {
+    public void removeFilters() {
+        if (filters.isEmpty()) {
             totalFilter = null;
             sorter.setRowFilter(totalFilter);
-          }
-      }
+        }
+    }
 
-    void setController(MainController controller)
-      {
+    void setController(MainController controller) {
         this.controller = controller;
-      }
+    }
 
-    public void removeFromList(int index)
-      {
+    public void removeFromList(int index) {
         table.revalidate();
-      }
-  }
+    }
+}

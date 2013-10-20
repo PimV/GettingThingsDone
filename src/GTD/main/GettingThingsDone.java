@@ -4,12 +4,10 @@
  */
 package GTD.main;
 
-import GTD.View.EDITOR_THOUGHTPOPUP;
+import GTD.View.AddNewPopUp;
 import GTD.View.MainFrame;
 import GTD.controller.DatabaseController;
 import GTD.controller.MainController;
-import GTD.model.Query;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -23,6 +21,7 @@ public class GettingThingsDone {
      */
     public static void main(String[] args) throws SQLException {        
 
+        
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
         

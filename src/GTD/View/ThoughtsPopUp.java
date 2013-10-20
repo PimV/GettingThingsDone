@@ -12,6 +12,8 @@ import org.jdesktop.swingx.JXDatePicker;
 import static GTD.model.LayoutConstants.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Date;
 
 /**
@@ -69,6 +71,7 @@ public class ThoughtsPopUp extends JFrame {
 
         contextBox = new JComboBox(); //CONTEXTEN MOETEN NOG GEVULD WORDEN!!
         contextBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 4 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
+        addActionListenerComboBox(contextBox, "Context");
         add(contextBox);
 
         JLabel projectLabel = new JLabel("Project: ");
@@ -77,6 +80,8 @@ public class ThoughtsPopUp extends JFrame {
 
         projectBox = new JComboBox(); //PROJECTEN MOETEN NOG GEVULD WORDEN!!
         projectBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 6 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
+        
+        addActionListenerComboBox(projectBox,"Project");
         add(projectBox);
 
         JLabel dateLabel = new JLabel("Date: ");
@@ -275,6 +280,23 @@ public class ThoughtsPopUp extends JFrame {
                 }
             }
         }
+    }
+
+    public void addActionListenerComboBox(final JComboBox comboBox, final String type) {
+        comboBox.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (comboBox.getSelectedIndex() == comboBox.getItemCount() - 1) {
+                    System.out.println("last selected");
+                   
+                      
+                  
+                        controller.showAddNewPopUp(type);
+                    
+                }
+            }
+        });
     }
 
     public void setActionName(String name) {

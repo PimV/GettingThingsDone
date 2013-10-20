@@ -60,14 +60,17 @@ public class ProjectRow extends DbRow {
         for (String s : notes) {
             sb.append(s + ", ");
         }
-        String note = sb.substring(0, sb.length() - 2);
+        String note = "";
+        if (!sb.toString().isEmpty()) {
+            note = sb.substring(0, sb.length() - 2);
+        }
 
         return note;
 
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getName();
     }
 }
