@@ -39,6 +39,8 @@ public class ContextPanel extends JPanel {
 
     public ContextPanel() {
 
+        checkAvailabilityButtons();
+
         setLayout(new GridBagLayout());
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -118,9 +120,14 @@ public class ContextPanel extends JPanel {
                     case 1:
                         if (contextList.getSelectedIndex() != -1) {
                             int result = JOptionPane.showConfirmDialog(null,
-                                    "Are you sure you want to delete this context? It might be connected to an action.");
+                                    "Are you sure you want to delete this context? It might be connected to an action."
+                                    + "\n"
+                                    + "\n"
+                                    + "Actions with this context will be set to empty context.",
+                                    "Are you sure?",
+                                    JOptionPane.YES_NO_OPTION);
                             if (result == JOptionPane.OK_OPTION) {
-                                System.out.println("REMOVE CONTEXT");
+                                controller.removeContext(contextList.getSelectedIndex());
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "No context selected.");
@@ -154,5 +161,9 @@ public class ContextPanel extends JPanel {
 
     public void setController(MainController controller) {
         this.controller = controller;
+    }
+
+    public void removeFromList(int selectedIndex) {
+        listModel.remove(selectedIndex);
     }
 }

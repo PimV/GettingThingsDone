@@ -24,7 +24,7 @@ public class MainController {
     private StatusTable statuses;
     private ThoughtsPopUp pop;
     private AddNewPopUp anpu;
-    private ContextPanel contextPanel;
+    private ContextPanel contextsPanel;
     private ProjectsPanel projectsPanel;
 
     public MainController(MainFrame mainFrame) {
@@ -197,7 +197,6 @@ public class MainController {
         } else {
             pop.setEnabled(true);
             pop.toFront();
-
         }
     }
 
@@ -207,14 +206,9 @@ public class MainController {
         if (anpu != null) {
             anpu.dispose();
         }
-
-
-
         anpu = new AddNewPopUp(type);
         anpu.setController(this);
         anpu.setVisible(true);
-
-
     }
 
     public void addContext(String contextName) {
@@ -226,7 +220,6 @@ public class MainController {
             pop.setContexts(contexts.fetchAll());
             pop.setSelectedContext(contexts.fetchAll().size());
         }
-
     }
 
     public void addProject(String projectName) {
@@ -238,7 +231,34 @@ public class MainController {
             pop.setProjects(projects.fetchAll());
             pop.setSelectedProject(projects.fetchAll().size());
         }
+    }
 
+    public void removeContext(int selectedIndex) {
+        int contextID = contexts.fetchAll().get(selectedIndex).getID();
+        for (ActionRow ar : actions.fetchAll()) {
+            if (ar.getContext() == contextID) {
+                ar.setContext(-1);
+                ar.save();
+            }
+        }
+
+        contexts.remove(contextID);
+        contexts.fetchAll().remove(selectedIndex);
+        contextsPanel.removeFromList(selectedIndex);
+    }
+
+    public void removeProject(int selectedIndex) {
+        int projectID = projects.fetchAll().get(selectedIndex).getID();
+        for (ActionRow ar : actions.fetchAll()) {
+            if (ar.getProject() == projectID) {
+                ar.setProject(-1);
+                ar.save();
+            }
+        }
+
+        projects.remove(projectID);
+        projects.fetchAll().remove(selectedIndex);
+        projectsPanel.removeFromList(selectedIndex);
     }
 
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {
@@ -251,7 +271,7 @@ public class MainController {
     }
 
     public void setContextPanel(ContextPanel contextPanel) {
-        this.contextPanel = contextPanel;
+        this.contextsPanel = contextPanel;
         contextPanel.fillModel(contexts);
     }
 

@@ -39,6 +39,8 @@ public class ProjectsPanel extends JPanel {
 
     public ProjectsPanel() {
 
+        checkAvailabilityButtons();
+
         setLayout(new GridBagLayout());
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -119,9 +121,14 @@ public class ProjectsPanel extends JPanel {
                     case 1:
                         if (projectList.getSelectedIndex() != -1) {
                             int result = JOptionPane.showConfirmDialog(null,
-                                    "Are you sure you want to delete this project? It might be connected to an action.");
+                                    "Are you sure you want to delete this project? It might be connected to an action."
+                                    + "\n"
+                                    + "\n"
+                                    + "Actions with this project will be set to empty project.",
+                                    "Are you sure?",
+                                    JOptionPane.YES_NO_OPTION);
                             if (result == JOptionPane.OK_OPTION) {
-                                System.out.println("REMOVE PROJECT");
+                                controller.removeProject(projectList.getSelectedIndex());
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "No project selected.");
@@ -155,5 +162,9 @@ public class ProjectsPanel extends JPanel {
 
     public void setController(MainController controller) {
         this.controller = controller;
+    }
+
+    public void removeFromList(int selectedIndex) {
+        listModel.remove(selectedIndex);
     }
 }
