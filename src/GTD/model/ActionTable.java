@@ -7,7 +7,7 @@ package GTD.model;
 import GTD.controller.DatabaseController;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.plaf.basic.BasicSliderUI;
+import javax.swing.JCheckBox;
 
 /**
  *

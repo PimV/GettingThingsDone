@@ -16,6 +16,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -187,6 +188,32 @@ public class ActionsPanel extends JPanel {
 
         DefaultTableModel dtm = new DefaultTableModel() {
 
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                    case 3:
+                        return String.class;
+                    case 4:
+                        return String.class;
+                    case 5: 
+                        return Boolean.class;
+                    case 6:
+                        return String.class;
+                    case 7: 
+                        return String.class;
+                    case 8:
+                        return String.class;
+                    default:
+                        return Boolean.class;
+                }
+            }
+            
             @Override
             public int getRowCount() {
                 return actions.fetchAll().size();

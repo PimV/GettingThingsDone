@@ -35,7 +35,7 @@ public class ThoughtsPopUp extends JFrame {
     private JScrollPane discriptionScroller;
     private JCheckBox doneCheckBox;
     private JButton saveButton;
-    private int index;
+    private int ID;
     private final boolean save;
 
     public ThoughtsPopUp(final boolean save) {
@@ -173,14 +173,14 @@ public class ThoughtsPopUp extends JFrame {
 
                 //FINALLY:
                 if (save) {
-                    controller.addAction(name,
+                    controller.addAction(0, name,
                             description, notes, actionDate,
                             statusChangeDate, done, contextID,
-                            statusID, projectID, index);
+                            statusID, projectID, ID);
                 } else {
-                    controller.editAction(index, name, description, notes, actionDate,
+                    controller.addAction(1, name, description, notes, actionDate,
                             statusChangeDate, done, contextID,
-                            statusID, projectID);
+                            statusID, projectID, ID);
                 }
                 dispose();
             }
@@ -318,7 +318,7 @@ public class ThoughtsPopUp extends JFrame {
     }
 
     public void setIndex(int index) {
-        this.index = index;
+        this.ID = index;
     }
 
     public void setController(MainController controller) {
