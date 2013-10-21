@@ -8,8 +8,8 @@ import GTD.controller.MainController;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +30,48 @@ public class AddNewPopUp extends JFrame {
     private final String type;
     private MainController controller;
 
+
     public AddNewPopUp(final String type) {
+
+        addWindowListener(new WindowListener() {
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+            //    throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+               
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+               controller.checkAvailabilityPopUp();
+                //throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+               // throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+               //throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                //throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+               // throw new UnsupportedOperationException("Not supported yet.");
+            }
+            
+        });
 
         this.type = type;
 
@@ -45,7 +86,6 @@ public class AddNewPopUp extends JFrame {
         newField = new JTextField();
         newField.setBounds(125 - 93, 50 - 20, 180, 20);
         newField.getDocument().addDocumentListener(new DocumentListener() {
-
             @Override
             public void insertUpdate(DocumentEvent e) {
                 if (newField.getText().isEmpty()) {
@@ -88,7 +128,6 @@ public class AddNewPopUp extends JFrame {
         newButton = new JButton("Add new " + type);
         newButton.setBounds(125 - 93, getHeight() - 70, 180, 20);
         newButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (type.equals("Project")) {

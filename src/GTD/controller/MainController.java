@@ -23,6 +23,9 @@ public class MainController {
     private ContextTable contexts;
     private StatusTable statuses;
     private ThoughtsPopUp pop;
+    private AddNewPopUp anpu;
+    private ContextPanel contextPanel;
+    private ProjectsPanel projectsPanel;
 
     public MainController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -137,7 +140,7 @@ public class MainController {
 
     public void editAction(int ID, String name, String description, String notes, Date actionDate,
             Date statusChangeDate, boolean done, int contextID,
-            int statusID, int projectID, int index) {
+            int statusID, int projectID) {
 
         ActionRow a = null;
         System.out.println("ID IS: " + ID);
@@ -198,10 +201,8 @@ public class MainController {
         } else {
             a.setContext(-1);
         }
-        System.out.println("ID IN MAINCONTROLLER IS: " + ID);
         a.setID(ID);
         a.save();
-        System.out.println("REMOVE INDEX: " + index);
         //removeThought(index);
         showActions();
     }
@@ -238,11 +239,31 @@ public class MainController {
         pop.setIndex(ID);
         pop.setVisible(true);
     }
+    
+    public void checkAvailabilityPopUp() {
+         System.out.println("ENABLE POP");
+        if (anpu.isShowing()) {           
+            pop.setEnabled(false);
+        } else {
+            pop.setEnabled(true);
+            pop.toFront();
+            
+        }
+    }
 
     public void showAddNewPopUp(String type) {
-        AddNewPopUp anpu = new AddNewPopUp(type);
+        // pop.setEnabled(false);
+        System.out.println("ADD POPUP TYPE: " + type);
+        if (anpu != null) {
+            anpu.dispose();            
+        }
+        
+        
+        
+        anpu = new AddNewPopUp(type);
         anpu.setController(this);
         anpu.setVisible(true);
+        
 
     }
 
@@ -255,6 +276,7 @@ public class MainController {
             pop.setContexts(contexts.fetchAll());
             pop.setSelectedContext(contexts.fetchAll().size());
         }
+   
     }
 
     public void addProject(String projectName) {
@@ -266,6 +288,7 @@ public class MainController {
             pop.setProjects(projects.fetchAll());
             pop.setSelectedProject(projects.fetchAll().size());
         }
+      
     }
 
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {
@@ -275,6 +298,16 @@ public class MainController {
 
     public void setActionsPanel(ActionsPanel actionsPanel) {
         this.actionsPanel = actionsPanel;
+    }
+    
+    public void setContextPanel(ContextPanel contextPanel) {
+        this.contextPanel = contextPanel;
+        contextPanel.fillModel(contexts);
+    }
+    
+    public void setProjectsPanel(ProjectsPanel projectsPanel) {
+        this.projectsPanel = projectsPanel;
+        projectsPanel.fillModel(projects);
     }
 
     public void setMainFrame(MainFrame mainFrame) {
@@ -327,4 +360,5 @@ public class MainController {
     public void filterOption0Action() {
         actionsPanel.filterDone();
     }
+
 }

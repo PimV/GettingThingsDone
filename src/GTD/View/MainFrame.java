@@ -32,6 +32,8 @@ public final class MainFrame extends JFrame {
     //Panels
     private ActionsPanel actionsPanel;
     private ThoughtsPanel thoughtsPanel;
+    private ContextPanel contextsPanel;
+    private ProjectsPanel projectsPanel;
     //controller
     private MainController controller;
 
@@ -46,10 +48,14 @@ public final class MainFrame extends JFrame {
 
         actionsPanel = new ActionsPanel(); //Creates the JPanel containing the Actions.
         thoughtsPanel = new ThoughtsPanel(); //Creates the JPanel containing the Thoughts.
+        contextsPanel = new ContextPanel();
+        projectsPanel = new ProjectsPanel();
 
         //Add the JPanels to the JTabbedPane
         tabbedPanel.add("Actions", actionsPanel);
         tabbedPanel.add("Thoughts", thoughtsPanel);
+        tabbedPanel.add("Contexts", contextsPanel);
+        tabbedPanel.add("Projects", projectsPanel);
         tabbedPanel.setSelectedIndex(0);
         tabbedPanel.addChangeListener(new ChangeListener() {
 
@@ -208,6 +214,10 @@ public final class MainFrame extends JFrame {
     public ThoughtsPanel getThoughtsPanel() {
         return thoughtsPanel;
     }
+    
+    public ContextPanel getContextPanel() {
+        return contextsPanel;
+    }
 
     public void setActivePane(int index) {
         System.out.println(tabbedPanel.getTabCount());
@@ -218,5 +228,11 @@ public final class MainFrame extends JFrame {
         this.controller = controller;
         thoughtsPanel.setController(controller);
         actionsPanel.setController(controller);
+        contextsPanel.setController(controller);
+        projectsPanel.setController(controller);
+    }
+
+    public ProjectsPanel getProjectsPanel() {
+        return projectsPanel;
     }
 }

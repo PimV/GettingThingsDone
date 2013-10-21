@@ -39,9 +39,11 @@ public class GettingThingsDone {
 
 
         mainFrame.setController(controller);
+        
         controller.setThoughtsPanel(mainFrame.getThoughtsPanel());
         controller.setActionsPanel(mainFrame.getActionsPanel());
-
+        controller.setContextPanel(mainFrame.getContextPanel());
+        controller.setProjectsPanel(mainFrame.getProjectsPanel());
         
         controller.showActions();
     }

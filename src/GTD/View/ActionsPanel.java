@@ -36,7 +36,6 @@ public class ActionsPanel extends JPanel {
     private JTable table;
     private TableRowSorter<TableModel> sorter;
     private JButton[] buttons = new JButton[2];
-    private JButton filterActionB = createButton(0, "Filter Action"); //0
     private JButton removeActionButton = createButton(1, "Remove Action"); //1
     private RowFilter doneFilter = RowFilter.regexFilter("false", 5);
     private RowFilter contextFilter = RowFilter.regexFilter(".", 6);
@@ -183,19 +182,6 @@ public class ActionsPanel extends JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 11, 11, 11);
         add(filterField, gridBagConstraints);
-
-        //field.setText("Thought");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 70;
-        gridBagConstraints.ipady = 25;
-        gridBagConstraints.gridwidth = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
-        gridBagConstraints.weightx = 1.0;
-        //gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 11, 11, 0);
-        add(filterActionB, gridBagConstraints);
 
         //field.setText("Thought");
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -80,8 +80,8 @@ public class ThoughtsPopUp extends JFrame {
 
         projectBox = new JComboBox(); //PROJECTEN MOETEN NOG GEVULD WORDEN!!
         projectBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 6 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
-        
-        addActionListenerComboBox(projectBox,"Project");
+
+        addActionListenerComboBox(projectBox, "Project");
         add(projectBox);
 
         JLabel dateLabel = new JLabel("Date: ");
@@ -137,7 +137,6 @@ public class ThoughtsPopUp extends JFrame {
         saveButton = new JButton(buttonText);
         saveButton.setBounds(getWidth() / 2 - 1 * LABEL_WIDTH, STANDARD_MARGIN_Y + 27 * LABEL_HEIGHT, LABEL_WIDTH * 2, LABEL_HEIGHT * 2);
         saveButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -181,7 +180,7 @@ public class ThoughtsPopUp extends JFrame {
                 } else {
                     controller.editAction(index, name, description, notes, actionDate,
                             statusChangeDate, done, contextID,
-                            statusID, projectID, index);
+                            statusID, projectID);
                 }
                 dispose();
             }
@@ -284,16 +283,15 @@ public class ThoughtsPopUp extends JFrame {
 
     public void addActionListenerComboBox(final JComboBox comboBox, final String type) {
         comboBox.addItemListener(new ItemListener() {
-
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (comboBox.getSelectedIndex() == comboBox.getItemCount() - 1) {
-                    System.out.println("last selected");
-                   
-                      
-                  
-                        controller.showAddNewPopUp(type);
-                    
+                    comboBox.setSelectedIndex(0);
+
+
+                    controller.showAddNewPopUp(type);
+                    controller.checkAvailabilityPopUp();
+
                 }
             }
         });
