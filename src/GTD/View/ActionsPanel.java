@@ -8,6 +8,7 @@ import GTD.controller.MainController;
 import GTD.model.ActionTable;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,10 +24,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author PimGame
- */
 @SuppressWarnings({
     "serial", "unchecked"
 })
@@ -52,12 +49,9 @@ public class ActionsPanel extends JPanel {
     private MainController controller;
 
     public ActionsPanel() {
-        // setBackground(Color.BLACK);
-
         removeActionButton.setEnabled(false);
 
         table = new JTable();
-
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             @Override
@@ -71,7 +65,6 @@ public class ActionsPanel extends JPanel {
             }
         });
 
-
         table.addMouseListener(new MouseListener() {
 
             @Override
@@ -81,7 +74,6 @@ public class ActionsPanel extends JPanel {
                     int selectedColumn = table.getModel().getColumnCount() - 1;
                     int ID = (int) table.getModel().getValueAt(selectedRow, selectedColumn);
                     controller.showEditPopup(ID);
-                    // JOptionPane.showMessageDialog(null, "DOUBLE CLICKED WITH ID: " + ID);
                 }
             }
 
@@ -106,44 +98,37 @@ public class ActionsPanel extends JPanel {
             }
         });
 
-
-
         scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
-
-        //setLayout(new GridLayout(1, 1));
-
         setLayout(new GridBagLayout());
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        /*scrollPane*/
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 672;
         gridBagConstraints.ipady = 328;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
+        gridBagConstraints.insets = new Insets(11, 11, 11, 11);
         add(scrollPane, gridBagConstraints);
 
+        /*Filter on label*/
         JLabel label = new JLabel("Filter on: ");
-        // field.setText("Thought");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 101;
-        // gridBagConstraints.ipady = -5
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 0);
+        gridBagConstraints.anchor = GridBagConstraints.SOUTHWEST;
+        gridBagConstraints.insets = new Insets(0, 11, 0, 0);
         add(label, gridBagConstraints);
 
-
-
-
+        /*filter on search veld*/
         filterField = new JTextField();
         filterField.addKeyListener(new KeyListener() {
 
@@ -173,39 +158,32 @@ public class ActionsPanel extends JPanel {
             }
         });
         filterField.setText("");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        // gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 180;
         gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 11, 11, 11);
+        gridBagConstraints.anchor = GridBagConstraints.SOUTHWEST;
+        gridBagConstraints.insets = new Insets(5, 11, 11, 11);
         add(filterField, gridBagConstraints);
 
-        //field.setText("Thought");
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        /* remove action button*/
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        //gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 70;
         gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
+        gridBagConstraints.anchor = GridBagConstraints.SOUTHEAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 11, 11);
+        gridBagConstraints.insets = new Insets(0, 0, 11, 11);
         add(removeActionButton, gridBagConstraints);
-
-        //  scrollPane.setBounds(0, 0, getWidth(), getHeight() - 6);
-        // add(scrollPane);
     }
 
     public void clearTableSelection() {
-        //table.getSelectionModel().clearSelection();
         table.clearSelection();
     }
 
     public void setTableModel(final ActionTable actions) {
-
 
         DefaultTableModel dtm = new DefaultTableModel() {
 
@@ -221,7 +199,6 @@ public class ActionsPanel extends JPanel {
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
-                // System.out.println(columnIndex);
                 return actions.getValueAt(rowIndex, columnIndex);
             }
 
@@ -231,16 +208,12 @@ public class ActionsPanel extends JPanel {
             }
         };
 
-
-
         String[] columns = {
             "Name", "Description", "Notes", "Action Date", "Last Changed", "Done?", "Context", "Status", "Project"
         };
         dtm.setColumnIdentifiers(columns);
 
         table.setModel(dtm);
-
-
         table.removeColumn(table.getColumnModel().getColumn(table.getColumnCount() - 1));
 
         sorter = new TableRowSorter<>(table.getModel());
@@ -262,9 +235,6 @@ public class ActionsPanel extends JPanel {
 
                     case 1:
                         int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
-                        //   int selectedColumn = table.getModel().getColumnCount() - 1;
-                        //  int ID = (int) table.getModel().getValueAt(selectedRow, selectedColumn);
-
                         controller.removeAction(selectedRow);
                         break;
                 }
@@ -275,94 +245,52 @@ public class ActionsPanel extends JPanel {
         }
         return b;
     }
-
-    public void filterDone() {
-        if (filters.contains(doneFilter)) {
-            filters.remove(doneFilter);
+    
+    public void filterCheck(RowFilter rf)
+      {
+        if (filters.contains(rf)) {
+            filters.remove(rf);
         } else {
-            filters.add(doneFilter);
+            filters.add(rf);
         }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
+      }
+
+    public void filterDone() {
+        filterCheck(doneFilter);
     }
 
     public void filterProject() {
-        if (filters.contains(projectFilter)) {
-            filters.remove(projectFilter);
-        } else {
-            filters.add(projectFilter);
-        }
-        totalFilter = RowFilter.andFilter(filters);
-        sorter.setRowFilter(totalFilter);
-
+        filterCheck(projectFilter);
     }
 
     public void filterContext() {
-        if (filters.contains(contextFilter)) {
-            filters.remove(contextFilter);
-        } else {
-            filters.add(contextFilter);
-        }
-        totalFilter = RowFilter.andFilter(filters);
-        sorter.setRowFilter(totalFilter);
-        //removeFilters();
+        filterCheck(contextFilter);
     }
-
-    public void filterStatus1() {
-        if (filters.contains(statusFilter1)) {
-            filters.remove(statusFilter1);
-        } else {
-            filters.add(statusFilter1);
-        }
-        totalFilter = RowFilter.andFilter(filters);
-        sorter.setRowFilter(totalFilter);
-        removeFilters();
-    }
-
-    public void filterStatus2() {
-        if (filters.contains(statusFilter2)) {
-            filters.remove(statusFilter2);
-        } else {
-            filters.add(statusFilter2);
-        }
-        totalFilter = RowFilter.andFilter(filters);
-        sorter.setRowFilter(totalFilter);
-        removeFilters();
-    }
-
-    public void filterStatus3() {
-        if (filters.contains(statusFilter3)) {
-            filters.remove(statusFilter3);
-        } else {
-            filters.add(statusFilter3);
-        }
-        totalFilter = RowFilter.andFilter(filters);
-        sorter.setRowFilter(totalFilter);
-        removeFilters();
-    }
-
-    public void filterStatus4() {
-        if (filters.contains(statusFilter4)) {
-            filters.remove(statusFilter4);
-        } else {
-            filters.add(statusFilter4);
-        }
-        totalFilter = RowFilter.andFilter(filters);
-        sorter.setRowFilter(totalFilter);
-        removeFilters();
-    }
-
-    public void filterStatus5() {
-        if (filters.contains(statusFilter5)) {
-            filters.remove(statusFilter5);
-        } else {
-            filters.add(statusFilter5);
-        }
-        totalFilter = RowFilter.andFilter(filters);
-        sorter.setRowFilter(totalFilter);
-        removeFilters();
-    }
-
+    
+    public void filterStatus(int index)
+      {
+       switch(index)
+               {
+                 case 0:
+                     filterCheck(statusFilter1);
+                 break;        
+                 case 1:
+                     filterCheck(statusFilter2);
+                     break;
+                 case 2:
+                     filterCheck(statusFilter3);
+                     break;
+                 case 3:
+                     filterCheck(statusFilter4);
+                     break;
+                 case 4:
+                     filterCheck(statusFilter5);
+                     break;
+               }
+      }
+    
     public void removeFilters() {
         if (filters.isEmpty()) {
             totalFilter = null;

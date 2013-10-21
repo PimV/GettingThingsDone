@@ -338,23 +338,23 @@ public class MainController {
     }
 
     public void statusfilter1Action() {
-        actionsPanel.filterStatus1();
+        actionsPanel.filterStatus(0);
     }
 
     public void statusfilter2Action() {
-        actionsPanel.filterStatus2();
+        actionsPanel.filterStatus(1);
     }
 
     public void statusfilter3Action() {
-        actionsPanel.filterStatus3();
+        actionsPanel.filterStatus(2);
     }
 
     public void statusfilter4Action() {
-        actionsPanel.filterStatus4();
+        actionsPanel.filterStatus(3);
     }
 
     public void statusfilter5Action() {
-        actionsPanel.filterStatus5();
+        actionsPanel.filterStatus(4);
     }
 
     public void filterOption0Action() {
