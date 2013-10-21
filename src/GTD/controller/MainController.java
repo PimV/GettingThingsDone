@@ -69,12 +69,26 @@ public class MainController {
         showActions();
     }
 
-    public void addAction(
+    /*
+     * Type = 0 if new action
+     * Type = 1 if action is being edited
+     */
+    public void addAction(int type,
             String name, String description, String notes, Date actionDate,
             Date statusChangeDate, boolean done, int contextID,
-            int statusID, int projectID, int index) {
-
-        ActionRow a = actions.createRow();
+            int statusID, int projectID, int actionID) {
+        ActionRow a = null;
+        if (type == 0) {
+            a = actions.createRow();
+        } else {
+            for (ActionRow ar : actions.fetchAll()) {
+                if (ar.getID() == actionID) {
+                    System.out.println("ACTION FOUND");
+                    a = ar;
+                    break;
+                }
+            }
+        }
         a.setName(name);
         a.setDate(actionDate);
         a.setLastChangedDate(statusChangeDate);
@@ -124,10 +138,15 @@ public class MainController {
         } else {
             a.setContext(-1);
         }
+        if (type == 1) {
+            a.setID(actionID);
+        }
         a.save();
-        actions.fetchAll().add(a);
-        System.out.println("REMOVE INDEX: " + index);
-        removeThought(index);
+
+        if (type == 0) {
+            actions.fetchAll().add(a);
+            removeThought(actionID);
+        }
         showActions();
     }
 
@@ -136,75 +155,6 @@ public class MainController {
         actions.setProjects(projects);
         actions.setContexts(contexts);
         actionsPanel.setTableModel(actions);
-    }
-
-    public void editAction(int ID, String name, String description, String notes, Date actionDate,
-            Date statusChangeDate, boolean done, int contextID,
-            int statusID, int projectID) {
-
-        ActionRow a = null;
-        System.out.println("ID IS: " + ID);
-        for (ActionRow ar : actions.fetchAll()) {
-            if (ar.getID() == ID) {
-                System.out.println("ACTION FOUND");
-                a = ar;
-                break;
-            }
-        }
-        a.setName(name);
-
-        a.setDate(actionDate);
-        a.setLastChangedDate(statusChangeDate);
-        a.addNote(notes);
-        int numericDone = 0;
-        if (done == true) {
-            numericDone = 1;
-        }
-        a.setDone(numericDone);
-        a.setDescription(description);
-
-        if (!statuses.fetchAll().isEmpty()) {
-            for (StatusRow sr : statuses.fetchAll()) {
-                if (sr.getID() == statusID) {
-                    a.setStatus(sr.getID());
-                    break;
-                } else {
-                    a.setStatus(-1);
-                }
-            }
-        } else {
-            a.setStatus(-1);
-        }
-
-        if (!projects.fetchAll().isEmpty()) {
-            for (ProjectRow pr : projects.fetchAll()) {
-                if (pr.getID() == projectID) {
-                    a.setProject(pr.getID());
-                    break;
-                } else {
-                    a.setProject(-1);
-                }
-            }
-        } else {
-            a.setProject(-1);
-        }
-
-        if (!contexts.fetchAll().isEmpty()) {
-            for (ContextRow cr : contexts.fetchAll()) {
-                if (cr.getID() == contextID) {
-                    a.setContext(cr.getID());
-                    break;
-                } else {
-                    a.setContext(-1);
-                }
-            }
-        } else {
-            a.setContext(-1);
-        }
-        a.setID(ID);
-        a.save();
-        //removeThought(index);
-        showActions();
     }
 
     public void showEditPopup(int ID) {
@@ -239,15 +189,15 @@ public class MainController {
         pop.setIndex(ID);
         pop.setVisible(true);
     }
-    
+
     public void checkAvailabilityPopUp() {
-         System.out.println("ENABLE POP");
-        if (anpu.isShowing()) {           
+        System.out.println("ENABLE POP");
+        if (anpu.isShowing()) {
             pop.setEnabled(false);
         } else {
             pop.setEnabled(true);
             pop.toFront();
-            
+
         }
     }
 
@@ -255,15 +205,15 @@ public class MainController {
         // pop.setEnabled(false);
         System.out.println("ADD POPUP TYPE: " + type);
         if (anpu != null) {
-            anpu.dispose();            
+            anpu.dispose();
         }
-        
-        
-        
+
+
+
         anpu = new AddNewPopUp(type);
         anpu.setController(this);
         anpu.setVisible(true);
-        
+
 
     }
 
@@ -276,7 +226,7 @@ public class MainController {
             pop.setContexts(contexts.fetchAll());
             pop.setSelectedContext(contexts.fetchAll().size());
         }
-   
+
     }
 
     public void addProject(String projectName) {
@@ -288,7 +238,7 @@ public class MainController {
             pop.setProjects(projects.fetchAll());
             pop.setSelectedProject(projects.fetchAll().size());
         }
-      
+
     }
 
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {
@@ -299,12 +249,12 @@ public class MainController {
     public void setActionsPanel(ActionsPanel actionsPanel) {
         this.actionsPanel = actionsPanel;
     }
-    
+
     public void setContextPanel(ContextPanel contextPanel) {
         this.contextPanel = contextPanel;
         contextPanel.fillModel(contexts);
     }
-    
+
     public void setProjectsPanel(ProjectsPanel projectsPanel) {
         this.projectsPanel = projectsPanel;
         projectsPanel.fillModel(projects);
@@ -360,5 +310,4 @@ public class MainController {
     public void filterOption0Action() {
         actionsPanel.filterDone();
     }
-
 }
