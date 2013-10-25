@@ -40,6 +40,7 @@ public class ProjectsPanel extends JPanel {
         listModel = new DefaultListModel();
         projectList.setModel(listModel);
         projectList.addListSelectionListener(new ListSelectionListener() {
+
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 checkAvailabilityButtons();
@@ -98,6 +99,7 @@ public class ProjectsPanel extends JPanel {
         JButton b = new JButton();
         b.setText(text);
         b.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (index) {
@@ -143,7 +145,7 @@ public class ProjectsPanel extends JPanel {
             buttons[1].setEnabled(false);
         }
     }
-    
+
     public void addToModel(ProjectRow pr) {
         listModel.addElement(pr);
     }

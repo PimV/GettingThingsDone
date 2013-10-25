@@ -129,6 +129,7 @@ public class ThoughtsPopUp extends JFrame {
         saveButton = new JButton(buttonText);
         saveButton.setBounds(getWidth() / 2 - 1 * LABEL_WIDTH, STANDARD_MARGIN_Y + 27 * LABEL_HEIGHT, LABEL_WIDTH * 2, LABEL_HEIGHT * 2);
         saveButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -234,12 +235,12 @@ public class ThoughtsPopUp extends JFrame {
         contextBox.setModel(model);
     }
 
-    public void setSelectedStatus(int index) {
+    public void setSelectedStatus(int id) {
         for (int i = 0; i < statusBox.getModel().getSize(); i++) {
             StatusRow sr = (StatusRow) statusBox.getItemAt(i);
             if (sr != null) {
-                if (sr.getID() == index) {
-                    System.out.println("ID: " + sr.getID() + " INDEX: " + index);
+                if (sr.getID() == id) {
+                    System.out.println("ID: " + sr.getID() + " INDEX: " + id);
                     statusBox.setSelectedIndex(i);
                     break;
                 }
@@ -247,12 +248,11 @@ public class ThoughtsPopUp extends JFrame {
         }
     }
 
-    public void setSelectedProject(int index) {
-       System.out.println("SETTING PROJECT");
+    public void setSelectedProject(int id) {
         for (int i = 0; i < projectBox.getModel().getSize() - 1; i++) {
             ProjectRow pr = (ProjectRow) projectBox.getItemAt(i);
             if (pr != null) {
-                if (pr.getID() == index) {
+                if (pr.getID() == id) {
                     projectBox.setSelectedIndex(i);
                     break;
                 }
@@ -260,11 +260,11 @@ public class ThoughtsPopUp extends JFrame {
         }
     }
 
-    public void setSelectedContext(int index) {
+    public void setSelectedContext(int id) {
         for (int i = 0; i < contextBox.getModel().getSize() - 1; i++) {
             ContextRow cr = (ContextRow) contextBox.getItemAt(i);
             if (cr != null) {
-                if (cr.getID() == index) {
+                if (cr.getID() == id) {
                     contextBox.setSelectedIndex(i);
                     break;
                 }
@@ -274,6 +274,7 @@ public class ThoughtsPopUp extends JFrame {
 
     public void addActionListenerComboBox(final JComboBox comboBox, final String type) {
         comboBox.addItemListener(new ItemListener() {
+
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (comboBox.getSelectedIndex() == comboBox.getItemCount() - 1) {

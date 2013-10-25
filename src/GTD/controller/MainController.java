@@ -5,7 +5,7 @@ import GTD.model.*;
 import java.util.Date;
 
 public class MainController {
-    
+
     private MainFrame mainFrame;
     private ThoughtsPanel thoughtsPanel;
     private ActionsPanel actionsPanel;
@@ -18,7 +18,7 @@ public class MainController {
     private AddNewPopUp anpu;
     private ContextPanel contextsPanel;
     private ProjectsPanel projectsPanel;
-    
+
     public MainController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         actions = new ActionTable();
@@ -27,7 +27,7 @@ public class MainController {
         contexts = new ContextTable();
         statuses = new StatusTable();
     }
-    
+
     public void addThought(String thought, String notes) {
         ThoughtRow t = thoughts.createRow();
         t.setName(thought);
@@ -35,7 +35,7 @@ public class MainController {
         t.save();
         thoughts.fetchAll().add(t);
     }
-    
+
     public void workThoughtOut(int index) {
         pop = new ThoughtsPopUp(true);
         pop.setController(this);
@@ -48,13 +48,13 @@ public class MainController {
         pop.setIndex(index);
         pop.setVisible(true);
     }
-    
+
     public void removeThought(int index) {
         thoughts.remove(thoughts.fetchAll().get(index).getID());
         thoughts.fetchAll().remove(index);
         thoughtsPanel.removeFromList(index);
     }
-    
+
     public void removeAction(int index) {
         actions.remove(actions.fetchAll().get(index).getID());
         actions.fetchAll().remove(index);
@@ -90,7 +90,7 @@ public class MainController {
         }
         a.setDone(numericDone);
         a.setDescription(description);
-        
+
         if (!statuses.fetchAll().isEmpty()) {
             for (StatusRow sr : statuses.fetchAll()) {
                 if (sr.getID() == statusID) {
@@ -103,7 +103,7 @@ public class MainController {
         } else {
             a.setStatus(-1);
         }
-        
+
         if (!projects.fetchAll().isEmpty()) {
             for (ProjectRow pr : projects.fetchAll()) {
                 if (pr.getID() == projectID) {
@@ -116,7 +116,7 @@ public class MainController {
         } else {
             a.setProject(-1);
         }
-        
+
         if (!contexts.fetchAll().isEmpty()) {
             for (ContextRow cr : contexts.fetchAll()) {
                 if (cr.getID() == contextID) {
@@ -133,21 +133,21 @@ public class MainController {
             a.setID(actionID);
         }
         a.save();
-        
+
         if (type == 0) {
             actions.fetchAll().add(a);
             removeThought(actionID);
         }
         showActions();
     }
-    
+
     public void showActions() {
         actions.setStatuses(statuses);
         actions.setProjects(projects);
         actions.setContexts(contexts);
         actionsPanel.setTableModel(actions);
     }
-    
+
     public void showEditPopup(int ID) {
         ActionRow selectedAction = null;
         for (ActionRow ar : actions.fetchAll()) {
@@ -156,16 +156,16 @@ public class MainController {
                 break;
             }
         }
-        
-        
+
+
         pop = new ThoughtsPopUp(false);
         pop.setController(this);
-        
+
         pop.setStatuses(statuses.fetchAll());
         pop.setProjects(projects.fetchAll());
         pop.setContexts(contexts.fetchAll());
         pop.setActionName(selectedAction.getName());
-        
+
         if (selectedAction.getDate() != null) {
             pop.setDate(selectedAction.getDate());
         } else {
@@ -180,7 +180,7 @@ public class MainController {
         pop.setIndex(ID);
         pop.setVisible(true);
     }
-    
+
     public void checkAvailabilityPopUp() {
 //        System.out.println("ENABLE POP");
 //        if (anpu.isShowing()) {
@@ -190,7 +190,7 @@ public class MainController {
 //            pop.toFront();
 //        }
     }
-    
+
     public void showAddNewPopUp(String type) {
         System.out.println("ADD POPUP TYPE: " + type);
         if (anpu != null) {
@@ -200,7 +200,7 @@ public class MainController {
         anpu.setController(this);
         anpu.setVisible(true);
     }
-    
+
     public void addContext(String contextName) {
         ContextRow cr = contexts.createRow();
         cr.setName(contextName);
@@ -208,11 +208,11 @@ public class MainController {
         contexts.fetchAll().add(cr);
         if (pop != null) {
             pop.setContexts(contexts.fetchAll());
-            pop.setSelectedContext(contexts.fetchAll().size());
+            pop.setSelectedContext(contexts.fetchAll().get(contexts.fetchAll().size() - 1).getID());
         }
         contextsPanel.addToModel(cr);
     }
-    
+
     public void addProject(String projectName) {
         ProjectRow pr = projects.createRow();
         pr.setName(projectName);
@@ -221,11 +221,11 @@ public class MainController {
         if (pop != null) {
             pop.setProjects(projects.fetchAll());
             System.out.println("PROJECT: " + projects.fetchAll().size());
-            pop.setSelectedProject(projects.fetchAll().size());
+            pop.setSelectedProject(projects.fetchAll().get(projects.fetchAll().size() - 1).getID());
         }
         projectsPanel.addToModel(pr);
     }
-    
+
     public void removeContext(int selectedIndex) {
         int contextID = contexts.fetchAll().get(selectedIndex).getID();
         for (ActionRow ar : actions.fetchAll()) {
@@ -234,12 +234,12 @@ public class MainController {
                 ar.save();
             }
         }
-        
+
         contexts.remove(contextID);
         contexts.fetchAll().remove(selectedIndex);
         contextsPanel.removeFromList(selectedIndex);
     }
-    
+
     public void removeProject(int selectedIndex) {
         int projectID = projects.fetchAll().get(selectedIndex).getID();
         for (ActionRow ar : actions.fetchAll()) {
@@ -248,31 +248,31 @@ public class MainController {
                 ar.save();
             }
         }
-        
+
         projects.remove(projectID);
         projects.fetchAll().remove(selectedIndex);
         projectsPanel.removeFromList(selectedIndex);
     }
-    
+
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {
         this.thoughtsPanel = thoughtsPanel;
         thoughtsPanel.fillModel(thoughts);
     }
-    
+
     public void setActionsPanel(ActionsPanel actionsPanel) {
         this.actionsPanel = actionsPanel;
     }
-    
+
     public void setContextPanel(ContextPanel contextPanel) {
         this.contextsPanel = contextPanel;
         contextPanel.fillModel(contexts);
     }
-    
+
     public void setProjectsPanel(ProjectsPanel projectsPanel) {
         this.projectsPanel = projectsPanel;
         projectsPanel.fillModel(projects);
     }
-    
+
     public void setMainFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
     }
@@ -281,41 +281,41 @@ public class MainController {
     public void newThoughtAction() {
         mainFrame.setActivePane(1);
     }
-    
+
     public void printThoughtsAction() {
     }
-    
+
     public void printActionsAction() {
     }
-    
+
     public void quitAction() {
         System.exit(0);
     }
-    
+
     public void contextFilterAction() {
         actionsPanel.filterContext();
     }
-    
+
     public void projectFilterAction() {
         actionsPanel.filterProject();
     }
-    
+
     public void statusfilter1Action() {
         actionsPanel.filterStatus(0);
     }
-    
+
     public void statusfilter2Action() {
         actionsPanel.filterStatus(1);
     }
-    
+
     public void statusfilter3Action() {
         actionsPanel.filterStatus(2);
     }
-    
+
     public void statusfilter4Action() {
         actionsPanel.filterStatus(3);
     }
-    
+
     public void statusfilter5Action() {
         actionsPanel.filterStatus(4);
     }
