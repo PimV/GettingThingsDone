@@ -4,7 +4,6 @@
  */
 package GTD.main;
 
-import GTD.View.AddNewPopUp;
 import GTD.View.MainFrame;
 import GTD.controller.DatabaseController;
 import GTD.controller.MainController;
