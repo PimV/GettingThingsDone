@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.View;
 
 import GTD.controller.MainController;
@@ -17,10 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/**
- *
- * @author PimGame
- */
 @SuppressWarnings("serial")
 public class AddNewPopUp extends JFrame {
 

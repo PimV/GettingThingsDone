@@ -145,9 +145,6 @@ public final class MainFrame extends JFrame {
         filterOption3.add(statusfilter5);
         statusfilter5.addActionListener(createListener(10));
 
-        //        filterOption3 = new JCheckBoxMenuItem("Hide done actions"); //Add a JCheckBoxMenuItem for filtering.
-        //        actionFilterOptions.add(filterOption3);
-
     }
 
     public ActionListener createListener(final int type) {
@@ -219,8 +216,7 @@ public final class MainFrame extends JFrame {
         return contextsPanel;
     }
 
-    public void setActivePane(int index) {
-        System.out.println(tabbedPanel.getTabCount());
+    public void setActivePane(int index) {   
         tabbedPanel.setSelectedIndex(index);
     }
 
