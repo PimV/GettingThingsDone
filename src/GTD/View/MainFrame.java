@@ -79,7 +79,7 @@ public final class MainFrame extends JFrame {
         fileMenu.add(printThoughts);
         printThoughts.addActionListener(createListener(1));
 
-        printActions = new JMenuItem("Print Actions");
+        printActions = new JMenuItem("Print currently seen actions");
         fileMenu.add(printActions);
         printActions.addActionListener(createListener(2));
 

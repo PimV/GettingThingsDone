@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -100,7 +101,9 @@ public class ActionsPanel extends JPanel {
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-        /*scrollPane*/
+        /*
+         * scrollPane
+         */
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -114,7 +117,9 @@ public class ActionsPanel extends JPanel {
         gridBagConstraints.insets = new Insets(11, 11, 11, 11);
         add(scrollPane, gridBagConstraints);
 
-        /*Filter on label*/
+        /*
+         * Filter on label
+         */
         JLabel label = new JLabel("Filter on: ");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -124,7 +129,9 @@ public class ActionsPanel extends JPanel {
         gridBagConstraints.insets = new Insets(0, 11, 0, 0);
         add(label, gridBagConstraints);
 
-        /*filter on search veld*/
+        /*
+         * filter on search veld
+         */
         filterField = new JTextField();
         filterField.addKeyListener(new KeyListener() {
 
@@ -163,7 +170,9 @@ public class ActionsPanel extends JPanel {
         gridBagConstraints.insets = new Insets(5, 11, 11, 11);
         add(filterField, gridBagConstraints);
 
-        /* remove action button*/
+        /*
+         * remove action button
+         */
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -196,11 +205,11 @@ public class ActionsPanel extends JPanel {
                         return String.class;
                     case 4:
                         return String.class;
-                    case 5: 
+                    case 5:
                         return Boolean.class;
                     case 6:
                         return String.class;
-                    case 7: 
+                    case 7:
                         return String.class;
                     case 8:
                         return String.class;
@@ -208,7 +217,7 @@ public class ActionsPanel extends JPanel {
                         return Boolean.class;
                 }
             }
-            
+
             @Override
             public int getRowCount() {
                 return actions.fetchAll().size();
@@ -221,6 +230,9 @@ public class ActionsPanel extends JPanel {
 
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
+                if (columnIndex == 3) {
+                    System.out.println("DATA: " + actions.getValueAt(rowIndex, columnIndex).getClass());
+                }
                 return actions.getValueAt(rowIndex, columnIndex);
             }
 
@@ -237,6 +249,7 @@ public class ActionsPanel extends JPanel {
 
         table.setModel(dtm);
         table.removeColumn(table.getColumnModel().getColumn(table.getColumnCount() - 1));
+        table.getColumnModel().moveColumn(5, 8);
 
         sorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(sorter);
@@ -249,9 +262,9 @@ public class ActionsPanel extends JPanel {
         b.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {               
-                    int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
-                    controller.removeAction(selectedRow);
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
+                controller.removeAction(selectedRow);
             }
         });
         if (index < 2 && index >= 0) {
@@ -259,9 +272,8 @@ public class ActionsPanel extends JPanel {
         }
         return b;
     }
-    
-    public void filterCheck(RowFilter rf)
-      {
+
+    public void filterCheck(RowFilter rf) {
         if (filters.contains(rf)) {
             filters.remove(rf);
         } else {
@@ -269,7 +281,7 @@ public class ActionsPanel extends JPanel {
         }
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
-      }
+    }
 
     public void filterDone() {
         filterCheck(doneFilter);
@@ -282,29 +294,27 @@ public class ActionsPanel extends JPanel {
     public void filterContext() {
         filterCheck(contextFilter);
     }
-    
-    public void filterStatus(int index)
-      {
-       switch(index)
-               {
-                 case 0:
-                     filterCheck(statusFilter1);
-                 break;        
-                 case 1:
-                     filterCheck(statusFilter2);
-                     break;
-                 case 2:
-                     filterCheck(statusFilter3);
-                     break;
-                 case 3:
-                     filterCheck(statusFilter4);
-                     break;
-                 case 4:
-                     filterCheck(statusFilter5);
-                     break;
-               }
-      }
-    
+
+    public void filterStatus(int index) {
+        switch (index) {
+            case 0:
+                filterCheck(statusFilter1);
+                break;
+            case 1:
+                filterCheck(statusFilter2);
+                break;
+            case 2:
+                filterCheck(statusFilter3);
+                break;
+            case 3:
+                filterCheck(statusFilter4);
+                break;
+            case 4:
+                filterCheck(statusFilter5);
+                break;
+        }
+    }
+
     public void removeFilters() {
         if (filters.isEmpty()) {
             totalFilter = null;
@@ -318,5 +328,9 @@ public class ActionsPanel extends JPanel {
 
     public void removeFromList(int index) {
         table.revalidate();
+    }
+
+    public JTable getJTable() {
+        return table;
     }
 }

@@ -2,7 +2,9 @@ package GTD.controller;
 
 import GTD.View.*;
 import GTD.model.*;
+import java.text.MessageFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class MainController {
 
@@ -223,7 +225,7 @@ public class MainController {
             pop.setSelectedProject(pr.getID());
         }
         projectsPanel.addToModel(pr);
-   }
+    }
 
     public void removeContext(int selectedIndex) {
         int contextID = contexts.fetchAll().get(selectedIndex).getID();
@@ -285,6 +287,16 @@ public class MainController {
     }
 
     public void printActionsAction() {
+        String header = JOptionPane.showInputDialog("Header (leave empty if non-existent):");
+        String footer = JOptionPane.showInputDialog("Footer (leave empty if non-existent):");
+        if (header.isEmpty()) {
+            header = null;
+        }
+        if (footer.isEmpty()) {
+            footer = null;
+        }
+        PrintController p = new PrintController(actionsPanel.getJTable(), new MessageFormat(header), new MessageFormat(footer));
+        p.printTable();
     }
 
     public void quitAction() {
@@ -318,7 +330,7 @@ public class MainController {
     public void statusfilter5Action() {
         actionsPanel.filterStatus(4);
     }
-    
+
     public void filterDoneAction() {
         actionsPanel.filterDone();
     }
