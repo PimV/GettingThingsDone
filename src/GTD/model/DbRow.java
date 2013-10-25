@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.model;
 
 import GTD.controller.DatabaseController;
@@ -12,10 +8,6 @@ import java.sql.Types;
 
 import java.util.HashMap;
 
-/**
- *
- * @author PimGame
- */
 public class DbRow<T> {
 
     private HashMap<String, String> data;
@@ -43,9 +35,7 @@ public class DbRow<T> {
         }
         return null;
     }
-    
-  
-   
+     
     public void save() {
         System.out.println("ID IN DBROW IS: " + id );
         if (id == -1) {
@@ -98,7 +88,6 @@ public class DbRow<T> {
             } catch (SQLException sx) {
                 sx.printStackTrace();
             } finally {
-                //DatabaseController.closeConnection();
             }
 
 
@@ -112,9 +101,7 @@ public class DbRow<T> {
             }
             query = query.substring(0, query.length() - 2);
 
-            //
             query += " WHERE " + table.getIdField() + "=? LIMIT 1";
-
 
             try {
                 DatabaseController.openConnection();
@@ -137,7 +124,6 @@ public class DbRow<T> {
             } catch (SQLException sx) {
                 sx.printStackTrace();
             } finally {
-                //DatabaseController.closeConnection();
             }
 
             System.out.println(query);

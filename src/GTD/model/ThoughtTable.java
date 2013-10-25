@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.model;
 
 import GTD.controller.DatabaseController;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- *
- * @author PimGame
- */
 public class ThoughtTable extends DbTable<ThoughtRow> {
 
     private ThoughtRowset list;

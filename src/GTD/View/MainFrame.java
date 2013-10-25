@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.View;
 
 import GTD.controller.MainController;
-
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,10 +8,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-/**
- *
- * @author PimGame
- */
 @SuppressWarnings("serial")
 public final class MainFrame extends JFrame {
 
@@ -48,8 +38,8 @@ public final class MainFrame extends JFrame {
 
         actionsPanel = new ActionsPanel(); //Creates the JPanel containing the Actions.
         thoughtsPanel = new ThoughtsPanel(); //Creates the JPanel containing the Thoughts.
-        contextsPanel = new ContextPanel();
-        projectsPanel = new ProjectsPanel();
+        contextsPanel = new ContextPanel(); //Creates the JPanel containing the Contexts.
+        projectsPanel = new ProjectsPanel(); //Creates the JPanel containing the Projects.
 
         //Add the JPanels to the JTabbedPane
         tabbedPanel.add("Actions", actionsPanel);
@@ -196,7 +186,7 @@ public final class MainFrame extends JFrame {
                         controller.statusfilter5Action();
                         break;
                     case 11:
-                        controller.filterOption0Action();
+                        controller.filterDoneAction();
                         break;
                 }
             }

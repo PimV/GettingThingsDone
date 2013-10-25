@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.View;
 
 import GTD.controller.MainController;
@@ -22,10 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-/**
- *
- * @author Pim
- */
 public class ProjectsPanel extends JPanel {
 
     private DefaultListModel listModel;
@@ -113,7 +105,6 @@ public class ProjectsPanel extends JPanel {
                         //ADD CONTEXT;
                         if (!projectField.getText().isEmpty()) {
                             controller.addProject(projectField.getText().trim());
-                           // listModel.addElement(projectField.getText().trim());
                         } else {
                             JOptionPane.showMessageDialog(null, "No project entered.");
                         }
@@ -150,7 +141,6 @@ public class ProjectsPanel extends JPanel {
 
         } else {
             buttons[1].setEnabled(false);
-
         }
     }
     

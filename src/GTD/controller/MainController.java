@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.controller;
 
 import GTD.View.*;
 import GTD.model.*;
 import java.util.Date;
 
-/**
- *
- * @author PimGame
- */
 public class MainController {
     
     private MainFrame mainFrame;
@@ -200,7 +192,6 @@ public class MainController {
     }
     
     public void showAddNewPopUp(String type) {
-        // pop.setEnabled(false);
         System.out.println("ADD POPUP TYPE: " + type);
         if (anpu != null) {
             anpu.dispose();
@@ -329,7 +320,7 @@ public class MainController {
         actionsPanel.filterStatus(4);
     }
     
-    public void filterOption0Action() {
+    public void filterDoneAction() {
         actionsPanel.filterDone();
     }
 }

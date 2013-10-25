@@ -1,19 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-/**
- *
- * @author PimGame
- */
 public class ActionRow extends DbRow {
 
     private ThoughtRow thoughtOrigin;
@@ -60,8 +49,6 @@ public class ActionRow extends DbRow {
     }
 
     public void setStatus(int status) {
-        //System.out.println("STATUS IS: " + status);
-
         if (status == -1 || status == 0) {
             set("Statuses_Status_id", "null");
         } else {
@@ -92,7 +79,6 @@ public class ActionRow extends DbRow {
     public void setDate(java.util.Date date) {
         if (date != null) {
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-            //System.out.println("DATE: " + sqlDate.toString());
             set("Action_date", sqlDate + "");
         } else {
             set("Action_date", "null");
@@ -102,7 +88,6 @@ public class ActionRow extends DbRow {
     public void setLastChangedDate(java.util.Date lastChangedDate) {
         if (lastChangedDate != null) {
             java.sql.Date sqlDate = new java.sql.Date(lastChangedDate.getTime());
-            //System.out.println("DATE: " + sqlDate.toString());
             set("Statuschange_date", sqlDate + "");
         } else {
             set("Statuschange_date", lastChangedDate + "");
@@ -118,9 +103,7 @@ public class ActionRow extends DbRow {
     }
 
     public int getStatus() {
-        //  return Integer.valueOf(get("Statuses_Status_id"));
         if (!get("Statuses_Status_id").equals("null")) {
-            //System.out.println("GOTTEN STATUS: " + get("Statuses_Status_id") );
             return Integer.valueOf(get("Statuses_Status_id"));
         } else {
             return -1;
@@ -128,9 +111,7 @@ public class ActionRow extends DbRow {
     }
 
     public int getProject() {
-        //    return Integer.valueOf(get("Projects_Project_id"));
         if (!get("Projects_Project_id").equals("null")) {
-            // System.out.println("PROJEC ID: " + Integer.valueOf(get("Projects_Project_id")));
             return Integer.valueOf(get("Projects_Project_id"));
         } else {
             return -1;
@@ -148,9 +129,7 @@ public class ActionRow extends DbRow {
     public Date getDate() {
 
         Date date = null;
-        //Calender c = new Calendar();
         try {
-            //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date t = Date.valueOf(get("Action_date"));
 
             date = new Date(t.getTime());
@@ -159,11 +138,6 @@ public class ActionRow extends DbRow {
         } catch (Exception e) {
             return null;
         }
-
-
-
-        //date = new Date(get("Action_date"));
-
         return date;
     }
 
@@ -171,9 +145,6 @@ public class ActionRow extends DbRow {
         return Integer.valueOf(get("Done"));
     }
 
-    //public String getDate() {
-    //  return date;
-    //}
     public String getLastChangedDate() {
         return lastChangedDate;
     }

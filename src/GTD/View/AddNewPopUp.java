@@ -122,12 +122,17 @@ public class AddNewPopUp extends JFrame {
         newButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (type.equals("Project")) {
-                    controller.addProject(newField.getText());
-                } else if (type.equals("Context")) {
-                    controller.addContext(newField.getText());
-                } else if (type.equals("status")) {
-                }
+                switch (type)
+                  {
+                    case "Project":
+                        controller.addProject(newField.getText());
+                        break;
+                    case "Context":
+                        controller.addContext(newField.getText());
+                        break;
+                    case "status":
+                        break;
+                  }
                 dispose();
             }
         });
