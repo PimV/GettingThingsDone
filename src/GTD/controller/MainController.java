@@ -22,7 +22,6 @@ public class MainController {
     private ProjectTable projects;
     private ContextTable contexts;
     private StatusTable statuses;
-    private MyTableModel mtm;
     private ThoughtsPopUp pop;
     private AddNewPopUp anpu;
     private ContextPanel contextsPanel;
@@ -35,7 +34,6 @@ public class MainController {
         projects = new ProjectTable();
         contexts = new ContextTable();
         statuses = new StatusTable();
-        mtm = new MyTableModel();
     }
     
     public void addThought(String thought, String notes) {
@@ -152,10 +150,10 @@ public class MainController {
     }
     
     public void showActions() {
-        mtm.setStatuses(statuses);
-        mtm.setProjects(projects);
-        mtm.setContexts(contexts);
-        actionsPanel.setTableModel(mtm);
+        actions.setStatuses(statuses);
+        actions.setProjects(projects);
+        actions.setContexts(contexts);
+        actionsPanel.setTableModel(actions);
     }
     
     public void showEditPopup(int ID) {

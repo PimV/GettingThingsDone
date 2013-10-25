@@ -5,7 +5,7 @@
 package GTD.View;
 
 import GTD.controller.MainController;
-import GTD.model.MyTableModel;
+import GTD.model.ActionTable;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,6 +16,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -183,7 +184,7 @@ public class ActionsPanel extends JPanel {
         table.clearSelection();
     }
 
-    public void setTableModel(final MyTableModel actions) {
+    public void setTableModel(final ActionTable actions) {
 
         DefaultTableModel dtm = new DefaultTableModel() {
 
