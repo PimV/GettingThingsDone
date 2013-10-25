@@ -217,7 +217,7 @@ public class MainController {
         contexts.fetchAll().add(cr);
         if (pop != null) {
             pop.setContexts(contexts.fetchAll());
-            pop.setSelectedContext(contexts.fetchAll().get(contexts.fetchAll().size() - 1).getID());
+            pop.setSelectedContext(cr.getID());
         }
         contextsPanel.addToModel(cr);
     }
@@ -229,11 +229,10 @@ public class MainController {
         projects.fetchAll().add(pr);
         if (pop != null) {
             pop.setProjects(projects.fetchAll());
-            System.out.println("PROJECT: " + projects.fetchAll().size());
-            pop.setSelectedProject(projects.fetchAll().get(projects.fetchAll().size() - 1).getID());
+            pop.setSelectedProject(pr.getID());
         }
         projectsPanel.addToModel(pr);
-    }
+   }
 
     public void removeContext(int selectedIndex) {
         int contextID = contexts.fetchAll().get(selectedIndex).getID();
