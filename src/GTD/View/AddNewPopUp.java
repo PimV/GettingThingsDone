@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.View;
 
 import GTD.controller.MainController;
@@ -17,10 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/**
- *
- * @author PimGame
- */
 @SuppressWarnings("serial")
 public class AddNewPopUp extends JFrame {
 
@@ -130,12 +122,17 @@ public class AddNewPopUp extends JFrame {
         newButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (type.equals("Project")) {
-                    controller.addProject(newField.getText());
-                } else if (type.equals("Context")) {
-                    controller.addContext(newField.getText());
-                } else if (type.equals("status")) {
-                }
+                switch (type)
+                  {
+                    case "Project":
+                        controller.addProject(newField.getText());
+                        break;
+                    case "Context":
+                        controller.addContext(newField.getText());
+                        break;
+                    case "status":
+                        break;
+                  }
                 dispose();
             }
         });

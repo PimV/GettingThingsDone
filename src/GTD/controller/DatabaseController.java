@@ -1,18 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.controller;
 
 import GTD.model.Query;
 import java.sql.*;
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Pim
- */
 public class DatabaseController {
 
     private static boolean connectionOpen;
@@ -72,9 +62,7 @@ public class DatabaseController {
                 e.printStackTrace();
             }
         }
-
-
-
+        
         return rs;
     }
 }

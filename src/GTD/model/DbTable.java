@@ -1,19 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.model;
 
 import GTD.controller.DatabaseController;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author PimGame
- */
 public class DbTable<T> {
 
     private String name; // Database table name
@@ -46,8 +37,6 @@ public class DbTable<T> {
         return this.idField;
     }
     
-    
-
     public void remove(int id) {
         String q = "DELETE FROM " + DbTable.DATABASE_NAME + "." + getName() + " WHERE " + getIdField() + "=? LIMIT 1";
         try {

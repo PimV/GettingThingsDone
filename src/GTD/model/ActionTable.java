@@ -1,18 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.model;
 
 import GTD.controller.DatabaseController;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.JCheckBox;
 
-/**
- *
- * @author PimGame
- */
 public class ActionTable extends DbTable<ActionRow> {
 
     private ActionRowset list;

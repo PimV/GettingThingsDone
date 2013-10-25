@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.model;
 
-/**
- *
- * @author PimGame
- */
 public class MyTableModel extends ActionTable {
 
     private StatusTable statuses;
@@ -26,11 +18,7 @@ public class MyTableModel extends ActionTable {
         this.projects = projects;
         
     }
-    
-    
-
-    
-    
+     
     public Object getValueAt(int rowIndex, int columnIndex) {
 
         if (columnIndex == 9) {

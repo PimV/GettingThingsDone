@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.View;
 
 import GTD.controller.MainController;
@@ -16,7 +12,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -254,17 +249,9 @@ public class ActionsPanel extends JPanel {
         b.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                switch (index) {
-                    case 0:
-
-                        break;
-
-                    case 1:
-                        int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
-                        controller.removeAction(selectedRow);
-                        break;
-                }
+            public void actionPerformed(ActionEvent e) {               
+                    int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
+                    controller.removeAction(selectedRow);
             }
         });
         if (index < 2 && index >= 0) {

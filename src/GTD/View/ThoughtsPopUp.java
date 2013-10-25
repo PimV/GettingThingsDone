@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GTD.View;
 
 import GTD.controller.MainController;
@@ -16,10 +12,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Date;
 
-/**
- *
- * @author PimGame
- */
 @SuppressWarnings({"unchecked", "serial"})
 public class ThoughtsPopUp extends JFrame {
 
@@ -170,8 +162,6 @@ public class ThoughtsPopUp extends JFrame {
                     contextID = context.getID();
                 }
 
-
-
                 //FINALLY:
                 if (save) {
                     controller.addAction(0, name,
@@ -290,10 +280,8 @@ public class ThoughtsPopUp extends JFrame {
                 if (comboBox.getSelectedIndex() == comboBox.getItemCount() - 1) {
                     comboBox.setSelectedIndex(0);
 
-
                     controller.showAddNewPopUp(type);
                     controller.checkAvailabilityPopUp();
-
                 }
             }
         });
