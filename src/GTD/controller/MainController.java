@@ -289,8 +289,8 @@ public class MainController {
     }
 
     public void printActionsAction() {
-        String headerText = JOptionPane.showInputDialog("Header (leave empty if non-existent):");
-        String footerText = JOptionPane.showInputDialog("Footer (leave empty if non-existent):");
+        String headerText = JOptionPane.showInputDialog("Top title (leave empty if non-existent):");
+        String footerText = JOptionPane.showInputDialog("Bottom title (leave empty if non-existent):");
         MessageFormat header = null;
         MessageFormat footer = null;
         if (headerText != null) {

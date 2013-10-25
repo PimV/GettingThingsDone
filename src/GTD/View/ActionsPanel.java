@@ -63,6 +63,7 @@ public class ActionsPanel extends JPanel {
                 }
             }
         });
+        
 
         table.addMouseListener(new MouseListener() {
 
@@ -245,7 +246,7 @@ public class ActionsPanel extends JPanel {
         };
 
         String[] columns = {
-            "Name", "Description", "Notes", "Action Date", "Last Changed", "Done?", "Context", "Status", "Project"
+            "Name", "Description", "Notes", "Action Date", "Modified", "Done?", "Context", "Status", "Project"
         };
         dtm.setColumnIdentifiers(columns);
 

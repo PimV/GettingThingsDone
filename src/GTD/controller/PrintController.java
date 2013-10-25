@@ -28,6 +28,8 @@ public class PrintController {
         this.table = table;
         this.header = header;
         this.footer = footer;
+        
+        
     }
 
     public void printTable() {
@@ -44,7 +46,7 @@ public class PrintController {
             }
 
             boolean printAccepted = job.printDialog(attr);
-            if (printAccepted) {
+            if (printAccepted) {               
                 job.print(attr);
             }
         } catch (PrinterException pe) {
