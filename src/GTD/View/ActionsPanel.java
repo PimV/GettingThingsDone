@@ -329,6 +329,11 @@ public class ActionsPanel extends JPanel {
     public void removeFromList(int index) {
         table.revalidate();
     }
+    
+    public void reApplyFilters() {
+        totalFilter = RowFilter.andFilter(filters);
+        sorter.setRowFilter(totalFilter);
+    }
 
     public JTable getJTable() {
         return table;

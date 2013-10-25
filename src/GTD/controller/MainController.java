@@ -148,6 +148,7 @@ public class MainController {
         actions.setProjects(projects);
         actions.setContexts(contexts);
         actionsPanel.setTableModel(actions);
+        actionsPanel.reApplyFilters();
     }
 
     public void showEditPopup(int ID) {
