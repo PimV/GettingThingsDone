@@ -113,7 +113,7 @@ public class ProjectsPanel extends JPanel {
                         //ADD CONTEXT;
                         if (!projectField.getText().isEmpty()) {
                             controller.addProject(projectField.getText().trim());
-                            listModel.addElement(projectField.getText().trim());
+                           // listModel.addElement(projectField.getText().trim());
                         } else {
                             JOptionPane.showMessageDialog(null, "No project entered.");
                         }
@@ -152,6 +152,10 @@ public class ProjectsPanel extends JPanel {
             buttons[1].setEnabled(false);
 
         }
+    }
+    
+    public void addToModel(ProjectRow pr) {
+        listModel.addElement(pr);
     }
 
     public void fillModel(ProjectTable toFill) {

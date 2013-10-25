@@ -258,6 +258,7 @@ public class ThoughtsPopUp extends JFrame {
     }
 
     public void setSelectedProject(int index) {
+       System.out.println("SETTING PROJECT");
         for (int i = 0; i < projectBox.getModel().getSize() - 1; i++) {
             ProjectRow pr = (ProjectRow) projectBox.getItemAt(i);
             if (pr != null) {

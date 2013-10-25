@@ -8,6 +8,7 @@ import GTD.controller.MainController;
 import GTD.model.ContextRow;
 import GTD.model.ContextTable;
 import static GTD.model.LayoutConstants.*;
+import GTD.model.ProjectRow;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -48,6 +49,7 @@ public class ContextPanel extends JPanel {
         listModel = new DefaultListModel();
         contextList.setModel(listModel);
         contextList.addListSelectionListener(new ListSelectionListener() {
+
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 checkAvailabilityButtons();
@@ -105,14 +107,14 @@ public class ContextPanel extends JPanel {
         JButton b = new JButton();
         b.setText(text);
         b.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (index) {
                     case 0:
                         //ADD CONTEXT;
                         if (!contextField.getText().isEmpty()) {
-                            controller.addProject(contextField.getText().trim());
-                            listModel.addElement(contextField.getText().trim());
+                            controller.addContext(contextField.getText().trim());
                         } else {
                             JOptionPane.showMessageDialog(null, "No project entered.");
                         }
@@ -151,6 +153,10 @@ public class ContextPanel extends JPanel {
             buttons[1].setEnabled(false);
 
         }
+    }
+
+    public void addToModel(ContextRow cr) {
+        listModel.addElement(cr);
     }
 
     public void fillModel(ContextTable toFill) {
