@@ -12,7 +12,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -38,11 +37,14 @@ public class ActionsPanel extends JPanel {
     private RowFilter statusFilter2 = RowFilter.regexFilter("Postponed", 7);
     private RowFilter statusFilter3 = RowFilter.regexFilter("Delegate", 7);
     private RowFilter statusFilter4 = RowFilter.regexFilter("Do ASAP", 7);
-    private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 7);
+    private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 7);    
+    
     private static RowFilter fieldFilter;
     private JTextField filterField;
+    private List<RowFilter<TableModel, Object>> statusFilters = new ArrayList<>();
     private List<RowFilter<TableModel, Object>> filters = new ArrayList<>();
     private RowFilter totalFilter = null;
+    private RowFilter totalStatusFilter = null;
     private MainController controller;
 
     public ActionsPanel() {
@@ -231,7 +233,7 @@ public class ActionsPanel extends JPanel {
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
                 if (columnIndex == 3) {
-                    System.out.println("DATA: " + actions.getValueAt(rowIndex, columnIndex).getClass());
+                    System.out.println("DATA: " + actions.getValueAt(rowIndex, columnIndex));
                 }
                 return actions.getValueAt(rowIndex, columnIndex);
             }
@@ -282,6 +284,7 @@ public class ActionsPanel extends JPanel {
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
     }
+   
 
     public void filterDone() {
         filterCheck(doneFilter);

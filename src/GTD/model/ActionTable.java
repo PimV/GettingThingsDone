@@ -2,11 +2,17 @@ package GTD.model;
 
 import GTD.controller.DatabaseController;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ActionTable extends DbTable<ActionRow> {
 
-    private ActionRowset list;
+    protected ActionRowset list;
     private StatusTable statuses;
     private ContextTable contexts;
     private ProjectTable projects;
@@ -76,53 +82,82 @@ public class ActionTable extends DbTable<ActionRow> {
 
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        if (columnIndex == 9) {
-            return fetchAll().get(rowIndex).getID();
-        } else {
-            if (getColumns().get(columnIndex).equals("Statuses_Status_id")) {
-                if (fetchAll().get(rowIndex).getStatus() != -1) {
-                    for (StatusRow sr : statuses.fetchAll()) {
-                        if (sr.getID() == fetchAll().get(rowIndex).getStatus()) {
-                            return sr.getName();
-                        }
-                    }
-                } else {
+        //Set 'strange' columns to show the correct format (ID and date)
+        switch (columnIndex) {
+            case 3:
+            case 4:
+                DateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                Date convertedDate;
+                try {
+                    convertedDate = parser.parse(fetchAll().get(rowIndex).get(getColumns().get(columnIndex)));
+                    String output = formatter.format(convertedDate);
+                    return output;
+                } catch (ParseException ex) {
                     return null;
                 }
-            }
-            if (getColumns().get(columnIndex).equals("Contexts_Context_id")) {
-                if (fetchAll().get(rowIndex).getContext() != -1) {
-                    for (ContextRow cr : contexts.fetchAll()) {
-                        if (cr.getID() == fetchAll().get(rowIndex).getContext()) {
-                            return cr.getName();
-                        }
+            case 9:
+                return fetchAll().get(rowIndex).getID();
+        }
+//
+//        if (columnIndex == 9) {
+//           // return fetchAll().get(rowIndex).getID();
+//        } else if (columnIndex == 3 || columnIndex == 4) {
+//            DateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+//            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+//            Date convertedDate;
+//            try {
+//                convertedDate = parser.parse(fetchAll().get(rowIndex).get(getColumns().get(columnIndex)));
+//                String output = formatter.format(convertedDate);
+//                return output;
+//            } catch (ParseException ex) {
+//                return null;
+//            }
+//        } else {
+        if (getColumns().get(columnIndex).equals("Statuses_Status_id")) {
+            if (fetchAll().get(rowIndex).getStatus() != -1) {
+                for (StatusRow sr : statuses.fetchAll()) {
+                    if (sr.getID() == fetchAll().get(rowIndex).getStatus()) {
+                        return sr.getName();
                     }
-                } else {
-                    return null;
                 }
-            }
-            if (getColumns().get(columnIndex).equals("Projects_Project_id")) {
-                if (fetchAll().get(rowIndex).getProject() != -1) {
-                    for (ProjectRow pr : projects.fetchAll()) {
-                        if (pr.getID() == fetchAll().get(rowIndex).getProject()) {
-                            return pr.getName();
-                        }
-                    }
-                } else {
-                    return null;
-                }
-            }
-            if (getColumns().get(columnIndex).equals("Done")) {
-                if (fetchAll().get(rowIndex).get(getColumns().get(columnIndex)).equals("0")) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-            if (fetchAll().get(rowIndex).get(getColumns().get(columnIndex)).equals("null")) {
+            } else {
                 return null;
             }
-            return fetchAll().get(rowIndex).get(getColumns().get(columnIndex));
         }
+        if (getColumns().get(columnIndex).equals("Contexts_Context_id")) {
+            if (fetchAll().get(rowIndex).getContext() != -1) {
+                for (ContextRow cr : contexts.fetchAll()) {
+                    if (cr.getID() == fetchAll().get(rowIndex).getContext()) {
+                        return cr.getName();
+                    }
+                }
+            } else {
+                return null;
+            }
+        }
+        if (getColumns().get(columnIndex).equals("Projects_Project_id")) {
+            if (fetchAll().get(rowIndex).getProject() != -1) {
+                for (ProjectRow pr : projects.fetchAll()) {
+                    if (pr.getID() == fetchAll().get(rowIndex).getProject()) {
+                        return pr.getName();
+                    }
+                }
+            } else {
+                return null;
+            }
+        }
+        if (getColumns().get(columnIndex).equals("Done")) {
+            if (fetchAll().get(rowIndex).get(getColumns().get(columnIndex)).equals("0")) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        if (fetchAll().get(rowIndex).get(getColumns().get(columnIndex)).equals("null")) {
+            return null;
+        }
+        return fetchAll().get(rowIndex).get(getColumns().get(columnIndex));
     }
+    // }
 }

@@ -21,6 +21,7 @@ public class MainController {
     private ContextPanel contextsPanel;
     private ProjectsPanel projectsPanel;
 
+
     public MainController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         actions = new ActionTable();
@@ -28,6 +29,7 @@ public class MainController {
         projects = new ProjectTable();
         contexts = new ContextTable();
         statuses = new StatusTable();
+
     }
 
     public void addThought(String thought, String notes) {
@@ -147,8 +149,8 @@ public class MainController {
         actions.setStatuses(statuses);
         actions.setProjects(projects);
         actions.setContexts(contexts);
+
         actionsPanel.setTableModel(actions);
-        actionsPanel.reApplyFilters();
     }
 
     public void showEditPopup(int ID) {
