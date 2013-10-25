@@ -21,7 +21,6 @@ public class MainController {
     private ContextPanel contextsPanel;
     private ProjectsPanel projectsPanel;
 
-
     public MainController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         actions = new ActionTable();
@@ -290,15 +289,17 @@ public class MainController {
     }
 
     public void printActionsAction() {
-        String header = JOptionPane.showInputDialog("Header (leave empty if non-existent):");
-        String footer = JOptionPane.showInputDialog("Footer (leave empty if non-existent):");
-        if (header.isEmpty()) {
-            header = null;
+        String headerText = JOptionPane.showInputDialog("Header (leave empty if non-existent):");
+        String footerText = JOptionPane.showInputDialog("Footer (leave empty if non-existent):");
+        MessageFormat header = null;
+        MessageFormat footer = null;
+        if (headerText != null) {
+            header = new MessageFormat(headerText);
         }
-        if (footer.isEmpty()) {
-            footer = null;
+        if (footerText != null) {
+            footer = new MessageFormat(footerText);
         }
-        PrintController p = new PrintController(actionsPanel.getJTable(), new MessageFormat(header), new MessageFormat(footer));
+        PrintController p = new PrintController(actionsPanel.getJTable(), header, footer);
         p.printTable();
     }
 
