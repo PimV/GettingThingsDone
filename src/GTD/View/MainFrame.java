@@ -75,7 +75,7 @@ public final class MainFrame extends JFrame {
         fileMenu.add(newThought);
         newThought.addActionListener(createListener(0));
 
-        printThoughts = new JMenuItem("Print thoughts");
+        printThoughts = new JMenuItem("Refresh all data");
         fileMenu.add(printThoughts);
         printThoughts.addActionListener(createListener(1));
 
@@ -145,7 +145,7 @@ public final class MainFrame extends JFrame {
                         break;
 
                     case 1:
-                        controller.printThoughtsAction();
+                        controller.refreshActionButton();
                         break;
 
                     case 2:

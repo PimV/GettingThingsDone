@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.AbstractDocument;
 
 @SuppressWarnings({"serial", "unchecked"})
 public final class ThoughtsPanel extends JPanel {
@@ -40,6 +41,7 @@ public final class ThoughtsPanel extends JPanel {
         listModel = new DefaultListModel();
         thoughtList.setModel(listModel);
         thoughtList.addListSelectionListener(new ListSelectionListener() {
+
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 checkAvailabilityButtons();
@@ -61,6 +63,8 @@ public final class ThoughtsPanel extends JPanel {
         add(listPane, gridBagConstraints);
 
         thoughtInputField.setText("Thought");
+        AbstractDocument thoughtDoc = (AbstractDocument) thoughtInputField.getDocument();
+        thoughtDoc.setDocumentFilter(new GTD.view.DocumentSizeFilter(45));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -124,12 +128,11 @@ public final class ThoughtsPanel extends JPanel {
 
     }
 
-
-
     public JButton createButton(final int index, String text) {
         JButton b = new JButton();
         b.setText(text);
         b.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (index) {

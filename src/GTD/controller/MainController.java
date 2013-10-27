@@ -204,9 +204,9 @@ public class MainController {
 //        }
     }
 
-    public void showAddNewPopUp(String type) {        
+    public void showAddNewPopUp(String type) {
         String newEntry = JOptionPane.showInputDialog(null, type + ":", "Add new " + type, 1);
-        if (newEntry != null && !newEntry.trim().isEmpty()) {            
+        if (newEntry != null && !newEntry.trim().isEmpty()) {
             if (type.equals("Project")) {
                 addProject(newEntry);
             } else if (type.equals("Context")) {
@@ -215,7 +215,7 @@ public class MainController {
         } else {
             System.out.println("No new context/popup created");
         }
-        
+
     }
 
     public void addContext(String contextName) {
@@ -272,7 +272,7 @@ public class MainController {
 
     public void setThoughtsPanel(ThoughtsPanel thoughtsPanel) {
         this.thoughtsPanel = thoughtsPanel;
-        thoughtsPanel.fillModel(thoughts);
+        this.thoughtsPanel.fillModel(thoughts);
     }
 
     public void setActionsPanel(ActionsPanel actionsPanel) {
@@ -281,12 +281,12 @@ public class MainController {
 
     public void setContextPanel(ContextPanel contextPanel) {
         this.contextsPanel = contextPanel;
-        contextPanel.fillModel(contexts);
+        this.contextsPanel.fillModel(contexts);
     }
 
     public void setProjectsPanel(ProjectsPanel projectsPanel) {
         this.projectsPanel = projectsPanel;
-        projectsPanel.fillModel(projects);
+        this.projectsPanel.fillModel(projects);
     }
 
     public void setMainFrame(MainFrame mainFrame) {
@@ -298,7 +298,18 @@ public class MainController {
         mainFrame.setActivePane(1);
     }
 
-    public void printThoughtsAction() {
+    public void refreshActionButton() {
+        System.out.println("Refreshing");
+        actions = new ActionTable();
+        thoughts = new ThoughtTable();
+        projects = new ProjectTable();
+        contexts = new ContextTable();
+        statuses = new StatusTable();
+
+        thoughtsPanel.fillModel(thoughts);
+        projectsPanel.fillModel(projects);
+        this.contextsPanel.fillModel(contexts);
+        showActions();
     }
 
     public void printActionsAction() {

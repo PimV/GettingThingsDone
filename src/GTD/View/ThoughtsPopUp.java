@@ -6,11 +6,13 @@ import java.awt.Dimension;
 import javax.swing.*;
 import org.jdesktop.swingx.JXDatePicker;
 import static GTD.model.LayoutConstants.*;
+import GTD.view.DocumentSizeFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Date;
+import javax.swing.text.AbstractDocument;
 
 @SuppressWarnings({"unchecked", "serial"})
 public class ThoughtsPopUp extends JFrame {
@@ -24,7 +26,7 @@ public class ThoughtsPopUp extends JFrame {
     private JXDatePicker dateChangedBox;
     private JTextField notesField;
     private JTextArea descriptionArea;
-    private JScrollPane discriptionScroller;
+    private JScrollPane descriptionScroller;
     private JCheckBox doneCheckBox;
     private JButton saveButton;
     private int ID;
@@ -44,6 +46,8 @@ public class ThoughtsPopUp extends JFrame {
         add(nameLabel);
 
         thoughtName = new JTextField();
+        AbstractDocument thoughtDoc = (AbstractDocument) thoughtName.getDocument();    
+        thoughtDoc.setDocumentFilter(new DocumentSizeFilter(45));
         thoughtName.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 0 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         thoughtName.setEditable(true);
         thoughtName.setHorizontalAlignment(JTextField.CENTER);
@@ -61,7 +65,7 @@ public class ThoughtsPopUp extends JFrame {
         contextLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 4 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(contextLabel);
 
-        contextBox = new JComboBox(); //CONTEXTEN MOETEN NOG GEVULD WORDEN!!
+        contextBox = new JComboBox(); 
         contextBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 4 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         addActionListenerComboBox(contextBox, "Context");
         add(contextBox);
@@ -70,7 +74,7 @@ public class ThoughtsPopUp extends JFrame {
         projectLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 6 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);
         add(projectLabel);
 
-        projectBox = new JComboBox(); //PROJECTEN MOETEN NOG GEVULD WORDEN!!
+        projectBox = new JComboBox(); 
         projectBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 6 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
         addActionListenerComboBox(projectBox, "Project");
         add(projectBox);
@@ -111,13 +115,14 @@ public class ThoughtsPopUp extends JFrame {
         add(descriptionLabel);
 
         descriptionArea = new JTextArea();
-        discriptionScroller = new JScrollPane(descriptionArea);
-        discriptionScroller.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 18 * LABEL_HEIGHT, getWidth() - 2 * STANDARD_MARGIN_X, 6 * LABEL_HEIGHT);
-        discriptionScroller.setBorder(BorderFactory.createEtchedBorder());
+        AbstractDocument pDoc = (AbstractDocument) descriptionArea.getDocument();        
+        pDoc.setDocumentFilter(new DocumentSizeFilter(200));
+        descriptionScroller = new JScrollPane(descriptionArea);
+        descriptionScroller.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 18 * LABEL_HEIGHT, getWidth() - 2 * STANDARD_MARGIN_X, 6 * LABEL_HEIGHT);
+        descriptionScroller.setBorder(BorderFactory.createEtchedBorder());
         descriptionArea.setWrapStyleWord(true);
         descriptionArea.setLineWrap(true);
-
-        add(discriptionScroller);
+        add(descriptionScroller);
 
         JLabel doneLabel = new JLabel("Done?");
         doneLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 25 * LABEL_HEIGHT, LABEL_WIDTH, LABEL_HEIGHT);

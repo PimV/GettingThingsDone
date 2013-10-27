@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.AbstractDocument;
 
 public class ContextPanel extends JPanel {
 
@@ -62,6 +63,9 @@ public class ContextPanel extends JPanel {
         gridBagConstraints.insets = new Insets(STANDARD_MARGIN_X, STANDARD_MARGIN_X, STANDARD_MARGIN_X, 11);
         add(listPane, gridBagConstraints);
 
+
+        AbstractDocument thoughtDoc = (AbstractDocument) contextField.getDocument();
+        thoughtDoc.setDocumentFilter(new GTD.view.DocumentSizeFilter(45));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
