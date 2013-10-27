@@ -204,17 +204,9 @@ public class MainController {
 //        }
     }
 
-    public void showAddNewPopUp(String type) {
-//        System.out.println("ADD POPUP TYPE: " + type);
-//        if (anpu != null) {
-//           // anpu.dispose();
-//        }
-//        anpu = new AddNewPopUp(type);
-//        anpu.setController(this);
-//        anpu.setVisible(true);
-        
+    public void showAddNewPopUp(String type) {        
         String newEntry = JOptionPane.showInputDialog(null, type + ":", "Add new " + type, 1);
-        if (newEntry != null) {
+        if (newEntry != null && !newEntry.trim().isEmpty()) {            
             if (type.equals("Project")) {
                 addProject(newEntry);
             } else if (type.equals("Context")) {
