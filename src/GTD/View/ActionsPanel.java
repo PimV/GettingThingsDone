@@ -37,8 +37,7 @@ public class ActionsPanel extends JPanel {
     private RowFilter statusFilter2 = RowFilter.regexFilter("Postponed", 7);
     private RowFilter statusFilter3 = RowFilter.regexFilter("Delegate", 7);
     private RowFilter statusFilter4 = RowFilter.regexFilter("Do ASAP", 7);
-    private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 7);    
-    
+    private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 7);
     private static RowFilter fieldFilter;
     private JTextField filterField;
     private List<RowFilter<TableModel, Object>> statusFilters = new ArrayList<>();
@@ -63,13 +62,13 @@ public class ActionsPanel extends JPanel {
                 }
             }
         });
-        
+
 
         table.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 2 && !table.getSelectionModel().isSelectionEmpty()) {
                     int selectedRow = table.convertRowIndexToModel(table.getSelectedRow());
                     int selectedColumn = table.getModel().getColumnCount() - 1;
                     int ID = (int) table.getModel().getValueAt(selectedRow, selectedColumn);
@@ -234,7 +233,6 @@ public class ActionsPanel extends JPanel {
             @Override
             public Object getValueAt(int rowIndex, int columnIndex) {
                 if (columnIndex == 3) {
-                    System.out.println("DATA: " + actions.getValueAt(rowIndex, columnIndex));
                 }
                 return actions.getValueAt(rowIndex, columnIndex);
             }
@@ -285,7 +283,6 @@ public class ActionsPanel extends JPanel {
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);
     }
-   
 
     public void filterDone() {
         filterCheck(doneFilter);
@@ -333,7 +330,7 @@ public class ActionsPanel extends JPanel {
     public void removeFromList(int index) {
         table.revalidate();
     }
-    
+
     public void reApplyFilters() {
         totalFilter = RowFilter.andFilter(filters);
         sorter.setRowFilter(totalFilter);

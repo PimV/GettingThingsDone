@@ -40,6 +40,9 @@ public class MainController {
     }
 
     public void workThoughtOut(int index) {
+        if (pop != null) {
+            pop.dispose();
+        }
         pop = new ThoughtsPopUp(true);
         pop.setController(this);
         pop.setTitle(thoughts.fetchAll().get(index).getName());
@@ -153,6 +156,8 @@ public class MainController {
     }
 
     public void showEditPopup(int ID) {
+
+
         ActionRow selectedAction = null;
         for (ActionRow ar : actions.fetchAll()) {
             if (ar.getID() == ID) {
@@ -161,6 +166,10 @@ public class MainController {
             }
         }
 
+
+        if (pop != null) {
+            pop.dispose();
+        }
 
         pop = new ThoughtsPopUp(false);
         pop.setController(this);
@@ -196,13 +205,25 @@ public class MainController {
     }
 
     public void showAddNewPopUp(String type) {
-        System.out.println("ADD POPUP TYPE: " + type);
-        if (anpu != null) {
-            anpu.dispose();
+//        System.out.println("ADD POPUP TYPE: " + type);
+//        if (anpu != null) {
+//           // anpu.dispose();
+//        }
+//        anpu = new AddNewPopUp(type);
+//        anpu.setController(this);
+//        anpu.setVisible(true);
+        
+        String newEntry = JOptionPane.showInputDialog(null, type + ":", "Add new " + type, 1);
+        if (newEntry != null) {
+            if (type.equals("Project")) {
+                addProject(newEntry);
+            } else if (type.equals("Context")) {
+                addContext(newEntry);
+            }
+        } else {
+            System.out.println("No new context/popup created");
         }
-        anpu = new AddNewPopUp(type);
-        anpu.setController(this);
-        anpu.setVisible(true);
+        
     }
 
     public void addContext(String contextName) {

@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 @SuppressWarnings("serial")
-public class AddNewPopUp extends JFrame {
+public class AddNewPopUp extends JPanel {
 
     private JTextField newField;
     private JButton newButton;
@@ -25,51 +25,51 @@ public class AddNewPopUp extends JFrame {
 
     public AddNewPopUp(final String type) {
 
-        addWindowListener(new WindowListener() {
-
-            @Override
-            public void windowOpened(WindowEvent e) {
-            //    throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-               
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-               controller.checkAvailabilityPopUp();
-                //throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-               // throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-               //throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-                //throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-               // throw new UnsupportedOperationException("Not supported yet.");
-            }
-            
-        });
+//        addWindowListener(new WindowListener() {
+//
+//            @Override
+//            public void windowOpened(WindowEvent e) {
+//            //    throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//               
+//            }
+//
+//            @Override
+//            public void windowClosed(WindowEvent e) {
+//               controller.checkAvailabilityPopUp();
+//                //throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void windowIconified(WindowEvent e) {
+//               // throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void windowDeiconified(WindowEvent e) {
+//               //throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void windowActivated(WindowEvent e) {
+//                //throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            @Override
+//            public void windowDeactivated(WindowEvent e) {
+//               // throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//            
+//        });
 
         this.type = type;
 
         setMinimumSize(new Dimension(250, 150));
-        setResizable(false);
-        setLocationRelativeTo(null);
+//        setResizable(false);
+//        setLocationRelativeTo(null);
 
         setLayout(null);
 
@@ -133,13 +133,13 @@ public class AddNewPopUp extends JFrame {
                     case "status":
                         break;
                   }
-                dispose();
+                //dispose();
             }
         });
         newButton.setEnabled(false);
         add(newButton);
 
-        setTitle("Add new " + type);
+        //setTitle("Add new " + type);
     }
 
     public void setController(MainController controller) {
