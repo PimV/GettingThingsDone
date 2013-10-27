@@ -13,7 +13,7 @@ public final class MainFrame extends JFrame {
 
     //Menubar stuff
     private JMenuBar menuBar;
-    private JMenu fileMenu, actionMenu, actionFilterOptions, filterOption3;
+    private JMenu fileMenu, actionMenu, filterOption3;
     private JMenuItem newThought, printThoughts, printActions, quit;
     private JCheckBoxMenuItem statusfilter1, statusfilter2, statusfilter3, statusfilter4, statusfilter5;
     private JCheckBoxMenuItem doneFilter, contextFilter, projectFilter;
@@ -30,7 +30,7 @@ public final class MainFrame extends JFrame {
     public MainFrame() {
 
         setMinimumSize(new Dimension(700, 450)); //Sets the minimum size to a width of 700 and a height of 450.
-
+        setTitle("Getting Things Done!");
 
         createMenuBar();     //Initializes the JMenuBar
 
@@ -88,28 +88,25 @@ public final class MainFrame extends JFrame {
         quit.addActionListener(createListener(3));
 
         //actionMenu gets created here
-        actionMenu = new JMenu("Actions");
+        actionMenu = new JMenu("Filters");
         menuBar.add(actionMenu);
 
-        actionFilterOptions = new JMenu("Filters"); //Adds another JMenu to a different JMenu to create a submenu
-        actionMenu.add(actionFilterOptions);
-
         doneFilter = new JCheckBoxMenuItem("Hide finished actions"); //Add a JCheckBoxMenuItem for filtering.
-        actionFilterOptions.add(doneFilter);
+        actionMenu.add(doneFilter);
         doneFilter.addActionListener(createListener(11));
 
         contextFilter = new JCheckBoxMenuItem("Show actions with context"); //Add a JCheckBoxMenuItem for filtering.
-        actionFilterOptions.add(contextFilter);
+        actionMenu.add(contextFilter);
         contextFilter.addActionListener(createListener(4));
 
         projectFilter = new JCheckBoxMenuItem("Show actions with project"); //Add a JCheckBoxMenuItem for filtering.
-        actionFilterOptions.add(projectFilter);
+        actionMenu.add(projectFilter);
         projectFilter.addActionListener(createListener(5));
 
 
 
         filterOption3 = new JMenu("Show actions with status:");
-        actionFilterOptions.add(filterOption3);
+        actionMenu.add(filterOption3);
 
         statusfilter1 = new JCheckBoxMenuItem("Information");
         filterOption3.add(statusfilter1);
