@@ -72,7 +72,6 @@ public class ThoughtsPopUp extends JFrame {
 
         projectBox = new JComboBox(); //PROJECTEN MOETEN NOG GEVULD WORDEN!!
         projectBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 6 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
-
         addActionListenerComboBox(projectBox, "Project");
         add(projectBox);
 
@@ -81,16 +80,22 @@ public class ThoughtsPopUp extends JFrame {
         add(dateLabel);
 
         dateBox = new JXDatePicker();
+        dateBox.setFormats("dd-MM-yyyy");
+        dateBox.getMonthView().setLowerBound(new Date());
         dateBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 8 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
+
         add(dateBox);
 
-        JLabel dateChangedLabel = new JLabel("Status Date Changed: ");
+        JLabel dateChangedLabel = new JLabel("Last modified on: ");
         dateChangedLabel.setBounds(STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 10 * LABEL_HEIGHT, 2 * LABEL_WIDTH, LABEL_HEIGHT);
         add(dateChangedLabel);
 
         dateChangedBox = new JXDatePicker();
-        dateChangedBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 10 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
+        dateChangedBox.setFormats("dd-MM-yyyy");
         dateChangedBox.setDate(new Date());
+        dateChangedBox.setEditable(false);
+        dateChangedBox.setBounds(getWidth() - 2 * LABEL_WIDTH - STANDARD_MARGIN_X, STANDARD_MARGIN_Y + 10 * LABEL_HEIGHT - 2, 2 * LABEL_WIDTH, FIELD_HEIGHT);
+
         add(dateChangedBox);
 
         JLabel notesLabel = new JLabel("Notes: ");
@@ -162,7 +167,6 @@ public class ThoughtsPopUp extends JFrame {
                     contextID = context.getID();
                 }
 
-                //FINALLY:
                 if (save) {
                     controller.addAction(0, name,
                             description, notes, actionDate,
