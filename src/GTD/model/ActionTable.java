@@ -7,8 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ActionTable extends DbTable<ActionRow> {
 
@@ -99,21 +97,6 @@ public class ActionTable extends DbTable<ActionRow> {
             case 9:
                 return fetchAll().get(rowIndex).getID();
         }
-//
-//        if (columnIndex == 9) {
-//           // return fetchAll().get(rowIndex).getID();
-//        } else if (columnIndex == 3 || columnIndex == 4) {
-//            DateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-//            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-//            Date convertedDate;
-//            try {
-//                convertedDate = parser.parse(fetchAll().get(rowIndex).get(getColumns().get(columnIndex)));
-//                String output = formatter.format(convertedDate);
-//                return output;
-//            } catch (ParseException ex) {
-//                return null;
-//            }
-//        } else {
         if (getColumns().get(columnIndex).equals("Statuses_Status_id")) {
             if (fetchAll().get(rowIndex).getStatus() != -1) {
                 for (StatusRow sr : statuses.fetchAll()) {
@@ -159,5 +142,4 @@ public class ActionTable extends DbTable<ActionRow> {
         }
         return fetchAll().get(rowIndex).get(getColumns().get(columnIndex));
     }
-    // }
 }

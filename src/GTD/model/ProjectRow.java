@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class ProjectRow extends DbRow {
 
     private ArrayList<String> notes;
-    private String name;
 
     public ProjectRow() {
         notes = new ArrayList<String>();

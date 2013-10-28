@@ -159,7 +159,6 @@ public class ThoughtsPopUp extends JFrame {
                     statusID = status.getID();
                 }
 
-                System.out.println(statusID);
                 ProjectRow project = (ProjectRow) projectBox.getSelectedItem();
                 int projectID = -1;
                 if (project != null) {
@@ -248,7 +247,6 @@ public class ThoughtsPopUp extends JFrame {
             StatusRow sr = (StatusRow) statusBox.getItemAt(i);
             if (sr != null) {
                 if (sr.getID() == id) {
-                    System.out.println("ID: " + sr.getID() + " INDEX: " + id);
                     statusBox.setSelectedIndex(i);
                     break;
                 }

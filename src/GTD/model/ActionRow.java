@@ -5,14 +5,9 @@ import java.util.ArrayList;
 
 public class ActionRow extends DbRow {
 
-    private ThoughtRow thoughtOrigin;
     private ArrayList<String> notes = new ArrayList<String>();
-    private String description = "No description";
-    private String date;
-    private String lastChangedDate;
 
     public ActionRow() {
-        //this.thoughtOrigin = thoughtOrigin;
     }
 
     public void addNote(String note) {
@@ -43,8 +38,7 @@ public class ActionRow extends DbRow {
         return get("Name");
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) {       
         set("Description", description);
     }
 
@@ -99,7 +93,7 @@ public class ActionRow extends DbRow {
     }
 
     public String getDescription() {
-        return description;
+        return get("Description");
     }
 
     public int getStatus() {
@@ -143,10 +137,6 @@ public class ActionRow extends DbRow {
 
     public int getDone() {
         return Integer.valueOf(get("Done"));
-    }
-
-    public String getLastChangedDate() {
-        return lastChangedDate;
     }
 
     public String getNotesAsString() {

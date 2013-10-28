@@ -21,7 +21,6 @@ public class DatabaseController {
         try {
             if (con == null) {
                 con = DriverManager.getConnection("jdbc:mysql://databases.aii.avans.nl/gagpvenn_db", "gagpvenn", "runescape1");
-                System.out.println("Connection opened.  -- " + con);
                 connectionOpen = true;
             }
         } catch (SQLException ex) {
@@ -34,7 +33,6 @@ public class DatabaseController {
     public static boolean closeConnection() {
         try {
             con.close();
-            System.out.println("Connection closed.");
             connectionOpen = false;
         } catch (SQLException ex) {
             ex.printStackTrace();

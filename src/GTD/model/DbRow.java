@@ -37,7 +37,6 @@ public class DbRow<T> {
     }
      
     public void save() {
-        System.out.println("ID IN DBROW IS: " + id );
         if (id == -1) {
             // Create row in database
             String query = "INSERT INTO " + DbTable.DATABASE_NAME + "." + table.getName() + " ";
@@ -92,7 +91,6 @@ public class DbRow<T> {
 
 
 
-            System.out.println(query);
         } else if (isChanged) {
             // Update existing row
             String query = "UPDATE " + DbTable.DATABASE_NAME + "." + table.getName() + " SET ";
@@ -126,7 +124,7 @@ public class DbRow<T> {
             } finally {
             }
 
-            System.out.println(query);
+
         }
     }
 

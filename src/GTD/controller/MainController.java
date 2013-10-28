@@ -79,7 +79,6 @@ public class MainController {
         } else {
             for (ActionRow ar : actions.fetchAll()) {
                 if (ar.getID() == actionID) {
-                    System.out.println("ACTION FOUND");
                     a = ar;
                     break;
                 }
@@ -144,6 +143,7 @@ public class MainController {
             removeThought(actionID);
         }
         showActions();
+        actionsPanel.reApplyFilters();
     }
 
     public void showActions() {
@@ -202,7 +202,7 @@ public class MainController {
                 addContext(newEntry);
             }
         } else {
-            System.out.println("No new context/popup created");
+            
         }
 
     }
@@ -288,7 +288,6 @@ public class MainController {
     }
 
     public void refreshActionButton() {
-        System.out.println("Refreshing");
         actions = new ActionTable();
         thoughts = new ThoughtTable();
         projects = new ProjectTable();
