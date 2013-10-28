@@ -40,10 +40,8 @@ public class ActionsPanel extends JPanel {
     private RowFilter statusFilter5 = RowFilter.regexFilter("Planned", 7);
     private static RowFilter fieldFilter;
     private JTextField filterField;
-    private List<RowFilter<TableModel, Object>> statusFilters = new ArrayList<>();
     private List<RowFilter<TableModel, Object>> filters = new ArrayList<>();
     private RowFilter totalFilter = null;
-    private RowFilter totalStatusFilter = null;
     private MainController controller;
 
     public ActionsPanel() {
@@ -78,22 +76,18 @@ public class ActionsPanel extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                // throw new UnsupportedOperationException("Not supported yet.");
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                //throw new UnsupportedOperationException("Not supported yet.");
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                // throw new UnsupportedOperationException("Not supported yet.");
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                //throw new UnsupportedOperationException("Not supported yet.");
             }
         });
 
@@ -139,12 +133,10 @@ public class ActionsPanel extends JPanel {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override

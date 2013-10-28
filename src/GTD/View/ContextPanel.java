@@ -20,6 +20,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.AbstractDocument;
 
+@SuppressWarnings({
+    "serial", "unchecked"
+})
 public class ContextPanel extends JPanel {
 
     private DefaultListModel listModel;
@@ -108,11 +111,10 @@ public class ContextPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 switch (index) {
                     case 0:
-                        //ADD CONTEXT;
                         if (!contextField.getText().isEmpty()) {
                             controller.addContext(contextField.getText().trim());
                         } else {
-                            JOptionPane.showMessageDialog(null, "No project entered.");
+                            JOptionPane.showMessageDialog(null, "No context entered.");
                         }
                         break;
                     case 1:
@@ -144,10 +146,8 @@ public class ContextPanel extends JPanel {
     public void checkAvailabilityButtons() {
         if (contextList.getSelectedIndex() != -1) {
             buttons[1].setEnabled(true);
-
         } else {
             buttons[1].setEnabled(false);
-
         }
     }
 

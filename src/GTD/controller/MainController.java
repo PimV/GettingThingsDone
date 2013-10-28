@@ -17,7 +17,6 @@ public class MainController {
     private ContextTable contexts;
     private StatusTable statuses;
     private ThoughtsPopUp pop;
-    private AddNewPopUp anpu;
     private ContextPanel contextsPanel;
     private ProjectsPanel projectsPanel;
 
@@ -192,16 +191,6 @@ public class MainController {
         pop.setDone(selectedAction.getDone());
         pop.setIndex(ID);
         pop.setVisible(true);
-    }
-
-    public void checkAvailabilityPopUp() {
-//        System.out.println("ENABLE POP");
-//        if (anpu.isShowing()) {
-//            pop.setEnabled(false);
-//        } else {
-//            pop.setEnabled(true);
-//            pop.toFront();
-//        }
     }
 
     public void showAddNewPopUp(String type) {

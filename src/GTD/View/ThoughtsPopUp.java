@@ -143,7 +143,6 @@ public class ThoughtsPopUp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //SAVE
                 String name = thoughtName.getText().trim();
                 if (name.isEmpty()) {
                     name = "No name";
@@ -288,9 +287,7 @@ public class ThoughtsPopUp extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (comboBox.getSelectedIndex() == comboBox.getItemCount() - 1) {
                     comboBox.setSelectedIndex(0);
-
                     controller.showAddNewPopUp(type);
-                    controller.checkAvailabilityPopUp();
                 }
             }
         });
