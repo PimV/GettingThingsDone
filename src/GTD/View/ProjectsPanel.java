@@ -155,6 +155,7 @@ public class ProjectsPanel extends JPanel {
     }
 
     public void fillModel(ProjectTable toFill) {
+        listModel.clear();
         for (ProjectRow pr : toFill.fetchAll()) {
             listModel.addElement(pr.getName());
         }

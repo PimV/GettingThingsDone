@@ -156,6 +156,7 @@ public class ContextPanel extends JPanel {
     }
 
     public void fillModel(ContextTable toFill) {
+        listModel.clear();
         for (ContextRow cr : toFill.fetchAll()) {
             listModel.addElement(cr.getName());
         }

@@ -183,6 +183,7 @@ public final class ThoughtsPanel extends JPanel {
     }
 
     public void fillModel(ThoughtTable thoughts) {
+        listModel.clear();
         for (ThoughtRow t : thoughts.fetchAll()) {
             listModel.addElement(t.getName());
         }
