@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import java.util.HashMap;
-
+    @SuppressWarnings("unchecked")
 public class DbRow<T> {
 
     private HashMap<String, String> data;
@@ -19,6 +19,7 @@ public class DbRow<T> {
         data = new HashMap<>();
         id = -1;
     }
+
 
     public void setTable(DbTable table) {
         this.table = table;

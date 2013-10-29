@@ -64,7 +64,7 @@ public final class ThoughtsPanel extends JPanel {
 
         thoughtInputField.setText("Thought");
         AbstractDocument thoughtDoc = (AbstractDocument) thoughtInputField.getDocument();
-        thoughtDoc.setDocumentFilter(new GTD.view.DocumentSizeFilter(45));
+        thoughtDoc.setDocumentFilter(new GTD.View.DocumentSizeFilter(45));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

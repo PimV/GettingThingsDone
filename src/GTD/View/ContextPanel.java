@@ -68,7 +68,7 @@ public class ContextPanel extends JPanel {
 
 
         AbstractDocument thoughtDoc = (AbstractDocument) contextField.getDocument();
-        thoughtDoc.setDocumentFilter(new GTD.view.DocumentSizeFilter(45));
+        thoughtDoc.setDocumentFilter(new GTD.View.DocumentSizeFilter(45));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
